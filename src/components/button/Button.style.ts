@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MainButton = styled.button<{ padding: number }>`
+export const MainButton = styled.button<{ padding?: number }>`
     color: white;
     text-align: center;
     background-color: #21bf48;

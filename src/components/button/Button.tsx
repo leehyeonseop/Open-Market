@@ -4,13 +4,14 @@ import { MainButton } from './Button.style';
 interface ButtonProps {
     type?: 'button' | 'submit' | 'reset';
     text: string;
-    padding: number;
+    padding?: number;
     className?: string;
     onClick?: () => void;
+    disabled?: boolean;
 }
 
 function Button(props: ButtonProps) {
-    const { type, text, padding, className, onClick } = props;
+    const { type, text, padding, className, onClick, disabled } = props;
 
     return (
         <MainButton
@@ -18,6 +19,7 @@ function Button(props: ButtonProps) {
             onClick={onClick}
             className={className}
             padding={padding}
+            disabled={disabled}
         >
             {text}
         </MainButton>

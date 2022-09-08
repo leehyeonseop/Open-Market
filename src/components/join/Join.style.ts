@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 import Button from '../button/Button';
 import { ReactComponent as Logo } from '../../assets/icons/Logo.svg';
-import checkOff from '../../assets/icons/icon-check-off.svg';
-import checkOn from '../../assets/icons/icon-check-on.svg';
 import upArrow from '../../assets/icons/icon-up-arrow.svg';
 import downArrow from '../../assets/icons/icon-down-arrow.svg';
 
-export const Wrapper = styled.div`
+export const Section = styled.section`
     max-width: 550px;
-    margin: 0 auto 34px auto;
+    margin: 0 auto;
 `;
 
 export const StyledLogo = styled(Logo)`
@@ -32,7 +30,7 @@ export const H2 = styled.h2`
     /* border-bottom: none; */
 `;
 
-export const JoinForm = styled.form`
+export const Wrapper = styled.div`
     padding: 40px 35px 36px;
     border: 1px solid #c4c4c4;
     border-radius: 0 0 10px 10px;
@@ -83,13 +81,12 @@ export const IdInput = styled(Input)`
     max-width: 346px;
 `;
 
-interface PwInput {
+interface PwInputProps {
     background?: string;
 }
 
 export const PwInput = styled(Input)`
-    /* background-image: url(${checkOff}); */
-    background-image: url(${(props: PwInput) => props.background});
+    background-image: url(${(props: PwInputProps) => props.background});
     background-repeat: no-repeat;
     background-position: center right 16px;
 `;
@@ -166,10 +163,43 @@ export const EmailFieldset = styled(Fieldset)`
     }
 `;
 
-export const Span = styled.span`
+export const At = styled.span`
     line-height: 54px;
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
     color: #767676;
+`;
+
+export const Footer = styled.footer`
+    max-width: 480px;
+    margin: 34px auto 110px auto;
+`;
+
+export const FooterWrapper = styled.div`
+    display: flex;
+`;
+
+export const CheckBox = styled.input`
+    margin: 2px 10px 0 0;
+    width: 16px;
+    height: 16px;
+`;
+
+export const P = styled.p`
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #767676;
+`;
+
+export const JoinButton = styled(Button)`
+    margin-top: 34px;
+    padding: 19px;
+    width: 100%;
+    &:disabled {
+        background-color: #c4c4c4;
+        cursor: default;
+    }
 `;
