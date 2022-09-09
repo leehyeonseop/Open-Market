@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { axiosInstance } from '../../axiosInstance/index';
@@ -65,7 +65,7 @@ function Join() {
             if (error instanceof AxiosError) {
                 console.log(error.response?.data);
                 setError('id', {
-                    type: 'idCheck',
+                    type: 'idError',
                     message: error.response?.data.FAIL_Message,
                 });
             }
@@ -96,7 +96,48 @@ function Join() {
             name: data.name,
         };
 
-        console.log('reqData : ', reqData);
+        try {
+            const { data: resData } = await axiosInstance.post(
+                'accounts/signup/',
+                reqData,
+            );
+
+            console.log('resData : ', resData);
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                if (error.response?.status === 400) {
+                    const errorData = error.response?.data;
+                    console.log('errorData : ', errorData);
+                    errorData.username &&
+                        setError('id', {
+                            type: 'idError',
+                            message: errorData.username[0],
+                        });
+                    errorData.phone_number &&
+                        setError('centerPhoneNum', {
+                            type: 'phoneNumError',
+                            message: errorData.phone_number[0],
+                        });
+                    errorData.password &&
+                        setError('pw', {
+                            type: 'pwError',
+                            message: errorData.password[0],
+                        });
+                    errorData.password2 &&
+                        setError('pwCheck', {
+                            type: 'pwCheckError',
+                            message: errorData.password2[0],
+                        });
+                    errorData.name &&
+                        setError('name', {
+                            type: 'nameError',
+                            message: errorData.name[0],
+                        });
+                } else {
+                    console.error(error);
+                }
+            }
+        }
     };
 
     const onSubmit = handleSubmit((data) => {
