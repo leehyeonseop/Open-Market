@@ -10,21 +10,24 @@ import {
     Wrapper,
 } from './ProductItem.style';
 
-function ProductItem() {
+function ProductItem(props : any) {
+
+    const { imgURL, store, productName, price } = props
+
     return (
         <Wrapper>
             <Figure
                 style={{
-                    backgroundImage: `url(https://openmarket.weniv.co.kr/media/products/2022/09/08/coffee-beans-2258874_1280_CmNowom.jpg)`,
+                    backgroundImage: `url(${imgURL})`,
                 }}
             >
                 <Image src="https://openmarket.weniv.co.kr/media/products/2022/09/08/coffee-beans-2258874_1280_CmNowom.jpg" />
             </Figure>
             <Description>
-                <Sellor>위니브</Sellor>
-                <ProductName>충전기</ProductName>
+                <Sellor>{store}</Sellor>
+                <ProductName>{productName}</ProductName>
                 <PriceWrapper>
-                    <Price>29,000</Price>
+                    <Price>{price}</Price>
                     <Won>원</Won>
                 </PriceWrapper>
             </Description>
