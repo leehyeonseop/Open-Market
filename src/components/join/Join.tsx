@@ -1,7 +1,5 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
-import { axiosInstance } from '../../axiosInstance/index';
+import { useForm } from 'react-hook-form';
 
 import checkOff from '../../assets/icons/icon-check-off.svg';
 import checkOn from '../../assets/icons/icon-check-on.svg';
@@ -12,7 +10,7 @@ import {
     startEmailRegExp,
     endEmailRegExp,
     numberRegExp,
-} from './regExp';
+} from '../../auth/regExp';
 
 import {
     EmailFieldset,
@@ -36,112 +34,25 @@ import {
     Wrapper,
     Section,
 } from './Join.style';
+import { useAuth } from '../../auth/useAuth';
 
 function Join() {
-    const [idChecked, setIdChecked] = useState(false);
-    const [successMessage, setSuccessMessage] = useState('');
     const [pwChecked, setPwCheckded] = useState(false);
     const [joinValid, setJoinValid] = useState(false);
 
     const {
         register,
         handleSubmit,
-        watch,
         getValues,
         setError,
         formState: { errors, isValid },
     } = useForm({ mode: 'onBlur' });
 
-    const idCheck = async () => {
-        try {
-            const { data }: AxiosResponse<{ Success: string }> =
-                await axiosInstance.post('accounts/signup/valid/', {
-                    username: getValues('id'),
-                });
-            setIdChecked(true);
-            setSuccessMessage(data.Success);
-        } catch (error) {
-            console.error(error);
-            if (error instanceof AxiosError) {
-                console.log(error.response?.data);
-                setError('id', {
-                    type: 'idError',
-                    message: error.response?.data.FAIL_Message,
-                });
-            }
-        }
-    };
-
-    // interface FormValue {
-    //     centerPhoneNum: string;
-    //     endEmail: string;
-    //     endPhoneNum: string;
-    //     id: string;
-    //     name: string;
-    //     pw: string;
-    //     pwCheck: string;
-    //     startEmail: string;
-    //     startPhoneNum: string;
-    // }
-
-    const join = async (data: FieldValues) => {
-        const phone_number =
-            data.startPhoneNum + data.centerPhoneNum + data.endPhoneNum;
-
-        const reqData = {
-            username: data.id,
-            password: data.pw,
-            password2: data.pwCheck,
-            phone_number: phone_number,
-            name: data.name,
-        };
-
-        try {
-            const { data: resData } = await axiosInstance.post(
-                'accounts/signup/',
-                reqData,
-            );
-
-            console.log('resData : ', resData);
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                if (error.response?.status === 400) {
-                    const errorData = error.response?.data;
-                    console.log('errorData : ', errorData);
-                    errorData.username &&
-                        setError('id', {
-                            type: 'idError',
-                            message: errorData.username[0],
-                        });
-                    errorData.phone_number &&
-                        setError('centerPhoneNum', {
-                            type: 'phoneNumError',
-                            message: errorData.phone_number[0],
-                        });
-                    errorData.password &&
-                        setError('pw', {
-                            type: 'pwError',
-                            message: errorData.password[0],
-                        });
-                    errorData.password2 &&
-                        setError('pwCheck', {
-                            type: 'pwCheckError',
-                            message: errorData.password2[0],
-                        });
-                    errorData.name &&
-                        setError('name', {
-                            type: 'nameError',
-                            message: errorData.name[0],
-                        });
-                } else {
-                    console.error(error);
-                }
-            }
-        }
-    };
+    const { join, idCheck, successMessage, idChecked, setIdChecked } =
+        useAuth();
 
     const onSubmit = handleSubmit((data) => {
-        join(data);
+        join(setError, data);
     });
 
     return (
@@ -174,7 +85,7 @@ function Join() {
                             type="button"
                             text="중복확인"
                             padding={17}
-                            onClick={idCheck}
+                            onClick={() => idCheck(setError, getValues)}
                         />
                         {errors.id && (
                             <Strong type="negative">
