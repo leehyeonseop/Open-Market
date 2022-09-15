@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
     Description,
     Figure,
@@ -10,12 +11,12 @@ import {
     Wrapper,
 } from './ProductItem.style';
 
-function ProductItem(props : any) {
-
-    const { imgURL, store, productName, price } = props
+function ProductItem(props: any) {
+    const { productID, imgURL, store, productName, price } = props;
+    const navigate = useNavigate();
 
     return (
-        <Wrapper>
+        <Wrapper onClick={() => navigate(`/product/${productID}`)}>
             <Figure
                 style={{
                     backgroundImage: `url(${imgURL})`,

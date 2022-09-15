@@ -20,7 +20,10 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/join" element={<Join />} />
-                    <Route path='/productDetail' element={<ProductDetailPage />} />
+                    <Route
+                        path="/product/:productID"
+                        element={<ProductDetailPage />}
+                    />
                 </Routes>
             </BrowserRouter>
             <ReactQueryDevtools />

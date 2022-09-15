@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
     max-width: 380px;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 `;
 
 export const Figure = styled.figure`

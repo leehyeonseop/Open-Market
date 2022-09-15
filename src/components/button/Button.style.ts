@@ -14,4 +14,7 @@ export const MainButton = styled.button<{ padding?: number }>`
     cursor: pointer;
     padding-top: ${(props) => props.padding}px;
     padding-bottom: ${(props) => props.padding}px;
+    &:disabled {
+        background-color: #c4c4c4;
+    }
 `;

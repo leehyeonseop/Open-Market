@@ -1,17 +1,20 @@
-import React from 'react'
-import Header from '../../components/header/Header'
-import ProductDetail from '../../components/product/productDetail/ProductDetail'
-import { Main } from './ProductDetailPage.style'
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import Header from '../../components/header/Header';
+import ProductDetail from '../../components/product/productDetail/ProductDetail';
+import { Main } from './ProductDetailPage.style';
 
 function ProductDetailPage() {
+    const { productID } = useParams();
+
     return (
         <>
             <Header />
             <Main>
-                <ProductDetail />
+                <ProductDetail productID={productID} />
             </Main>
         </>
-    )
+    );
 }
 
-export default ProductDetailPage
+export default ProductDetailPage;
