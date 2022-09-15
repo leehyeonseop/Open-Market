@@ -10,18 +10,29 @@ function ProductList() {
         const {data} = await axiosInstance.get('products')
         console.log(data)
 
+        console.log(data.results)
+
         return data.results
     }
 
-    const {data : products, isLoading, isError, error} = useQuery(['product'], getProducts)
+    // interface Product {
+    //     image: string,
+    //     price: number,
+    //     product_id: number,
+    //     product_info: string,
+    //     product_name: string,
+    //     seller: number,
+    //     seller_store: string,
+    //     shipping_fee: number,
+    //     shipping_method: string,
+    //     stock: number
+    // }
+
+    const fallBack : any [] = []
+
+    const {data : products = fallBack, isLoading, isError, error} = useQuery(['product'], getProducts)
 
     if(isLoading) return <h1>로딩중</h1>
-
-    if(isError) return (
-        <>
-        <h1>에러발생</h1>
-        </>
-        )
 
     return (
         <Products>
@@ -30,7 +41,7 @@ function ProductList() {
                             imgURL={product.image} 
                             store={product.seller_store} 
                             productName={product.product_name} 
-                            price={product.price} 
+                            price={(product.price).toLocaleString('ko-KR')} 
                         />
             })}
         </Products>

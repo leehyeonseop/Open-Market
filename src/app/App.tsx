@@ -6,6 +6,7 @@ import Carousel from '../components/carousel/Carousel';
 import Join from '../components/join/Join';
 import Login from '../components/login/Login';
 import HomePage from '../pages/homePage/HomePage';
+import ProductDetailPage from '../pages/productDetailPage/ProductDetailPage';
 
 import { queryClient } from '../react-query/queryClient';
 import { GlobalStyle } from './GlobalStyle';
@@ -19,7 +20,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/join" element={<Join />} />
-                    <Route path="/carousel" element={<Carousel />} />
+                    <Route path='/productDetail' element={<ProductDetailPage />} />
                 </Routes>
             </BrowserRouter>
             <ReactQueryDevtools />
