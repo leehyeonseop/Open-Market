@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-
-import minus from '../../../assets/icons/icon-minus-line.svg';
-import plus from '../../../assets/icons/icon-plus-line.svg';
+import Button from '../../button/Button';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -22,22 +20,21 @@ export const Image = styled.img`
 export const Description = styled.div`
     width: 49.21875%;
     margin-left: auto;
-    background-color: lightcoral;
     display: flex;
     flex-direction: column;
 `;
 
 export const Sellor = styled.span`
     font-weight: 400;
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 1.125rem;
+    line-height: 1.438rem;
     color: #767676;
 `;
 
 export const ProductName = styled.span`
     font-weight: 400;
-    font-size: 36px;
-    line-height: 45px;
+    font-size: 2.25rem;
+    line-height: 2.813rem;
     margin-top: 2.53968253968254%;
     margin-bottom: 3.174603174603175%;
 `;
@@ -48,24 +45,27 @@ export const PriceWrapper = styled.div`
 
 export const Price = styled.strong`
     font-weight: 700;
-    font-size: 36px;
-    line-height: 45px;
+    font-size: 2.25rem;
+    line-height: 2.813rem;
 `;
 
 export const Won = styled.span`
     font-weight: 400;
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 1.125rem;
+    line-height: 1.438rem;
     margin-left: 2px;
 `;
 
 export const Delivery = styled.span`
     display: block;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 1rem;
+    line-height: 1.25rem;
     color: #767676;
-    margin-top: 21.9047619047619%;
+    /* margin-top: 21.9047619047619%; */
+    margin-top: auto;
+    padding-bottom: 3.174603174603175%;
+    border-bottom: 1px solid #c4c4c4;
 `;
 
 export const Amount = styled.div`
@@ -76,30 +76,63 @@ export const Amount = styled.div`
     border-radius: 5px;
     display: flex;
     box-sizing: border-box;
+    margin: 4.761904761904762% 0;
 `;
 
-export const MinusButton = styled.span`
-    flex: 1 1 0;
+export const AmountButton = styled.div`
+    width: 33.333333333333%;
     padding: 10%;
     box-sizing: border-box;
-    background-image: url(${minus});
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    display: flex;
 `;
 
-export const Count = styled.span`
-    flex: 1 1 0;
-    padding: 10%;
+export const Count = styled(AmountButton)`
+    font-size: 0.9375vw;
+    justify-content: center;
+    text-align: center;
+    border-left: 1px solid #c4c4c4;
+    border-right: 1px solid #c4c4c4;
 `;
 
-export const PlusButton = styled.span`
-    flex: 1 1 0;
-    padding: 10%;
+export const TotalWrapper = styled.div`
+    display: flex;
+    padding-top: 5.079365079365079%;
+    border-top: 1px solid #c4c4c4;
+    word-break: keep-all;
+    align-items: center;
+`;
 
-    box-sizing: border-box;
-    background-image: url(${plus});
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+export const Span = styled.span`
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.438rem;
+`;
+
+export const TotalAmount = styled(Span)`
+    font-weight: 400;
+    color: #767676;
+    margin-right: 4.444444444444444%;
+    margin-left: auto;
+`;
+
+export const TotalNumber = styled(TotalAmount)`
+    font-weight: 700;
+    color: #21bf48;
+    margin-right: 0;
+`;
+
+export const TotalPrice = styled.strong`
+    font-weight: 700;
+    font-size: 2.25rem;
+    line-height: 2.813rem;
+    color: #21bf48;
+`;
+
+export const TotalWon = styled(Won)`
+    color: #21bf48;
+`;
+
+export const BuyButton = styled(Button)`
+    margin-top: 3.492063492063492%;
+    padding: 3.015873015873016%;
 `;
