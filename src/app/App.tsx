@@ -1,7 +1,6 @@
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Carousel from '../components/carousel/Carousel';
 
 import Join from '../components/join/Join';
 import Login from '../components/login/Login';

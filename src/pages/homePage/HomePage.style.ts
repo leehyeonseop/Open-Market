@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import Button from '../../components/button/Button';
 
 export const Main = styled.main`
-    padding: 4.19% 16.67% 9.43%;
-    overflow: visible;
+    padding: 80px 16.66666666666667% 180px;
 `;
 
 export const ButtonWrapper = styled.div`
-    margin-top: 7%;
+    margin-top: 70px;
     text-align: center;
 `;
 

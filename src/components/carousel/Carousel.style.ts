@@ -3,7 +3,7 @@ import { ReactComponent as Prev } from '../../assets/icons/icon-swiper-1.svg';
 import { ReactComponent as Next } from '../../assets/icons/icon-swiper-2.svg';
 
 export const Image = styled.img`
-    height: 26vw;
+    height: 26.04166666666667vw;
     object-fit: cover;
 `;
 

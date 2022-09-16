@@ -24,7 +24,6 @@ function Carousel() {
             <div
                 style={{
                     borderRadius: '10px',
-                    padding: '10px',
                     bottom: '4%',
                 }}
             >

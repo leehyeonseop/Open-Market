@@ -2,12 +2,13 @@ import {
     MainLogo,
     Nav,
     Search,
-    ShoppingCart,
     Span,
     StyledLink,
-    User,
     Wrapper,
 } from './Header.style';
+
+import { ReactComponent as UserIcon } from '../../assets/icons/icon-user.svg';
+import { ReactComponent as ShoppingCartIcon } from '../../assets/icons/icon-shopping-cart.svg';
 
 function Header() {
     return (
@@ -16,11 +17,11 @@ function Header() {
             <Search type="search" placeholder="상품을 검색해보세요!" />
             <Nav>
                 <StyledLink to="/login">
-                    <User />
+                    <UserIcon />
                     <Span>로그인</Span>
                 </StyledLink>
                 <StyledLink to="/login">
-                    <ShoppingCart />
+                    <ShoppingCartIcon />
                     <Span>장바구니</Span>
                 </StyledLink>
             </Nav>

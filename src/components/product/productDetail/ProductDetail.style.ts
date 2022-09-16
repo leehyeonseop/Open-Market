@@ -4,13 +4,12 @@ import minus from '../../../assets/icons/icon-minus-line.svg';
 import plus from '../../../assets/icons/icon-plus-line.svg';
 
 export const Wrapper = styled.div`
-    /* width: 600px;- */
     display: flex;
 `;
 
 export const Figure = styled.figure`
-    padding-top: 46.88%;
-    width: 46.88%;
+    padding-top: 46.875%;
+    width: 46.875%;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -21,7 +20,7 @@ export const Image = styled.img`
 `;
 
 export const Description = styled.div`
-    width: 49.22%;
+    width: 49.21875%;
     margin-left: auto;
     background-color: lightcoral;
     display: flex;
@@ -39,8 +38,8 @@ export const ProductName = styled.span`
     font-weight: 400;
     font-size: 36px;
     line-height: 45px;
-    margin-top: 2.54%;
-    margin-bottom: 3.17%;
+    margin-top: 2.53968253968254%;
+    margin-bottom: 3.174603174603175%;
 `;
 
 export const PriceWrapper = styled.div`
@@ -66,24 +65,23 @@ export const Delivery = styled.span`
     font-size: 16px;
     line-height: 20px;
     color: #767676;
-    margin-top: 21.9%;
-    margin-bottom: 3.17%;
+    margin-top: 21.9047619047619%;
 `;
 
 export const Amount = styled.div`
-    width: 23.81%;
-    height: 7.94%;
+    width: 23.80952380952381%;
+    height: 7.936507936507937%;
     background-color: white;
     border: 1px solid #c4c4c4;
+    border-radius: 5px;
     display: flex;
     box-sizing: border-box;
 `;
 
 export const MinusButton = styled.span`
-    width: 33.333333%;
+    flex: 1 1 0;
     padding: 10%;
     box-sizing: border-box;
-
     background-image: url(${minus});
     background-size: cover;
     background-position: center;
@@ -91,12 +89,14 @@ export const MinusButton = styled.span`
 `;
 
 export const Count = styled.span`
-    width: 33.333333%;
+    flex: 1 1 0;
+    padding: 10%;
 `;
 
 export const PlusButton = styled.span`
-    width: 33.333333%;
+    flex: 1 1 0;
     padding: 10%;
+
     box-sizing: border-box;
     background-image: url(${plus});
     background-size: cover;
