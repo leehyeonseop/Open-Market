@@ -2,7 +2,9 @@ import { useProductDetail } from '../hooks/useProductDetail';
 import {
     Amount,
     AmountButton,
+    ButtonWrapper,
     BuyButton,
+    CartButton,
     Count,
     Delivery,
     Description,
@@ -23,12 +25,13 @@ import {
 } from './ProductDetail.style';
 import { ReactComponent as Minus } from '../../../assets/icons/icon-minus-line.svg';
 import { ReactComponent as Plus } from '../../../assets/icons/icon-plus-line.svg';
+import { useState } from 'react';
 
 function ProductDetail(props: any) {
     const { productID } = props;
     const { data } = useProductDetail(productID);
 
-    console.log(data);
+    const [amount, setAmount] = useState(1);
 
     return (
         <Wrapper>
@@ -43,30 +46,41 @@ function ProductDetail(props: any) {
                 <Sellor>{data.seller_store}</Sellor>
                 <ProductName>{data.product_name}</ProductName>
                 <PriceWrapper>
-                    <Price>{data.price}</Price>
+                    <Price>
+                        {data.price && data.price.toLocaleString('ko-KR')}
+                    </Price>
                     <Won>원</Won>
                 </PriceWrapper>
                 <Delivery>택배배송 / 무료배송</Delivery>
                 <Amount>
-                    <AmountButton>
+                    <AmountButton
+                        onClick={() => setAmount((prev) => prev - 1)}
+                        disabled={amount <= 1}
+                    >
                         <Minus width="auto" height="auto"></Minus>
                     </AmountButton>
-                    <Count>999</Count>
-                    <AmountButton>
+                    <Count>{amount}</Count>
+                    <AmountButton
+                        onClick={() => setAmount((prev) => prev + 1)}
+                        disabled={amount >= data.stock}
+                    >
                         <Plus width="auto" height="auto"></Plus>
                     </AmountButton>
                 </Amount>
                 <TotalWrapper>
                     <Span>총 상품 금액</Span>
                     <TotalAmount>
-                        총 수량 <TotalNumber>1</TotalNumber>개
+                        총 수량 <TotalNumber>{amount}</TotalNumber>개
                     </TotalAmount>
                     <TotalPrice>
-                        17,500
+                        {(data.price * amount).toLocaleString('ko-KR')}
                         <TotalWon>원</TotalWon>
                     </TotalPrice>
                 </TotalWrapper>
-                <BuyButton text="구매하기" />
+                <ButtonWrapper>
+                    <BuyButton text="바로 구매" />
+                    <CartButton text="장바구니" />
+                </ButtonWrapper>
             </Description>
         </Wrapper>
     );

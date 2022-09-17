@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Join from '../components/join/Join';
 import Login from '../components/login/Login';
+import CartPage from '../pages/cartPage/CartPage';
 import HomePage from '../pages/homePage/HomePage';
 import ProductDetailPage from '../pages/productDetailPage/ProductDetailPage';
 
@@ -23,6 +24,7 @@ function App() {
                         path="/product/:productID"
                         element={<ProductDetailPage />}
                     />
+                    <Route path="/cart" element={<CartPage />} />
                 </Routes>
             </BrowserRouter>
             <ReactQueryDevtools />

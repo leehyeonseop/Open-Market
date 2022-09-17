@@ -13,6 +13,7 @@ export const Wrapper = styled.header`
 export const MainLogo = styled(Logo)`
     margin-right: 2.34375%;
     min-width: 50px;
+    cursor: pointer;
 `;
 
 export const Search = styled.input`

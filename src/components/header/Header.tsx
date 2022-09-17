@@ -9,11 +9,14 @@ import {
 
 import { ReactComponent as UserIcon } from '../../assets/icons/icon-user.svg';
 import { ReactComponent as ShoppingCartIcon } from '../../assets/icons/icon-shopping-cart.svg';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+    const navigate = useNavigate();
+
     return (
         <Wrapper>
-            <MainLogo width={124} height={38} />
+            <MainLogo width={124} height={38} onClick={() => navigate('/')} />
             <Search type="search" placeholder="상품을 검색해보세요!" />
             <Nav>
                 <StyledLink to="/login">

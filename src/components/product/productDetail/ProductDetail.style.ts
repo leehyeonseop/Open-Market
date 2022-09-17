@@ -79,16 +79,31 @@ export const Amount = styled.div`
     margin: 4.761904761904762% 0;
 `;
 
-export const AmountButton = styled.div`
+export const AmountButton = styled.button`
     width: 33.333333333333%;
     padding: 10%;
     box-sizing: border-box;
     display: flex;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background-color: inherit;
+    border-radius: 5px;
+    &:disabled {
+        cursor: default;
+    }
 `;
 
-export const Count = styled(AmountButton)`
+export const Count = styled.strong`
+    width: 33.333333333333%;
+    padding: 10%;
+    box-sizing: border-box;
+    display: flex;
     font-size: 0.9375vw;
     justify-content: center;
+    align-items: center;
     text-align: center;
     border-left: 1px solid #c4c4c4;
     border-right: 1px solid #c4c4c4;
@@ -132,7 +147,20 @@ export const TotalWon = styled(Won)`
     color: #21bf48;
 `;
 
+export const ButtonWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
 export const BuyButton = styled(Button)`
+    width: 66.03174603174603%;
     margin-top: 3.492063492063492%;
     padding: 3.015873015873016%;
+`;
+
+export const CartButton = styled(Button)`
+    width: 31.74603174603175%;
+    padding: 3.015873015873016%;
+    background: #767676;
+    align-self: flex-end;
 `;
