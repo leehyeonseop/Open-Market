@@ -10,6 +10,9 @@ import {
     ProductPrice,
     Amount,
     CartItemList,
+    CartInfo,
+    CartInfoSection,
+    Payment,
 } from './CartPage.style';
 
 function CartPage() {
@@ -32,6 +35,24 @@ function CartPage() {
                     <CartItem />
                     <CartItem />
                 </CartItemList>
+                <CartInfo>
+                    <CartInfoSection>
+                        총 상품금액
+                        <strong>46,500<span>원</span></strong>
+                    </CartInfoSection>
+                    <CartInfoSection>
+                        상품 할인
+                        <strong>0<span>원</span></strong>
+                    </CartInfoSection>
+                    <CartInfoSection>
+                        배송비
+                        <strong>0<span>원</span></strong>
+                    </CartInfoSection>
+                    <Payment>
+                        결제 예정 금액
+                        <strong>46,500<span>원</span></strong>
+                    </Payment>
+                </CartInfo>
             </Main>
         </>
     );

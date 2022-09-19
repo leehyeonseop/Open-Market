@@ -119,7 +119,9 @@ export const TotalPrice = styled.strong`
     margin-bottom: 20%;
 `;
 
-export const OrderButton = styled(Button)``;
+export const OrderButton = styled(Button)`
+    width: 100%;
+`;
 
 export const DeleteButton = styled(Delete)`
     position: absolute;
