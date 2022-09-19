@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import AmountControl from '../../button/AmountControl';
 import Button from '../../button/Button';
 
 export const Wrapper = styled.div`
@@ -107,6 +108,10 @@ export const Count = styled.strong`
     text-align: center;
     border-left: 1px solid #c4c4c4;
     border-right: 1px solid #c4c4c4;
+`;
+
+export const StyledAmountControl = styled(AmountControl)`
+    margin: 4.761904761904762% 0;
 `;
 
 export const TotalWrapper = styled.div`

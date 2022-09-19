@@ -1,4 +1,5 @@
 import React from 'react';
+import CartItem from '../../components/cartItem/CartItem';
 import Header from '../../components/header/Header';
 import {
     CartHeader,
@@ -8,6 +9,7 @@ import {
     ProductInfo,
     ProductPrice,
     Amount,
+    CartItemList,
 } from './CartPage.style';
 
 function CartPage() {
@@ -18,10 +20,18 @@ function CartPage() {
                 <H2>장바구니</H2>
                 <CartHeader>
                     <Radio />
-                    <ProductInfo></ProductInfo>
-                    <Amount></Amount>
-                    <ProductPrice></ProductPrice>
+                    <ProductInfo>상품정보</ProductInfo>
+                    <Amount>수량</Amount>
+                    <ProductPrice>상품금액</ProductPrice>
                 </CartHeader>
+                <CartItemList>
+                    <CartItem />
+                    <CartItem />
+                    <CartItem />
+                    <CartItem />
+                    <CartItem />
+                    <CartItem />
+                </CartItemList>
             </Main>
         </>
     );

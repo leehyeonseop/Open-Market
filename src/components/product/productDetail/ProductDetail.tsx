@@ -15,6 +15,7 @@ import {
     ProductName,
     Sellor,
     Span,
+    StyledAmountControl,
     TotalAmount,
     TotalNumber,
     TotalPrice,
@@ -26,6 +27,7 @@ import {
 import { ReactComponent as Minus } from '../../../assets/icons/icon-minus-line.svg';
 import { ReactComponent as Plus } from '../../../assets/icons/icon-plus-line.svg';
 import { useState } from 'react';
+import AmountControl from '../../button/AmountControl';
 
 function ProductDetail(props: any) {
     const { productID } = props;
@@ -52,7 +54,7 @@ function ProductDetail(props: any) {
                     <Won>원</Won>
                 </PriceWrapper>
                 <Delivery>택배배송 / 무료배송</Delivery>
-                <Amount>
+                {/* <Amount>
                     <AmountButton
                         onClick={() => setAmount((prev) => prev - 1)}
                         disabled={amount <= 1}
@@ -66,7 +68,13 @@ function ProductDetail(props: any) {
                     >
                         <Plus width="auto" height="auto"></Plus>
                     </AmountButton>
-                </Amount>
+                </Amount> */}
+                <StyledAmountControl
+                    width={23.80952380952381}
+                    stock={data.stock}
+                    amount={amount}
+                    setAmount={setAmount}
+                />
                 <TotalWrapper>
                     <Span>총 상품 금액</Span>
                     <TotalAmount>

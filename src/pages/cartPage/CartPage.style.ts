@@ -17,6 +17,12 @@ export const CartHeader = styled.div`
     padding: 1.40625% 7.8125% 1.40625% 2.34375%;
     background-color: #f2f2f2;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 52px;
+    margin-bottom: 35px;
 `;
 
 export const Radio = styled.input.attrs(() => ({
@@ -32,6 +38,7 @@ export const Radio = styled.input.attrs(() => ({
     outline: 2px solid #21bf48;
     cursor: pointer;
     background-color: #f2f2f2;
+    margin-right: 3.125%;
     &:checked {
         background-color: #21bf48;
     }
@@ -39,6 +46,7 @@ export const Radio = styled.input.attrs(() => ({
 
 export const ProductInfo = styled.div`
     width: 47.96875%;
+    margin-right: 3.75%;
 `;
 
 export const Amount = styled.div`
@@ -47,4 +55,12 @@ export const Amount = styled.div`
 
 export const ProductPrice = styled.div`
     width: 10.15625%;
+    margin-left: auto;
+`;
+
+export const CartItemList = styled.ul`
+    margin-bottom: 80px;
+    li {
+        margin-bottom: 10px;
+    }
 `;
