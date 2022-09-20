@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { axiosInstance } from '../../../axiosInstance';
+import { axiosInstance } from '../axiosInstance';
 
 export const useProduct = (currentPage: number) => {
     const [maxPage, setMaxPage] = useState(0);

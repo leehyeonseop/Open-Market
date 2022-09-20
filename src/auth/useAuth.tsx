@@ -6,7 +6,7 @@ import {
     UseFormSetError,
 } from 'react-hook-form';
 import { axiosInstance } from '../axiosInstance';
-import { setToken } from '../localStorage';
+import { setUser } from '../localStorage';
 
 export const useAuth = () => {
     const [idChecked, setIdChecked] = useState(false);
@@ -29,8 +29,10 @@ export const useAuth = () => {
                 reqData,
             );
 
-            if (resData.token) {
-                setToken(resData.token);
+            console.log('로그인 : ', resData);
+
+            if (resData) {
+                setUser(resData);
             }
         } catch (error) {
             if (error instanceof AxiosError) {

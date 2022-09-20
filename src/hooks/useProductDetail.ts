@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { axiosInstance } from '../../../axiosInstance';
+import { axiosInstance } from '../axiosInstance';
 
 const getProductDetail = async (productID: string) => {
     const { data } = await axiosInstance.get(`products/${productID}`);

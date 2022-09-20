@@ -1,4 +1,4 @@
-import { useProductDetail } from '../hooks/useProductDetail';
+import { useProductDetail } from '../../../hooks/useProductDetail';
 import {
     Amount,
     AmountButton,
@@ -24,10 +24,8 @@ import {
     Won,
     Wrapper,
 } from './ProductDetail.style';
-import { ReactComponent as Minus } from '../../../assets/icons/icon-minus-line.svg';
-import { ReactComponent as Plus } from '../../../assets/icons/icon-plus-line.svg';
+
 import { useState } from 'react';
-import AmountControl from '../../button/AmountControl';
 
 function ProductDetail(props: any) {
     const { productID } = props;
@@ -45,7 +43,7 @@ function ProductDetail(props: any) {
                 <Image />
             </Figure>
             <Description>
-                <Sellor>{data.seller_store}</Sellor>
+                <Sellor>{data.store_name}</Sellor>
                 <ProductName>{data.product_name}</ProductName>
                 <PriceWrapper>
                     <Price>
@@ -54,21 +52,6 @@ function ProductDetail(props: any) {
                     <Won>원</Won>
                 </PriceWrapper>
                 <Delivery>택배배송 / 무료배송</Delivery>
-                {/* <Amount>
-                    <AmountButton
-                        onClick={() => setAmount((prev) => prev - 1)}
-                        disabled={amount <= 1}
-                    >
-                        <Minus width="auto" height="auto"></Minus>
-                    </AmountButton>
-                    <Count>{amount}</Count>
-                    <AmountButton
-                        onClick={() => setAmount((prev) => prev + 1)}
-                        disabled={amount >= data.stock}
-                    >
-                        <Plus width="auto" height="auto"></Plus>
-                    </AmountButton>
-                </Amount> */}
                 <StyledAmountControl
                     width={23.80952380952381}
                     stock={data.stock}
