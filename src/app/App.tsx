@@ -1,6 +1,7 @@
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
 import Join from '../components/join/Join';
 import Login from '../components/login/Login';
@@ -14,6 +15,7 @@ import { GlobalStyle } from './GlobalStyle';
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
+            <RecoilRoot>
             <GlobalStyle />
             <BrowserRouter>
                 <Routes>
@@ -28,6 +30,7 @@ function App() {
                 </Routes>
             </BrowserRouter>
             <ReactQueryDevtools />
+            </RecoilRoot>
         </QueryClientProvider>
     );
 }

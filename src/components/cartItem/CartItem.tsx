@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { priceState } from '../../atom';
+
 import { useProductDetail } from '../../hooks/useProductDetail';
 import AmountControl from '../button/AmountControl';
 import {
@@ -24,6 +27,7 @@ function CartItem(props: any) {
 
     const [amount, setAmount] = useState(quantity);
     const { data } = useProductDetail(product_id);
+    const queryClient = useQueryClient()
 
     return (
         <Wrapper>

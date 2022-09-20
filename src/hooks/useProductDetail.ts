@@ -10,6 +10,11 @@ export const useProductDetail = (productID: string) => {
     const fallBack = {};
     const { data = fallBack } = useQuery(['product', productID], () =>
         getProductDetail(productID),
+        {
+            onSuccess(data) {
+                console.log('성공직후 : ', data)
+            },
+        }
     );
     return { data };
 };

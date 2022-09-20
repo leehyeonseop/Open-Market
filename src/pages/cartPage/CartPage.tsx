@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useQueryClient } from 'react-query';
+import CartInfo from '../../components/cartInfo/CartInfo';
 import CartItem from '../../components/cartItem/CartItem';
 import { TotalPrice } from '../../components/cartItem/CartItem.style';
 import Header from '../../components/header/Header';
@@ -15,21 +16,15 @@ import {
     ProductPrice,
     Amount,
     CartItemList,
-    CartInfo,
+    // CartInfo,
     CartInfoSection,
     Payment,
 } from './CartPage.style';
 
 function CartPage() {
     const { cartItems } = useCart();
-    cartItems.map((item: any) => console.log('아이템 : ', item));
 
-    const queryClient = useQueryClient();
-
-    const my = queryClient.getQueryData(['product']);
-    const my2 = queryClient.getQueryData(['cartItem']);
-
-    console.log('my2 : ', my2);
+    const testList : any = []
 
     return (
         <>
@@ -44,6 +39,8 @@ function CartPage() {
                 </CartHeader>
                 <CartItemList>
                     {cartItems.map((item: Item) => {
+
+                        testList.push(item.product_id)
                         return (
                             <CartItem
                                 key={item.product_id}
@@ -53,7 +50,7 @@ function CartPage() {
                         );
                     })}
                 </CartItemList>
-                <CartInfo>
+                {/* <CartInfo>
                     <CartInfoSection>
                         총 상품금액
                         <strong>
@@ -78,7 +75,8 @@ function CartPage() {
                             46,500<span>원</span>
                         </strong>
                     </Payment>
-                </CartInfo>
+                </CartInfo> */}
+                <CartInfo testList={testList}/>
             </Main>
         </>
     );
