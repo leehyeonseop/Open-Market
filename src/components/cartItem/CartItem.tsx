@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useProductDetail } from '../../hooks/useProductDetail';
 import AmountControl from '../button/AmountControl';
 import {
     Amount,
@@ -18,33 +19,42 @@ import {
     Wrapper,
 } from './CartItem.style';
 
-function CartItem() {
-    const [amount, setAmount] = useState(1);
+function CartItem(props: any) {
+    const { product_id, quantity } = props;
+
+    const [amount, setAmount] = useState(quantity);
+    const { data } = useProductDetail(product_id);
 
     return (
         <Wrapper>
             <Radio />
             <ProductInfo>
-                <Figure>
+                <Figure style={{ backgroundImage: `url(${data.image})` }}>
                     <Image />
                 </Figure>
                 <Description>
-                    <Sellor>위니브</Sellor>
-                    <ProductName>마우스</ProductName>
-                    <Price>17500원</Price>
-                    <Delivery>무료배송</Delivery>
+                    <Sellor>{data.store_name}</Sellor>
+                    <ProductName>{data.product_name}</ProductName>
+                    <Price>
+                        {data.price && data.price.toLocaleString('ko-KR')}원
+                    </Price>
+                    <Delivery>
+                        {data.shipping_method} {data.shipping_fee}
+                    </Delivery>
                 </Description>
             </ProductInfo>
             <Amount>
                 <AmountControl
                     width={100}
-                    stock={10}
+                    stock={data.stock}
                     amount={amount}
                     setAmount={setAmount}
                 />
             </Amount>
             <ProductPrice>
-                <TotalPrice>17,500원</TotalPrice>
+                <TotalPrice>
+                    {(data.price * amount).toLocaleString('ko-KR')}원
+                </TotalPrice>
                 <OrderButton text="주문하기" padding={10}></OrderButton>
             </ProductPrice>
             <DeleteButton />

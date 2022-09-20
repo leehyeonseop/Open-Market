@@ -26,7 +26,10 @@ export const useCart = () => {
         return itemDetail;
     };
 
-    const { data: cartItems } = useQuery(['cartItem', user.id], getCartItems);
+    const { data: cartItems = [] } = useQuery(
+        ['cartItem', user.id],
+        getCartItems,
+    );
 
     // const {data} = useQuery(['itemDetail'], () => cartItemDetail())
 
