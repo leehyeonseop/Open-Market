@@ -23,7 +23,7 @@ function Header() {
                     <UserIcon />
                     <Span>로그인</Span>
                 </StyledLink>
-                <StyledLink to="/login">
+                <StyledLink to="/cart">
                     <ShoppingCartIcon />
                     <Span>장바구니</Span>
                 </StyledLink>

@@ -1,24 +1,37 @@
-import React from 'react'
-import { QueryObserver, useQueryClient } from 'react-query'
-import { useRecoilState } from 'recoil'
-import { priceState } from '../../atom'
-import { CartInfoSection, Payment, Wrapper } from './CartInfo.style'
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+    cartItemsState,
+    cartItemState,
+    cartItemState2,
+    myAtom,
+    myAtom2,
+    mySelector,
+} from '../../atom';
+import { CartInfoSection, Payment, Wrapper } from './CartInfo.style';
 
-function CartInfo(props:any) {
+function CartInfo() {
+    const [cartItem, setCartItem] = useRecoilState(cartItemState);
 
-    const {testList} = props
+    let totalPrice = 0;
+    let shippingFee = 0;
 
-    // const queryClient = useQueryClient()
-    // const test = queryClient.getQueryData(["products", 1])
-    // console.log('테스트 : ', test)
-    
-    console.log('리스트 : ', testList)
+    cartItem.forEach((element) => {
+        shippingFee += element.shipping_fee;
+        totalPrice += element.price * element.quantity;
+    });
 
-    return  (
+    let payment = totalPrice + shippingFee;
+
+    const cartItemsList = useRecoilValue(cartItemState2);
+
+    console.log('인포페이지에서 : ', cartItemsList);
+
+    return (
         <Wrapper>
             <CartInfoSection>
                 총 상품금액
                 <strong>
+                    {totalPrice.toLocaleString('ko-KR')}
                     <span>원</span>
                 </strong>
             </CartInfoSection>
@@ -31,17 +44,19 @@ function CartInfo(props:any) {
             <CartInfoSection>
                 배송비
                 <strong>
-                    0<span>원</span>
+                    {shippingFee.toLocaleString('ko-KR')}
+                    <span>원</span>
                 </strong>
             </CartInfoSection>
             <Payment>
                 결제 예정 금액
                 <strong>
-                    46,500<span>원</span>
+                    {payment.toLocaleString('ko-KR')}
+                    <span>원</span>
                 </strong>
             </Payment>
         </Wrapper>
-    )
+    );
 }
 
-export default CartInfo
+export default CartInfo;
