@@ -1,16 +1,12 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
-    cartItemsState,
     cartItemState,
-    cartItemState2,
-    myAtom,
-    myAtom2,
-    mySelector,
 } from '../../atom';
 import { CartInfoSection, Payment, Wrapper } from './CartInfo.style';
 
 function CartInfo() {
-    const [cartItem, setCartItem] = useRecoilState(cartItemState);
+
+    const cartItem = useRecoilValue(cartItemState)
 
     let totalPrice = 0;
     let shippingFee = 0;
@@ -21,10 +17,6 @@ function CartInfo() {
     });
 
     let payment = totalPrice + shippingFee;
-
-    const cartItemsList = useRecoilValue(cartItemState2);
-
-    console.log('인포페이지에서 : ', cartItemsList);
 
     return (
         <Wrapper>

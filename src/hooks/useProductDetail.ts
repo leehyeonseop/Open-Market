@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { cartItemState } from '../atom';
@@ -18,6 +17,7 @@ export const useProductDetail = (productID: string, quantity?: number) => {
         () => getProductDetail(productID),
         {
             onSuccess(data) {
+                if(quantity === undefined) return
                 data.quantity = quantity;
                 const newArr = [...cartItem, data];
 

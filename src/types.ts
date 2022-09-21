@@ -25,15 +25,4 @@ export interface CartItem {
     product_info: string;
     quantity: number;
 }
-export interface CartItem2 {
-    product_id: number;
-    product_name: string;
-    seller: number;
-    store_name: string;
-    image: string;
-    price: number;
-    shipping_method: string;
-    shipping_fee: number;
-    stock: number;
-    product_info: string;
-}
+
