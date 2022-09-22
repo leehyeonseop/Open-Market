@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { cartItemState, checkedCartItemState } from '../../atom';
+import { useCart } from '../../hooks/useCart';
 import { useProductDetail } from '../../hooks/useProductDetail';
 import AmountControl from '../button/AmountControl';
 import {
@@ -20,25 +23,58 @@ import {
 } from './CartItem.style';
 
 function CartItem(props: any) {
-    const { product_id, quantity, handleCheckItems } = props;
+    const { product_id, quantity } = props;
 
     const [amount, setAmount] = useState(quantity);
     const { data } = useProductDetail(product_id, quantity);
+    const { deleteCartItem, addCartItem } = useCart();
 
+    const [cartItem, setCartItem] = useRecoilState(cartItemState);
+    const [checkedCartItem, setCheckedCartItem] =
+        useRecoilState(checkedCartItemState);
 
+    // console.log('현재 카트 아이템에서 : ', cartItem);
 
-    const [bChecked, setChecked] = useState(false)
+    const [itemChecked, setChecked] = useState(true);
 
-    const checkHandler = (event : React.ChangeEvent<HTMLInputElement>) => {
-        const target = event.target
-        setChecked(!bChecked);
-        handleCheckItems(data, target.checked)
+    const checkHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const target = event.target;
+        setChecked(!itemChecked);
+    };
 
-    }
+    useEffect(() => {
+        if (itemChecked === false) {
+            console.log('체크해제');
+            deleteCartItem(product_id);
+        }
+
+        if (itemChecked === true) {
+            // console.log('처음에는 이거 실행되겠죠?');
+            addCartItem(product_id);
+        }
+    }, [itemChecked]);
+
+    useEffect(() => {
+        // console.log('삭제하고 난후 아이템 : ', cartItem);
+    }, [cartItem]);
+
+    useEffect(() => {
+        if (itemChecked === true) {
+            console.log('전체 데이터 : ', cartItem);
+            const targetData = cartItem.find(
+                (element) => element.product_id === product_id,
+            );
+            console.log('타겟 데이터 : ', targetData);
+
+            // setCheckedCartItem((prev) => {
+            //     [...prev];
+            // });
+        }
+    }, [itemChecked]);
 
     return (
         <Wrapper>
-            <Radio checked={bChecked} onChange={(e) => checkHandler(e)}/>
+            <Radio checked={itemChecked} onChange={(e) => checkHandler(e)} />
             <ProductInfo>
                 <Figure style={{ backgroundImage: `url(${data.image})` }}>
                     <Image />

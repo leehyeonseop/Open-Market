@@ -1,9 +1,14 @@
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
+import { useRecoilState } from 'recoil';
+import { cartItemState } from '../atom';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
 import { getUser } from '../localStorage';
+import { getProductDetail } from './useProductDetail';
 
-export const useCart = () => {
+export const useCart = (isChecked?: boolean) => {
+    const queryClient = useQueryClient();
     const user = getUser();
+    const [cartItem, setCartItem] = useRecoilState(cartItemState);
 
     const getCartItems = async () => {
         if (!user) return null;
@@ -14,24 +19,59 @@ export const useCart = () => {
         return data.results;
     };
 
-    const cartItemDetail = async (cart_item_id: number) => {
-        if (!user || user.user_type !== 'BUYER') return null;
-        const { data: itemDetail } = await axiosInstance.get(
-            `cart/${cart_item_id}/`,
-            {
-                headers: getJWTHeader(user),
-            },
-        );
+    const deleteCartItem = (product_id: number) => {
+        setCartItem((prev) => {
+            return prev.filter((element) => element.product_id !== product_id);
+        });
+    };
 
-        return itemDetail;
+    const addCartItem = (product_id: number) => {
+        const cachedItem = queryClient.getQueryData(['product', product_id]);
+
+        console.log('이전데이터를 불러옵니다 : ', cachedItem);
+
+        // setCartItem((prev) => {
+        //     const newArr = [...prev, cartItemDetail];
+        //     const filteredArr = newArr.filter(
+        //         (element, index, array) =>
+        //             index ===
+        //             array.findIndex(
+        //                 (t) => t.product_id === element.product_id,
+        //             ),
+        //     );
+        //     return filteredArr;
+        // });
     };
 
     const { data: cartItems = [] } = useQuery(
         ['cartItem', user.id],
         getCartItems,
+        {
+            onSuccess(data) {
+                data.forEach(async (element: any) => {
+                    const cartItemDetail = await getProductDetail(
+                        element.product_id,
+                    );
+                    cartItemDetail.quantity = element.quantity;
+
+                    // setCartItem을 바깥으로 (렌더링 반복문때문에 너무 많이됨)
+
+                    setCartItem((prev) => {
+                        const newArr = [...prev, cartItemDetail];
+                        const filteredArr = newArr.filter(
+                            (element, index, array) =>
+                                index ===
+                                array.findIndex(
+                                    (t) => t.product_id === element.product_id,
+                                ),
+                        );
+
+                        return filteredArr;
+                    });
+                });
+            },
+        },
     );
 
-    // const {data} = useQuery(['itemDetail'], () => cartItemDetail())
-
-    return { cartItems };
+    return { cartItems, deleteCartItem, addCartItem };
 };

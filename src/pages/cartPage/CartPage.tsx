@@ -15,26 +15,14 @@ import {
     CartItemList,
 } from './CartPage.style';
 
-import { CartItem2 } from '../../types'
-
 function CartPage() {
     const { cartItems } = useCart();
 
-    const [checkedItems, setCheckedItems] = useState<CartItem2[]>([])
+    const [isAllChecked, setIsAllChecked] = useState(true);
 
-    const handleCheckItems = (data : CartItem2, isChecked : boolean) => {
-        if(isChecked) {
-            setCheckedItems((prev) => [...prev, data])
-        } else {
-            setCheckedItems(checkedItems.filter((element) => element !== data))
-        }
-    }
-
-    useEffect(() => {
-        console.log('체크된 아이템들 : ', checkedItems)
-    },[checkedItems])
-
-
+    const handleAllChange = () => {
+        setIsAllChecked((prev) => !prev);
+    };
 
     return (
         <>
@@ -42,7 +30,7 @@ function CartPage() {
             <Main>
                 <H2>장바구니</H2>
                 <CartHeader>
-                    <Radio checked/>
+                    <Radio checked={isAllChecked} onChange={handleAllChange} />
                     <ProductInfo>상품정보</ProductInfo>
                     <Amount>수량</Amount>
                     <ProductPrice>상품금액</ProductPrice>
@@ -51,7 +39,6 @@ function CartPage() {
                     {cartItems.map((item: Item) => {
                         return (
                             <CartItem
-                            handleCheckItems={handleCheckItems}
                                 key={item.product_id}
                                 product_id={item.product_id}
                                 quantity={item.quantity}

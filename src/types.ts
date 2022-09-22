@@ -37,5 +37,5 @@ export interface CartItem2 {
     shipping_fee: number;
     stock: number;
     product_info: string;
+    quantity: number;
 }
-
