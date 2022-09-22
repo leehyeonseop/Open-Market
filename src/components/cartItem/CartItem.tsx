@@ -20,7 +20,7 @@ import {
 } from './CartItem.style';
 
 function CartItem(props: any) {
-    const { product_id, quantity, checkedItemHandler } = props;
+    const { product_id, quantity, handleCheckItems } = props;
 
     const [amount, setAmount] = useState(quantity);
     const { data } = useProductDetail(product_id, quantity);
@@ -29,9 +29,10 @@ function CartItem(props: any) {
 
     const [bChecked, setChecked] = useState(false)
 
-    const checkHandler = ({target} : any) => {
+    const checkHandler = (event : React.ChangeEvent<HTMLInputElement>) => {
+        const target = event.target
         setChecked(!bChecked);
-        checkedItemHandler(data, target.checked)
+        handleCheckItems(data, target.checked)
 
     }
 

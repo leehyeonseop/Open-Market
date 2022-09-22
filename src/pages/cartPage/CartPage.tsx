@@ -15,19 +15,18 @@ import {
     CartItemList,
 } from './CartPage.style';
 
+import { CartItem2 } from '../../types'
+
 function CartPage() {
     const { cartItems } = useCart();
-    const cartItemList = useRef<HTMLUListElement>(null)
 
-    const [checkedItems, setCheckedItems] = useState(new Set())
+    const [checkedItems, setCheckedItems] = useState<CartItem2[]>([])
 
-    const checkedItemHandler = (data : any, isChecked : any) => {
-        if (isChecked) {
-            checkedItems.add(data);
-            setCheckedItems(checkedItems)
-        } else if (!isChecked && checkedItems.has(data)) {
-            checkedItems.delete(data);
-            setCheckedItems(checkedItems)
+    const handleCheckItems = (data : CartItem2, isChecked : boolean) => {
+        if(isChecked) {
+            setCheckedItems((prev) => [...prev, data])
+        } else {
+            setCheckedItems(checkedItems.filter((element) => element !== data))
         }
     }
 
@@ -43,22 +42,16 @@ function CartPage() {
             <Main>
                 <H2>장바구니</H2>
                 <CartHeader>
-                    {/* <Radio onChange={(e) => {
-                        const checkBoxList = cartItemList.current?.getElementsByTagName('input')
-                        Array.prototype.forEach.call(checkBoxList, (checkBox) => {
-                            e.target.checked ? checkBox.checked = true : checkBox.checked = false
-                        })
-                    }}/> */}
-                    <Radio />
+                    <Radio checked/>
                     <ProductInfo>상품정보</ProductInfo>
                     <Amount>수량</Amount>
                     <ProductPrice>상품금액</ProductPrice>
                 </CartHeader>
-                <CartItemList ref={cartItemList}>
+                <CartItemList>
                     {cartItems.map((item: Item) => {
                         return (
                             <CartItem
-                                checkedItemHandler={checkedItemHandler}
+                            handleCheckItems={handleCheckItems}
                                 key={item.product_id}
                                 product_id={item.product_id}
                                 quantity={item.quantity}
