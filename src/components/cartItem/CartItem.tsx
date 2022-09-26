@@ -27,7 +27,6 @@ function CartItem(props: any) {
 
     const [amount, setAmount] = useState(quantity);
     const { data } = useProductDetail(product_id, quantity);
-    const { deleteCartItem, addCartItem } = useCart();
 
     const [cartItem, setCartItem] = useRecoilState(cartItemState);
     const [checkedCartItem, setCheckedCartItem] =
@@ -42,35 +41,6 @@ function CartItem(props: any) {
         setChecked(!itemChecked);
     };
 
-    useEffect(() => {
-        if (itemChecked === false) {
-            console.log('체크해제');
-            deleteCartItem(product_id);
-        }
-
-        if (itemChecked === true) {
-            // console.log('처음에는 이거 실행되겠죠?');
-            addCartItem(product_id);
-        }
-    }, [itemChecked]);
-
-    useEffect(() => {
-        // console.log('삭제하고 난후 아이템 : ', cartItem);
-    }, [cartItem]);
-
-    useEffect(() => {
-        if (itemChecked === true) {
-            console.log('전체 데이터 : ', cartItem);
-            const targetData = cartItem.find(
-                (element) => element.product_id === product_id,
-            );
-            console.log('타겟 데이터 : ', targetData);
-
-            // setCheckedCartItem((prev) => {
-            //     [...prev];
-            // });
-        }
-    }, [itemChecked]);
 
     return (
         <Wrapper>

@@ -19,59 +19,42 @@ export const useCart = (isChecked?: boolean) => {
         return data.results;
     };
 
-    const deleteCartItem = (product_id: number) => {
-        setCartItem((prev) => {
-            return prev.filter((element) => element.product_id !== product_id);
-        });
-    };
-
-    const addCartItem = (product_id: number) => {
-        const cachedItem = queryClient.getQueryData(['product', product_id]);
-
-        console.log('이전데이터를 불러옵니다 : ', cachedItem);
-
-        // setCartItem((prev) => {
-        //     const newArr = [...prev, cartItemDetail];
-        //     const filteredArr = newArr.filter(
-        //         (element, index, array) =>
-        //             index ===
-        //             array.findIndex(
-        //                 (t) => t.product_id === element.product_id,
-        //             ),
-        //     );
-        //     return filteredArr;
-        // });
-    };
-
     const { data: cartItems = [] } = useQuery(
         ['cartItem', user.id],
         getCartItems,
         {
             onSuccess(data) {
-                data.forEach(async (element: any) => {
-                    const cartItemDetail = await getProductDetail(
-                        element.product_id,
-                    );
-                    cartItemDetail.quantity = element.quantity;
+                // data.forEach(async (element: any) => {
+                //     const cartItemDetail = await getProductDetail(
+                //         element.product_id,
+                //     );
+                //     cartItemDetail.quantity = element.quantity;
 
-                    // setCartItem을 바깥으로 (렌더링 반복문때문에 너무 많이됨)
+                //     // setCartItem을 바깥으로 (렌더링 반복문때문에 너무 많이됨)
 
-                    setCartItem((prev) => {
-                        const newArr = [...prev, cartItemDetail];
-                        const filteredArr = newArr.filter(
-                            (element, index, array) =>
-                                index ===
-                                array.findIndex(
-                                    (t) => t.product_id === element.product_id,
-                                ),
-                        );
+                //     setCartItem((prev) => {
+                //         const newArr = [...prev, cartItemDetail];
+                //         const filteredArr = newArr.filter(
+                //             (element, index, array) =>
+                //                 index ===
+                //                 array.findIndex(
+                //                     (t) => t.product_id === element.product_id,
+                //                 ),
+                //         );
 
-                        return filteredArr;
-                    });
-                });
+                //         return filteredArr;
+                //     });
+                // });
+
+                const cartItemDetailArray = [];
+
+                (async function() {
+
+                })()
+
             },
         },
     );
 
-    return { cartItems, deleteCartItem, addCartItem };
+    return { cartItems };
 };
