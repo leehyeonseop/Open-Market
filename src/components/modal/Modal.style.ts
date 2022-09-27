@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ReactComponent as Close } from '../../assets/icons/icon-delete.svg';
 
 export const ModalWrapper = styled.div`
     position: fixed;
@@ -14,7 +15,7 @@ export const ModalWrapper = styled.div`
 
 export const ModalContent = styled.div`
     width: 360px;
-    height: 200px;
+    /* height: 200px; */
     border: 1px solid #c4c4c4;
     box-sizing: border-box;
     padding: 43px 74px 39px;
@@ -23,6 +24,7 @@ export const ModalContent = styled.div`
     justify-content: center;
     background-color: white;
     z-index: 1000;
+    position: relative;
 `;
 
 export const Button = styled.button`
@@ -39,7 +41,7 @@ export const Button = styled.button`
     text-align: center;
     background-color: white;
     margin-right: 10px;
-    margin-top: auto;
+    margin-top: 26px;
     cursor: pointer;
 `;
 
@@ -47,4 +49,11 @@ export const PositiveButton = styled(Button)`
     background: #21bf48;
     color: white;
     margin-right: 0;
+`;
+
+export const CloseButton = styled(Close)`
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    cursor: pointer;
 `;

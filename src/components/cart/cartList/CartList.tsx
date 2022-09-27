@@ -26,16 +26,7 @@ const CartList = (props: any) => {
             </CartItemList>
             {modalOpen && (
                 <ModalPortal>
-                    <Modal
-                    // CenterComponent={
-                    //     <AmountControl
-                    //         width={71.42857142857143}
-                    //         stock={30}
-                    //         amount={amount}
-                    //         setAmount={setAmount}
-                    //     />
-                    // }
-                    />
+                    <Modal />
                 </ModalPortal>
             )}
         </>

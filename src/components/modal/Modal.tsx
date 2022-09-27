@@ -1,5 +1,8 @@
+import { getUser } from '../../localStorage/index';
+import { axiosInstance } from '../../axiosInstance/index';
 import {
     Button,
+    CloseButton,
     ModalContent,
     ModalWrapper,
     PositiveButton,
@@ -7,21 +10,31 @@ import {
 import AmountControl from '../button/AmountControl';
 
 const Modal = (props: any) => {
-    const { amount, setAmount, CenterComponent } = props;
+    const { amount, setAmount, setModalOpen, stock } = props;
+
+    const user = getUser();
+
+    const cartItemModify = () => {
+        if (!user) return;
+        // const { data } = axiosInstance.put('products/');
+    };
 
     return (
         <ModalWrapper>
             <ModalContent>
-                {/* {CenterComponent} */}
                 <AmountControl
                     width={71.42857142857143}
-                    stock={30}
+                    stock={stock}
                     amount={amount}
                     setAmount={setAmount}
                 />
-                {/* <strong>상품을 삭제하시겠습니까?</strong> */}
-                <Button>취소</Button>
-                <PositiveButton>수정</PositiveButton>
+                <Button type="button" onClick={() => setModalOpen(false)}>
+                    취소
+                </Button>
+                <PositiveButton type="button" onClick={cartItemModify}>
+                    수정
+                </PositiveButton>
+                <CloseButton onClick={() => setModalOpen(false)} />
             </ModalContent>
         </ModalWrapper>
     );

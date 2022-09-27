@@ -1,7 +1,9 @@
 import { useState, ForwardedRef, forwardRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { cartItemState } from '../../../atom';
+import ModalPortal from '../../../modalPortal';
 import AmountControl from '../../button/AmountControl';
+import Modal from '../../modal/Modal';
 import {
     Amount,
     Checkbox,
@@ -21,9 +23,10 @@ import {
 } from './CartItem.style';
 
 function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
-    const { product_id, quantity, setModalOpen } = props;
+    const { product_id, quantity } = props;
 
     const [amount, setAmount] = useState(quantity);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const cartItem = useRecoilValue(cartItemState);
 
@@ -78,9 +81,23 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
                             )}
                             원
                         </TotalPrice>
-                        <OrderButton text="주문하기" padding={10}></OrderButton>
+                        <OrderButton
+                            type="button"
+                            text="주문하기"
+                            padding={10}
+                        ></OrderButton>
                     </ProductPrice>
                     <DeleteButton />
+                    {modalOpen && (
+                        <ModalPortal>
+                            <Modal
+                                amount={amount}
+                                stock={cartItemData.stock}
+                                setAmount={setAmount}
+                                setModalOpen={setModalOpen}
+                            />
+                        </ModalPortal>
+                    )}
                 </Wrapper>
             )}
         </>
