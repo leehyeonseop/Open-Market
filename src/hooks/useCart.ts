@@ -3,7 +3,8 @@ import { useRecoilState } from 'recoil';
 import { cartItemState } from '../atom';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
 import { getUser } from '../localStorage';
-import { getProductDetail } from './useProductDetail';
+import { CartItem } from '../types';
+import { getProductDetail, useProductDetail } from './useProductDetail';
 
 export const useCart = (isChecked?: boolean) => {
     const queryClient = useQueryClient();
@@ -46,12 +47,19 @@ export const useCart = (isChecked?: boolean) => {
                 //     });
                 // });
 
-                const cartItemDetailArray = [];
+                const cartItemDetailArray: CartItem[] = [];
 
-                (async function() {
-
-                })()
-
+                (async function () {
+                    for (let i of data) {
+                        const productDetail = await getProductDetail(
+                            i.product_id,
+                        );
+                        const cartItemDetail = Object.assign({}, productDetail);
+                        cartItemDetail.quantity = i.quantity;
+                        cartItemDetailArray.push(cartItemDetail);
+                    }
+                    setCartItem(cartItemDetailArray);
+                })();
             },
         },
     );

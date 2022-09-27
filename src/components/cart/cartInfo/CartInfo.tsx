@@ -1,12 +1,12 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartItemState, checkedCartItemState } from '../../atom';
+import { cartItemState, checkedCartItemState } from '../../../atom';
 import { CartInfoSection, Payment, Wrapper } from './CartInfo.style';
 
 function CartInfo() {
     const cartItem = useRecoilValue(cartItemState);
     const [checkedCartItem, setCheckedCartItem] =
         useRecoilState(checkedCartItemState);
-    // console.log('인포페이지에서 : ', cartItem);
+    console.log('인포페이지에서 : ', cartItem);
 
     let totalPrice = 0;
     let shippingFee = 0;

@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import plus from '../../assets/icons/icon-plus-line.svg';
-import minus from '../../assets/icons/icon-minus-line.svg';
+import styled from 'styled-components';
+import plus from '../../../assets/icons/icon-plus-line.svg';
+import minus from '../../../assets/icons/icon-minus-line.svg';
 
 export const Wrapper = styled.div`
     background: #f2f2f2;

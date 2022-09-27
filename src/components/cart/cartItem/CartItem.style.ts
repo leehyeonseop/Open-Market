@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import store from '../../assets/images/store.jpg';
-import Button from '../button/Button';
-import { ReactComponent as Delete } from '../../assets/icons/icon-delete.svg';
+import store from '../../../assets/images/store.jpg';
+import Button from '../../button/Button';
+import { ReactComponent as Delete } from '../../../assets/icons/icon-delete.svg';
 
 export const Wrapper = styled.li`
     padding: 1.40625% calc(7.8125% - 2px) 1.40625% calc(2.34375% - 2px);
@@ -13,7 +13,7 @@ export const Wrapper = styled.li`
     position: relative;
 `;
 
-export const Radio = styled.input.attrs(() => ({
+export const Checkbox = styled.input.attrs(() => ({
     type: 'checkbox',
 }))`
     margin: 0;

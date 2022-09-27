@@ -27,7 +27,7 @@ export const CartHeader = styled.div`
     margin-bottom: 35px;
 `;
 
-export const Radio = styled.input.attrs(() => ({
+export const Checkbox = styled.input.attrs(() => ({
     type: 'checkbox',
 }))`
     margin: 0;
