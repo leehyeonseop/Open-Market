@@ -1,8 +1,6 @@
-import { useEffect, useState, ForwardedRef, forwardRef } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartItemState, checkedCartItemState } from '../../../atom';
-import { useCart } from '../../../hooks/useCart';
-import { useProductDetail } from '../../../hooks/useProductDetail';
+import { useState, ForwardedRef, forwardRef } from 'react';
+import { useRecoilValue } from 'recoil';
+import { cartItemState } from '../../../atom';
 import AmountControl from '../../button/AmountControl';
 import {
     Amount,
@@ -23,13 +21,11 @@ import {
 } from './CartItem.style';
 
 function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
-    const { product_id, quantity } = props;
+    const { product_id, quantity, setModalOpen } = props;
 
     const [amount, setAmount] = useState(quantity);
 
-    const [cartItem, setCartItem] = useRecoilState(cartItemState);
-    const [checkedCartItem, setCheckedCartItem] =
-        useRecoilState(checkedCartItemState);
+    const cartItem = useRecoilValue(cartItemState);
 
     const cartItemData = cartItem.find(
         (element) => element.product_id === product_id,
@@ -70,6 +66,9 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
                             stock={cartItemData.stock}
                             amount={amount}
                             setAmount={setAmount}
+                            onClick={() => {
+                                setModalOpen((prev: any) => !prev);
+                            }}
                         />
                     </Amount>
                     <ProductPrice>

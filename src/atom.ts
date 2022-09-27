@@ -1,13 +1,13 @@
 import { atom } from 'recoil';
 
-import { CartItem } from './types';
+import { ICartItemDetail } from './types';
 
 export const cartItemState = atom({
     key: 'cartItem',
-    default: [] as CartItem[],
+    default: [] as ICartItemDetail[],
 });
 
 export const checkedCartItemState = atom({
     key: 'checkedCartItem',
-    default: [] as CartItem[],
+    default: [] as ICartItemDetail[],
 });

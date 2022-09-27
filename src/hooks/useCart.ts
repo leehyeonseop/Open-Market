@@ -1,9 +1,9 @@
+import { ICartItemDetail } from './../types';
 import { useQuery, useQueryClient } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { cartItemState } from '../atom';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
 import { getUser } from '../localStorage';
-import { CartItem } from '../types';
 import { getProductDetail, useProductDetail } from './useProductDetail';
 
 export const useCart = (isChecked?: boolean) => {
@@ -47,7 +47,7 @@ export const useCart = (isChecked?: boolean) => {
                 //     });
                 // });
 
-                const cartItemDetailArray: CartItem[] = [];
+                const cartItemDetailArray: ICartItemDetail[] = [];
 
                 (async function () {
                     for (let i of data) {

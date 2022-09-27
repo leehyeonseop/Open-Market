@@ -12,7 +12,7 @@ export interface ICartItemData {
     quantity: number;
 }
 
-export interface CartItem {
+export interface ICartItemDetail {
     product_id: number;
     product_name: string;
     seller: number;

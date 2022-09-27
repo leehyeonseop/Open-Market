@@ -1,17 +1,14 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartItemState, checkedCartItemState } from '../../../atom';
+import { useRecoilValue } from 'recoil';
+import { checkedCartItemState } from '../../../atom';
 import { CartInfoSection, Payment, Wrapper } from './CartInfo.style';
 
 function CartInfo() {
-    const cartItem = useRecoilValue(cartItemState);
-    const [checkedCartItem, setCheckedCartItem] =
-        useRecoilState(checkedCartItemState);
-    console.log('인포페이지에서 : ', cartItem);
+    const checkedCartItems = useRecoilValue(checkedCartItemState);
 
     let totalPrice = 0;
     let shippingFee = 0;
 
-    cartItem.forEach((element) => {
+    checkedCartItems.forEach((element) => {
         shippingFee += element.shipping_fee;
         totalPrice += element.price * element.quantity;
     });

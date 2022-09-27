@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState, createRef, SyntheticEvent } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { checkedCartItemState, cartItemState } from '../../atom';
 import CartInfo from '../../components/cart/cartInfo/CartInfo';
 import CartList from '../../components/cart/cartList/CartList';
 import Header from '../../components/header/Header';
 import { useCart } from '../../hooks/useCart';
-import { ICartItemData } from '../../types';
+import { ICartItemDetail, ICartItemData } from '../../types';
 import {
     CartHeader,
     H2,
@@ -17,11 +19,16 @@ import {
 function CartPage() {
     const { cartItems } = useCart();
 
+    const cartItem = useRecoilValue(cartItemState);
+    const setCheckedItems = useSetRecoilState(checkedCartItemState);
+
     const formRef = useRef<HTMLFormElement>(null);
     const checkAllRef = useRef<HTMLInputElement>(null);
     const checkboxRefs = (cartItems as ICartItemData[]).map(() =>
         createRef<HTMLInputElement>(),
     );
+
+    const [formData, setFormData] = useState<FormData>();
 
     const setAllCheckedFromItems = () => {
         if (!formRef.current) return;
@@ -49,13 +56,35 @@ function CartPage() {
         } else {
             setAllCheckedFromItems();
         }
+
+        const data = new FormData(formRef.current);
+        setFormData(data);
     };
 
+    // useEffect(() => {
+    //     if (checkboxRefs.length === 0) return;
+    //     checkAllRef.current!.checked = true;
+    //     setItemsCheckedFromAll();
+    // }, [checkboxRefs]);
+
     useEffect(() => {
-        if (checkboxRefs.length === 0) return;
-        checkAllRef.current!.checked = true;
-        setItemsCheckedFromAll();
-    }, [checkboxRefs]);
+        const checkedItems = checkboxRefs.reduce<ICartItemDetail[]>(
+            (res, ref, i) => {
+                if (ref.current && ref.current.checked) {
+                    const targetDetail = cartItem.find(
+                        (element) =>
+                            element.product_id === cartItems[i].product_id,
+                    );
+                    targetDetail && res.push(targetDetail);
+                }
+
+                return res;
+            },
+            [],
+        );
+
+        setCheckedItems(checkedItems);
+    }, [cartItems, formData]);
 
     return (
         <>

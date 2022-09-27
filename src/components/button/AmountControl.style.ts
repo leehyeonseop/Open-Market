@@ -7,6 +7,8 @@ interface AmountControlProps {
 export const Wrapper = styled.div`
     width: ${(props: AmountControlProps) => props.width}%;
     height: ${(props: AmountControlProps) => props.width / 3}%;
+    /* width: 150px;
+    height: 50px; */
     background-color: white;
     border: 1px solid #c4c4c4;
     border-radius: 5px;
