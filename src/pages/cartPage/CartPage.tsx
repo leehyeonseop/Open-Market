@@ -14,12 +14,12 @@ import {
     ProductPrice,
     Amount,
     Checkbox,
+    Strong,
+    Span,
 } from './CartPage.style';
 
 function CartPage() {
     const { cartItems } = useCart();
-
-    console.log('cartItems : ', cartItems);
 
     const cartItem = useRecoilValue(cartItemState);
     const setCheckedItems = useSetRecoilState(checkedCartItemState);
@@ -100,11 +100,20 @@ function CartPage() {
                         <Amount>수량</Amount>
                         <ProductPrice>상품금액</ProductPrice>
                     </CartHeader>
-                    <CartList
-                        cartItems={cartItems}
-                        checkboxRefs={checkboxRefs}
-                    />
-                    <CartInfo />
+                    {cartItems.length === 0 ? (
+                        <>
+                            <Strong>장바구니에 담긴 상품이 없습니다.</Strong>
+                            <Span>원하는 상품을 장바구니에 담아보세요!</Span>
+                        </>
+                    ) : (
+                        <>
+                            <CartList
+                                cartItems={cartItems}
+                                checkboxRefs={checkboxRefs}
+                            />
+                            <CartInfo />
+                        </>
+                    )}
                 </form>
             </Main>
         </>

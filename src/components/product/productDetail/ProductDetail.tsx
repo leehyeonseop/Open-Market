@@ -26,8 +26,9 @@ import {
 } from './ProductDetail.style';
 
 import { useState } from 'react';
-import { usePutCart } from '../../../hooks/usePutCart';
 import { ICartItem } from '../../../types';
+import { useCart } from '../../../hooks/useCart';
+import { usePutCart } from '../../../hooks/usePutCart';
 
 function ProductDetail(props: any) {
     const { productID } = props;
@@ -35,12 +36,13 @@ function ProductDetail(props: any) {
 
     const [amount, setAmount] = useState(1);
 
-    const putCartItem = usePutCart();
+    const { cartItems } = useCart();
+    const { putCartItem, checkInCart } = usePutCart();
 
     const cartItemInfo: ICartItem = {
         quantity: amount,
         product_id: productID,
-        check: false,
+        check: checkInCart(productID, cartItems),
     };
 
     return (
@@ -84,8 +86,9 @@ function ProductDetail(props: any) {
                         type="button"
                         text="장바구니"
                         onClick={() => {
-                            console.log('cartItemInfo : ', cartItemInfo);
-                            putCartItem(cartItemInfo);
+                            checkInCart(productID, cartItems)
+                                ? putCartItem(cartItemInfo)
+                                : alert('이미잇어요');
                         }}
                     />
                 </ButtonWrapper>

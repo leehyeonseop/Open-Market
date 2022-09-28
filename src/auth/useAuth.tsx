@@ -116,6 +116,7 @@ export const useAuth = () => {
                 await axiosInstance.post('accounts/signup/valid/', {
                     username: getValues('id'),
                 });
+            console.log('data : ', data);
             setIdChecked(true);
             setSuccessMessage(data.Success);
         } catch (error) {

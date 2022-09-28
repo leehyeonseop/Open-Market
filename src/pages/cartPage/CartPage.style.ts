@@ -152,3 +152,23 @@ export const Payment = styled(CartInfoSection)`
         line-height: 1.438rem;
     }
 `;
+
+export const Strong = styled.strong`
+    display: block;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+    color: black;
+    text-align: center;
+    margin-top: 200px;
+`;
+
+export const Span = styled.span`
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #767676;
+    text-align: center;
+    margin-top: 17px;
+`;

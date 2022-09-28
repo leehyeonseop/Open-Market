@@ -1,13 +1,12 @@
-import { User, ICartItem } from './../types';
+import { User, ICartItem, ICartItemData } from './../types';
 import { getJWTHeader } from './../axiosInstance/index';
 import { axiosInstance } from '../axiosInstance';
 import { getUser } from '../localStorage';
-import { useMutation } from 'react-query';
-import { useCart } from './useCart';
+import { useMutation, useQueryClient } from 'react-query';
 
 const putCart = async (
     user: User,
-    product_id: number,
+    product_id: string,
     quantity: number,
     check: boolean,
 ) => {
@@ -17,32 +16,37 @@ const putCart = async (
         quantity: quantity,
         check: check,
     };
-    const a = await axiosInstance.post('cart/', cartData, {
+    await axiosInstance.post('cart/', cartData, {
         headers: getJWTHeader(user),
     });
-    console.log('담아졋냐 ? : ', a);
 };
 
 export const usePutCart = () => {
     const user = getUser();
-    const cartItems = useCart();
-    console.log('cartItems : ', cartItems.cartItems);
-    const { mutate } = useMutation(
-        (cartItem: ICartItem) => {
-            // const check = cartItems.find((item) => item.)
-            return putCart(
+    const queryClient = useQueryClient();
+
+    const checkInCart = (product_id: string, cartItems: ICartItemData[]) => {
+        const inCartItem = cartItems.find(
+            (item: ICartItemData) => item.product_id === parseInt(product_id),
+        );
+
+        return inCartItem === undefined ? true : false;
+    };
+
+    const { mutate: putCartItem } = useMutation(
+        (cartItem: ICartItem) =>
+            putCart(
                 user,
                 cartItem.product_id,
                 cartItem.quantity,
                 cartItem.check,
-            );
-        },
+            ),
         {
             onSuccess: () => {
-                console.log('성공~');
+                queryClient.invalidateQueries(['cartItem']);
             },
         },
     );
 
-    return mutate;
+    return { putCartItem, checkInCart };
 };

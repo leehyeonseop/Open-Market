@@ -5,7 +5,7 @@ export interface User {
 }
 
 export interface ICartItem {
-    product_id: number;
+    product_id: string;
     quantity: number;
     check: boolean;
 }
