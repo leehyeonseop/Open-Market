@@ -1,6 +1,7 @@
 import { useState, ForwardedRef, forwardRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { cartItemState } from '../../../atom';
+import { useCartDelete } from '../../../hooks/useCartDelete';
 import ModalPortal from '../../../modalPortal';
 import AmountControl from '../../button/AmountControl';
 import Modal from '../../modal/Modal';
@@ -23,7 +24,7 @@ import {
 } from './CartItem.style';
 
 function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
-    const { product_id, quantity } = props;
+    const { product_id, quantity, cart_item_id, is_active } = props;
 
     const [amount, setAmount] = useState(quantity);
     const [modalOpen, setModalOpen] = useState(false);
@@ -33,6 +34,8 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
     const cartItemData = cartItem.find(
         (element) => element.product_id === product_id,
     );
+
+    const deleteItem = useCartDelete();
 
     return (
         <>
@@ -87,14 +90,18 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
                             padding={10}
                         ></OrderButton>
                     </ProductPrice>
-                    <DeleteButton />
+                    <DeleteButton onClick={() => deleteItem(cart_item_id)} />
                     {modalOpen && (
                         <ModalPortal>
                             <Modal
-                                amount={amount}
-                                stock={cartItemData.stock}
-                                setAmount={setAmount}
                                 setModalOpen={setModalOpen}
+                                amount={amount}
+                                setAmount={setAmount}
+                                stock={cartItemData.stock}
+                                quantity={quantity}
+                                cart_item_id={cart_item_id}
+                                is_active={is_active}
+                                product_id={product_id}
                             />
                         </ModalPortal>
                     )}

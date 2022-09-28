@@ -26,12 +26,22 @@ import {
 } from './ProductDetail.style';
 
 import { useState } from 'react';
+import { usePutCart } from '../../../hooks/usePutCart';
+import { ICartItem } from '../../../types';
 
 function ProductDetail(props: any) {
     const { productID } = props;
     const { data } = useProductDetail(productID);
 
     const [amount, setAmount] = useState(1);
+
+    const putCartItem = usePutCart();
+
+    const cartItemInfo: ICartItem = {
+        quantity: amount,
+        product_id: productID,
+        check: false,
+    };
 
     return (
         <Wrapper>
@@ -70,7 +80,14 @@ function ProductDetail(props: any) {
                 </TotalWrapper>
                 <ButtonWrapper>
                     <BuyButton text="바로 구매" />
-                    <CartButton text="장바구니" />
+                    <CartButton
+                        type="button"
+                        text="장바구니"
+                        onClick={() => {
+                            console.log('cartItemInfo : ', cartItemInfo);
+                            putCartItem(cartItemInfo);
+                        }}
+                    />
                 </ButtonWrapper>
             </Description>
         </Wrapper>

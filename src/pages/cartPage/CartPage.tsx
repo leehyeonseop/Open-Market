@@ -19,6 +19,8 @@ import {
 function CartPage() {
     const { cartItems } = useCart();
 
+    console.log('cartItems : ', cartItems);
+
     const cartItem = useRecoilValue(cartItemState);
     const setCheckedItems = useSetRecoilState(checkedCartItemState);
 

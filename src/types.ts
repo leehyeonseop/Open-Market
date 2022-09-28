@@ -4,6 +4,12 @@ export interface User {
     user_type: string;
 }
 
+export interface ICartItem {
+    product_id: number;
+    quantity: number;
+    check: boolean;
+}
+
 export interface ICartItemData {
     cart_item_id: number;
     is_active: boolean;
