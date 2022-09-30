@@ -1,6 +1,8 @@
 import Header from '../../components/header/Header';
 import DeliveryInfo from '../../components/payment/deliveryInfo/DeliverInfo';
+import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
 import PaymentItem from '../../components/payment/paymentItem/PaymentItem';
+import PaymentMethod from '../../components/payment/paymentMethod/PaymentMethod';
 import {
     Div,
     H2,
@@ -11,6 +13,8 @@ import {
     Total,
     Span,
     TotalPrice,
+    Wrapper,
+    StyledPaymentMethod,
 } from './PaymentPage.style';
 
 const PaymentPage = () => {
@@ -33,6 +37,11 @@ const PaymentPage = () => {
                     </Total>
                 </PaymentInfo>
                 <DeliveryInfo />
+                <Wrapper>
+                    {/* <PaymentMethod /> */}
+                    <StyledPaymentMethod />
+                    <FinalPayment />
+                </Wrapper>
             </Main>
         </>
     );

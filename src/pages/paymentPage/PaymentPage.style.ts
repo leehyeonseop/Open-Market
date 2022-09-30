@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
+import PaymentMethod from '../../components/payment/paymentMethod/PaymentMethod';
 
 export const Main = styled.main`
     padding: 54px 16.66666666666667% 358px;
@@ -55,4 +57,18 @@ export const TotalPrice = styled.strong`
     font-size: 1.5rem;
     line-height: 1.875rem;
     color: #eb5757;
+`;
+
+export const Wrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 70px;
+`;
+
+export const StyledPaymentMethod = styled(PaymentMethod)`
+    width: 59.375%;
+`;
+
+export const StyledFinalPayment = styled(FinalPayment)`
+    width: 37.5%;
 `;

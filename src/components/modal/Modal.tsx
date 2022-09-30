@@ -33,19 +33,28 @@ const Modal = (props: any) => {
         if (!user) return;
         const modifyData = {
             product_id: product_id,
-            quantity: quantity,
+            quantity: amount,
             is_active: is_active,
         };
         console.log('modifyData : ', modifyData);
+        // const { data } = await axiosInstance.put(
+        //     `cart/${cart_item_id}/`,
+        //     {
+        //         // data: {
+        //         //     product_id: product_id,
+        //         //     quantity: quantity,
+        //         //     is_active: is_active,
+        //         // },
+        //         data: modifyData,
+        //     },
+        //     {
+        //         headers: getJWTHeader(user),
+        //     },
+        // );
+
         const { data } = await axiosInstance.put(
-            `cart/${cart_item_id}`,
-            {
-                data: {
-                    product_id: product_id,
-                    quantity: quantity,
-                    is_active: is_active,
-                },
-            },
+            `cart/${cart_item_id}/`,
+            modifyData,
             {
                 headers: getJWTHeader(user),
             },
