@@ -113,7 +113,7 @@ export const useAuth = () => {
     ) => {
         try {
             const { data }: AxiosResponse<{ Success: string }> =
-                await axiosInstance.post('accounts/signup/valid/', {
+                await axiosInstance.post('accounts/signup/valid/username/', {
                     username: getValues('id'),
                 });
             console.log('data : ', data);

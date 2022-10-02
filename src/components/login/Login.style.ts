@@ -7,6 +7,7 @@ import Button from '../button/Button';
 export const MainLogo = styled(Logo)`
     display: block;
     margin: 100px auto 70px auto;
+    cursor: pointer;
 `;
 
 export const Section = styled.section`

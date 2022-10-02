@@ -12,7 +12,8 @@ import {
 } from './FinalPayment.style';
 
 const FinalPayment = (props: any) => {
-    const { className } = props;
+    const { className, totalProductPrice, totalShippingFee, totalPrice } =
+        props;
 
     return (
         <Section className={className}>
@@ -22,25 +23,33 @@ const FinalPayment = (props: any) => {
                     <PriceWrapper>
                         <Dt>- 상품금액</Dt>
                         <Dd>
-                            <span>46,500</span>원
+                            <span>
+                                {totalProductPrice.toLocaleString('ko-KR')}
+                            </span>
+                            원
                         </Dd>
                     </PriceWrapper>
                     <PriceWrapper>
                         <Dt>- 할인금액</Dt>
                         <Dd>
-                            <span>46,500</span>원
+                            <span>0</span>원
                         </Dd>
                     </PriceWrapper>
                     <PriceWrapper>
                         <Dt>- 배송비</Dt>
                         <Dd>
-                            <span>46,500</span>원
+                            <span>
+                                {totalShippingFee.toLocaleString('ko-KR')}
+                            </span>
+                            원
                         </Dd>
                     </PriceWrapper>
                     <PriceWrapper>
                         <Dt>- 결제금액</Dt>
                         <Dd>
-                            <strong>46,500원</strong>
+                            <strong>
+                                {totalPrice.toLocaleString('ko-KR')}원
+                            </strong>
                         </Dd>
                     </PriceWrapper>
                 </PriceList>

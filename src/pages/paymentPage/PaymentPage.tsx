@@ -1,8 +1,9 @@
+import { useRecoilValue } from 'recoil';
+import { cartItemState, checkedCartItemState } from '../../atom';
 import Header from '../../components/header/Header';
 import DeliveryInfo from '../../components/payment/deliveryInfo/DeliverInfo';
 import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
 import PaymentItem from '../../components/payment/paymentItem/PaymentItem';
-import PaymentMethod from '../../components/payment/paymentMethod/PaymentMethod';
 import {
     Div,
     H2,
@@ -18,6 +19,18 @@ import {
 } from './PaymentPage.style';
 
 const PaymentPage = () => {
+    const checkedItems = useRecoilValue(checkedCartItemState);
+
+    let totalProductPrice = 0;
+    let totalShippingFee = 0;
+
+    checkedItems.forEach((item) => {
+        totalProductPrice += item.price * item.quantity;
+        totalShippingFee += item.shipping_fee;
+    });
+
+    let totalPrice = totalProductPrice + totalShippingFee;
+
     return (
         <>
             <Header />
@@ -30,17 +43,26 @@ const PaymentPage = () => {
                         <Div>배송비</Div>
                         <Div>주문금액</Div>
                     </PaymentHeader>
-                    <PaymentItem />
+                    <ul>
+                        {checkedItems.map((item) => {
+                            return <PaymentItem item={item} />;
+                        })}
+                    </ul>
                     <Total>
                         <Span>총 주문금액</Span>
-                        <TotalPrice>17,500원</TotalPrice>
+                        <TotalPrice>
+                            {totalPrice.toLocaleString('ko-KR')}원
+                        </TotalPrice>
                     </Total>
                 </PaymentInfo>
                 <DeliveryInfo />
                 <Wrapper>
-                    {/* <PaymentMethod /> */}
                     <StyledPaymentMethod />
-                    <FinalPayment />
+                    <FinalPayment
+                        totalProductPrice={totalProductPrice}
+                        totalShippingFee={totalShippingFee}
+                        totalPrice={totalPrice}
+                    />
                 </Wrapper>
             </Main>
         </>

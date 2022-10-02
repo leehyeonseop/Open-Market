@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, createRef, SyntheticEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { checkedCartItemState, cartItemState } from '../../atom';
 import CartInfo from '../../components/cart/cartInfo/CartInfo';
@@ -16,6 +17,7 @@ import {
     Checkbox,
     Strong,
     Span,
+    OrderButton,
 } from './CartPage.style';
 
 function CartPage() {
@@ -32,10 +34,17 @@ function CartPage() {
 
     const [formData, setFormData] = useState<FormData>();
 
-    const setAllCheckedFromItems = () => {
+    const navigate = useNavigate();
+
+    const getSelectedCount = () => {
         if (!formRef.current) return;
         const formData = new FormData(formRef.current);
         const selectedCount = formData.getAll('check-item').length;
+        return selectedCount;
+    };
+
+    const setAllCheckedFromItems = () => {
+        const selectedCount = getSelectedCount();
         const allChecked = selectedCount === cartItems.length;
         checkAllRef.current!.checked = allChecked;
     };
@@ -88,12 +97,22 @@ function CartPage() {
         setCheckedItems(checkedItems);
     }, [cartItems, formData]);
 
+    const handleSubmit = (e: SyntheticEvent) => {
+        e.preventDefault();
+        const selectedCount = getSelectedCount();
+        selectedCount === 0 ? alert('선택해주세요!') : navigate('/payment');
+    };
+
     return (
         <>
             <Header />
             <Main>
                 <H2>장바구니</H2>
-                <form ref={formRef} onChange={handleCheckboxChanged}>
+                <form
+                    ref={formRef}
+                    onChange={handleCheckboxChanged}
+                    onSubmit={handleSubmit}
+                >
                     <CartHeader>
                         <Checkbox ref={checkAllRef} />
                         <ProductInfo>상품정보</ProductInfo>
@@ -114,6 +133,7 @@ function CartPage() {
                             <CartInfo />
                         </>
                     )}
+                    <OrderButton type="submit">주문하기</OrderButton>
                 </form>
             </Main>
         </>

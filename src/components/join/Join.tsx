@@ -35,10 +35,13 @@ import {
     Section,
 } from './Join.style';
 import { useAuth } from '../../auth/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 function Join() {
     const [pwChecked, setPwCheckded] = useState(false);
     const [joinValid, setJoinValid] = useState(false);
+
+    const navigate = useNavigate();
 
     const {
         register,
@@ -57,7 +60,11 @@ function Join() {
 
     return (
         <>
-            <StyledLogo width="238px" height="74px" />
+            <StyledLogo
+                width="238px"
+                height="74px"
+                onClick={() => navigate('/')}
+            />
             <Section>
                 <H2>구매회원가입</H2>
                 <H2>판매회원가입</H2>

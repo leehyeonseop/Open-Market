@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/useAuth';
 
 import {
@@ -18,6 +19,8 @@ import {
 function Login() {
     const [login_type, setLoginType] = useState('BUYER');
 
+    const navigate = useNavigate();
+
     const {
         register,
         formState: { errors },
@@ -33,7 +36,11 @@ function Login() {
 
     return (
         <>
-            <MainLogo width="238px" height="74px" />
+            <MainLogo
+                width="238px"
+                height="74px"
+                onClick={() => navigate('/')}
+            />
             <Section>
                 <nav>
                     <ul>

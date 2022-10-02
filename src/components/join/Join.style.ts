@@ -12,6 +12,7 @@ export const Section = styled.section`
 export const StyledLogo = styled(Logo)`
     display: block;
     margin: 70px auto;
+    cursor: pointer;
 `;
 
 export const H2 = styled.h2`

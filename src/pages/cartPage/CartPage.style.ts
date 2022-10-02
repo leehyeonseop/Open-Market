@@ -97,3 +97,18 @@ export const Span = styled.span`
     text-align: center;
     margin-top: 17px;
 `;
+
+export const OrderButton = styled.button`
+    display: block;
+    width: 17.1875%;
+    background-color: #21bf48;
+    border-radius: 5px;
+    padding: 19px 0;
+    margin: 40px auto 0 auto;
+    border: 0;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+    cursor: pointer;
+`;

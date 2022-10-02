@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import store from '../../../assets/images/store.jpg';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.li`
     padding: 8px 8px 17px;
     border-bottom: 1px solid #c4c4c4;
     display: flex;

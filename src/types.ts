@@ -31,3 +31,11 @@ export interface ICartItemDetail {
     product_info: string;
     quantity: number;
 }
+
+export interface IModifyData {
+    user: User;
+    cart_item_id: number;
+    product_id: number;
+    is_active: boolean;
+    amount: number;
+}
