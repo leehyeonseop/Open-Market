@@ -7,6 +7,7 @@ import Join from '../components/join/Join';
 import Login from '../components/login/Login';
 import CartPage from '../pages/cartPage/CartPage';
 import HomePage from '../pages/homePage/HomePage';
+import JoinCompletePage from '../pages/joinCompletePage/JoinCompletePage';
 import PaymentPage from '../pages/paymentPage/PaymentPage';
 import ProductDetailPage from '../pages/productDetailPage/ProductDetailPage';
 
@@ -23,6 +24,10 @@ function App() {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/join" element={<Join />} />
+                        <Route
+                            path="/joinComplete"
+                            element={<JoinCompletePage />}
+                        />
                         <Route
                             path="/product/:productID"
                             element={<ProductDetailPage />}

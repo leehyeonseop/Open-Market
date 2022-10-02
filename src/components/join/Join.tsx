@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import checkOff from '../../assets/icons/icon-check-off.svg';
@@ -49,14 +49,25 @@ function Join() {
         getValues,
         setError,
         formState: { errors, isValid },
-    } = useForm({ mode: 'onBlur' });
+    } = useForm({ mode: 'onChange' });
 
     const { join, idCheck, successMessage, idChecked, setIdChecked } =
         useAuth();
 
     const onSubmit = handleSubmit((data) => {
+        if (!idChecked) {
+            alert('아이디 중복체크를 해주세요!');
+            return;
+        }
         join(setError, data);
     });
+
+    const checkBoxRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (!checkBoxRef.current?.checked) return;
+        isValid ? setJoinValid(true) : setJoinValid(false);
+    }, [isValid]);
 
     return (
         <>
@@ -262,6 +273,7 @@ function Join() {
                             <CheckBox
                                 id="checkbox"
                                 type="checkbox"
+                                ref={checkBoxRef}
                                 onChange={(e) => {
                                     if (e.target.checked && isValid) {
                                         setJoinValid(true);
