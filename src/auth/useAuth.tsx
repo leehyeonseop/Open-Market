@@ -5,12 +5,20 @@ import {
     UseFormGetValues,
     UseFormSetError,
 } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../axiosInstance';
 import { setUser } from '../localStorage';
 
 export const useAuth = () => {
     const [idChecked, setIdChecked] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+
+    const [registrationNumberChecked, setRegistrationNumberChecked] =
+        useState(false);
+    const [registrationSuccessMessage, setRegistrationSuccessMessage] =
+        useState('');
+
+    const navigate = useNavigate();
 
     const login = async (
         setError: UseFormSetError<FieldValues>,
@@ -52,6 +60,8 @@ export const useAuth = () => {
         setError: UseFormSetError<FieldValues>,
         data: FieldValues,
     ) => {
+        console.log('가입할때 데이터 : ', data);
+
         const phone_number =
             data.startPhoneNum + data.centerPhoneNum + data.endPhoneNum;
 
@@ -69,7 +79,7 @@ export const useAuth = () => {
                 reqData,
             );
 
-            console.log('resData : ', resData);
+            if (resData) navigate('/joinComplete');
         } catch (error) {
             if (error instanceof AxiosError) {
                 if (error.response?.status === 400) {
@@ -131,13 +141,50 @@ export const useAuth = () => {
         }
     };
 
+    const registrationNumberVerify = async (
+        setError: UseFormSetError<FieldValues>,
+        getValues: UseFormGetValues<FieldValues>,
+    ) => {
+        try {
+            const { data } = await axiosInstance.post(
+                'accounts/signup/valid/company_registration_number/',
+                {
+                    company_registration_number: getValues(
+                        'company_registration_number',
+                    ),
+                },
+            );
+            if (data) {
+                setRegistrationNumberChecked(true);
+                // console.log(
+                //     'registrationNumberChecked : ',
+                //     registrationNumberChecked,
+                // );
+                setRegistrationSuccessMessage(data.Success);
+            }
+        } catch (error) {
+            console.error(error);
+            if (error instanceof AxiosError) {
+                setError('company_registration_number', {
+                    type: 'registration_number_error',
+                    message: error.response?.data.FAIL_Message,
+                });
+            }
+        }
+    };
+
     return {
         login,
         join,
         idCheck,
+        registrationNumberVerify,
         idChecked,
         setIdChecked,
         successMessage,
         setSuccessMessage,
+        registrationNumberChecked,
+        setRegistrationNumberChecked,
+        registrationSuccessMessage,
+        setRegistrationSuccessMessage,
     };
 };

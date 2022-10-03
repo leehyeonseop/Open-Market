@@ -1,15 +1,16 @@
 import styled from 'styled-components';
-import Button from '../button/Button';
 import { ReactComponent as Logo } from '../../assets/icons/Logo.svg';
 import upArrow from '../../assets/icons/icon-up-arrow.svg';
 import downArrow from '../../assets/icons/icon-down-arrow.svg';
 
 export const Section = styled.section`
+    /* width: 28.64583333333333%; */
     max-width: 550px;
     margin: 0 auto;
 `;
 
 export const StyledLogo = styled(Logo)`
+    /* width: 12.39583333333333%; */
     display: block;
     margin: 70px auto;
     cursor: pointer;
@@ -28,11 +29,10 @@ export const H2 = styled.h2`
     display: inline-block;
     box-sizing: border-box;
     cursor: pointer;
-    /* border-bottom: none; */
 `;
 
 export const Wrapper = styled.div`
-    padding: 40px 35px 36px;
+    padding: 40px 6.363636363636364% 36px;
     border: 1px solid #c4c4c4;
     border-radius: 0 0 10px 10px;
     border-top: none;
@@ -71,14 +71,24 @@ export const Input = styled.input`
     }
 `;
 
-export const IdCheckButton = styled(Button)`
-    width: 28%;
+export const IdCheckButton = styled.button`
+    width: 25.41666666666667%;
     max-width: 122px;
     float: right;
+    background: #21bf48;
+    border-radius: 5px;
+    padding: 17px 0;
+    border: 0;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: white;
+    font-family: 'Spoqa Han Sans Neo';
+    cursor: pointer;
 `;
 
 export const IdInput = styled(Input)`
-    width: 72%;
+    width: 72.08333333333333%;
     max-width: 346px;
 `;
 
@@ -173,6 +183,7 @@ export const At = styled.span`
 `;
 
 export const Footer = styled.footer`
+    padding: 0 6.363636363636364%;
     max-width: 480px;
     margin: 34px auto 110px auto;
 `;
@@ -195,12 +206,23 @@ export const P = styled.p`
     color: #767676;
 `;
 
-export const JoinButton = styled(Button)`
+export const JoinButton = styled(IdCheckButton)`
+    float: none;
     margin-top: 34px;
     padding: 19px;
     width: 100%;
+    max-width: none;
     &:disabled {
         background-color: #c4c4c4;
         cursor: default;
     }
+`;
+
+export const RegistrationNumberInput = styled(Input)`
+    width: 72.08333333333333%;
+`;
+
+export const CertificationButton = styled(IdCheckButton)`
+    padding: 17px 0;
+    width: 25.41666666666667%;
 `;

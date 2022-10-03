@@ -33,12 +33,15 @@ import {
     JoinButton,
     Wrapper,
     Section,
+    RegistrationNumberInput,
+    CertificationButton,
 } from './Join.style';
 import { useAuth } from '../../auth/useAuth';
 import { useNavigate } from 'react-router-dom';
+import Sellor from './sellor/Sellor';
 
 function Join() {
-    const [pwChecked, setPwCheckded] = useState(false);
+    const [joinType, setJoinType] = useState('BUYER');
     const [joinValid, setJoinValid] = useState(false);
 
     const navigate = useNavigate();
@@ -51,23 +54,48 @@ function Join() {
         formState: { errors, isValid },
     } = useForm({ mode: 'onChange' });
 
-    const { join, idCheck, successMessage, idChecked, setIdChecked } =
-        useAuth();
+    const {
+        join,
+        idCheck,
+        successMessage,
+        idChecked,
+        setIdChecked,
+        registrationNumberChecked,
+    } = useAuth();
 
     const onSubmit = handleSubmit((data) => {
         if (!idChecked) {
             alert('아이디 중복체크를 해주세요!');
             return;
         }
+
+        if (joinType === 'SELLOR') {
+            if (!registrationNumberChecked) {
+                alert('사업자 등록번호 체크를 해주세요!');
+                return;
+            }
+        }
         join(setError, data);
     });
 
+    const buyerJoinRef = useRef<HTMLHeadingElement>(null);
+    const sellorJoinRef = useRef<HTMLHeadingElement>(null);
     const checkBoxRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         if (!checkBoxRef.current?.checked) return;
         isValid ? setJoinValid(true) : setJoinValid(false);
     }, [isValid]);
+
+    useEffect(() => {
+        if (joinType === 'BUYER') {
+            buyerJoinRef.current!.style.backgroundColor = 'white';
+            sellorJoinRef.current!.style.backgroundColor = '#f2f2f2';
+        } else {
+            buyerJoinRef.current!.style.backgroundColor = '#f2f2f2';
+            sellorJoinRef.current!.style.backgroundColor = 'white';
+        }
+    }, [joinType]);
 
     return (
         <>
@@ -77,8 +105,12 @@ function Join() {
                 onClick={() => navigate('/')}
             />
             <Section>
-                <H2>구매회원가입</H2>
-                <H2>판매회원가입</H2>
+                <H2 ref={buyerJoinRef} onClick={() => setJoinType('BUYER')}>
+                    구매회원가입
+                </H2>
+                <H2 ref={sellorJoinRef} onClick={() => setJoinType('SELLOR')}>
+                    판매회원가입
+                </H2>
                 <form onSubmit={onSubmit}>
                     <Wrapper>
                         <Label htmlFor="id">아이디</Label>
@@ -101,10 +133,10 @@ function Join() {
                         />
                         <IdCheckButton
                             type="button"
-                            text="중복확인"
-                            padding={17}
                             onClick={() => idCheck(setError, getValues)}
-                        />
+                        >
+                            중복확인
+                        </IdCheckButton>
                         {errors.id && (
                             <Strong type="negative">
                                 {errors.id?.message?.toString()}
@@ -134,9 +166,6 @@ function Join() {
                                     message:
                                         '8자 이상,영문 대 소문자,숫자,특수문자를 사용하세요.',
                                 },
-                                onBlur: () => {
-                                    setPwCheckded((previous) => !previous);
-                                },
                             })}
                         />
                         {errors.pw && (
@@ -163,9 +192,6 @@ function Join() {
                                     same: (pwCheck) =>
                                         pwCheck === getValues('pw') ||
                                         '비밀번호가 일치하지 않습니다.',
-                                },
-                                onBlur: () => {
-                                    setPwCheckded((previous) => !previous);
                                 },
                             })}
                         />
@@ -267,6 +293,16 @@ function Join() {
                                     {errors.endEmail?.message?.toString()}
                                 </Strong>
                             ))}
+                        {joinType === 'SELLOR' ? (
+                            <Sellor
+                                register={register}
+                                errors={errors}
+                                setError={setError}
+                                getValues={getValues}
+                            />
+                        ) : (
+                            <></>
+                        )}
                     </Wrapper>
                     <Footer>
                         <FooterWrapper>
@@ -287,11 +323,9 @@ function Join() {
                                 내용을 확인하였고 동의합니다.
                             </P>
                         </FooterWrapper>
-                        <JoinButton
-                            text="가입하기"
-                            type="submit"
-                            disabled={!joinValid}
-                        />
+                        <JoinButton type="submit" disabled={!joinValid}>
+                            가입하기
+                        </JoinButton>
                     </Footer>
                 </form>
             </Section>
