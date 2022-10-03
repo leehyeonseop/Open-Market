@@ -59,13 +59,14 @@ export const useAuth = () => {
     const join = async (
         setError: UseFormSetError<FieldValues>,
         data: FieldValues,
+        joinType: string,
     ) => {
         console.log('가입할때 데이터 : ', data);
 
         const phone_number =
             data.startPhoneNum + data.centerPhoneNum + data.endPhoneNum;
 
-        const reqData = {
+        const buyerReqData = {
             username: data.id,
             password: data.pw,
             password2: data.pwCheck,
@@ -73,11 +74,29 @@ export const useAuth = () => {
             name: data.name,
         };
 
+        const sellorReqData = {
+            username: data.id,
+            password: data.pw,
+            password2: data.pwCheck,
+            phone_number: phone_number,
+            name: data.name,
+            company_registration_number: data.company_registration_number,
+            store_name: data.storeName,
+        };
+
+        const postURL =
+            joinType === 'BUYER'
+                ? 'accounts/signup/'
+                : 'accounts/signup_seller/';
+        const reqData = joinType === 'BUYER' ? buyerReqData : sellorReqData;
+
         try {
             const { data: resData } = await axiosInstance.post(
-                'accounts/signup/',
+                postURL,
                 reqData,
             );
+
+            console.log('가입성공 : ', resData);
 
             if (resData) navigate('/joinComplete');
         } catch (error) {
@@ -109,6 +128,11 @@ export const useAuth = () => {
                         setError('name', {
                             type: 'nameError',
                             message: errorData.name[0],
+                        });
+                    errorData.store_name &&
+                        setError('storeName', {
+                            type: 'storeNameError',
+                            message: errorData.store_name[0],
                         });
                 } else {
                     console.error(error);
@@ -156,10 +180,6 @@ export const useAuth = () => {
             );
             if (data) {
                 setRegistrationNumberChecked(true);
-                // console.log(
-                //     'registrationNumberChecked : ',
-                //     registrationNumberChecked,
-                // );
                 setRegistrationSuccessMessage(data.Success);
             }
         } catch (error) {

@@ -27,14 +27,13 @@ import {
     StyledLogo,
     Footer,
     At,
-    P,
-    FooterWrapper,
     CheckBox,
     JoinButton,
     Wrapper,
     Section,
     RegistrationNumberInput,
     CertificationButton,
+    SelectBox,
 } from './Join.style';
 import { useAuth } from '../../auth/useAuth';
 import { useNavigate } from 'react-router-dom';
@@ -60,7 +59,10 @@ function Join() {
         successMessage,
         idChecked,
         setIdChecked,
+        registrationNumberVerify,
         registrationNumberChecked,
+        setRegistrationNumberChecked,
+        registrationSuccessMessage,
     } = useAuth();
 
     const onSubmit = handleSubmit((data) => {
@@ -75,7 +77,7 @@ function Join() {
                 return;
             }
         }
-        join(setError, data);
+        join(setError, data, joinType);
     });
 
     const buyerJoinRef = useRef<HTMLHeadingElement>(null);
@@ -217,11 +219,28 @@ function Join() {
                         )}
                         <Fieldset>
                             <Legend>휴대폰 번호</Legend>
-                            <Select {...register('startPhoneNum')}>
+                            {/* <Select {...register('startPhoneNum')}>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
                                 <option value="019">019</option>
-                            </Select>
+                            </Select> */}
+                            <SelectBox>
+                                <button type="button">010</button>
+                                <ul>
+                                    <li>
+                                        <button type="button">010</button>
+                                    </li>
+                                    <li>
+                                        <button type="button">011</button>
+                                    </li>
+                                    <li>
+                                        <button type="button">016</button>
+                                    </li>
+                                    <li>
+                                        <button type="button">017</button>
+                                    </li>
+                                </ul>
+                            </SelectBox>
                             <Input
                                 type="text"
                                 maxLength={4}
@@ -299,30 +318,41 @@ function Join() {
                                 errors={errors}
                                 setError={setError}
                                 getValues={getValues}
+                                registrationNumberVerify={
+                                    registrationNumberVerify
+                                }
+                                registrationNumberChecked={
+                                    registrationNumberChecked
+                                }
+                                setRegistrationNumberChecked={
+                                    setRegistrationNumberChecked
+                                }
+                                registrationSuccessMessage={
+                                    registrationSuccessMessage
+                                }
                             />
                         ) : (
                             <></>
                         )}
                     </Wrapper>
                     <Footer>
-                        <FooterWrapper>
-                            <CheckBox
-                                id="checkbox"
-                                type="checkbox"
-                                ref={checkBoxRef}
-                                onChange={(e) => {
-                                    if (e.target.checked && isValid) {
-                                        setJoinValid(true);
-                                    } else {
-                                        setJoinValid(false);
-                                    }
-                                }}
-                            />
-                            <P>
-                                호두샵의 이용약관 및 개인정보처리방침에 대한
-                                내용을 확인하였고 동의합니다.
-                            </P>
-                        </FooterWrapper>
+                        <CheckBox
+                            id="agreement"
+                            type="checkbox"
+                            ref={checkBoxRef}
+                            onChange={(e) => {
+                                if (e.target.checked && isValid) {
+                                    setJoinValid(true);
+                                } else {
+                                    setJoinValid(false);
+                                }
+                            }}
+                        />
+                        <label htmlFor="agreement">
+                            호두샵의 이용약관 및 개인정보처리방침에 대한 내용을
+                            확인하였고 동의합니다.
+                        </label>
+
                         <JoinButton type="submit" disabled={!joinValid}>
                             가입하기
                         </JoinButton>

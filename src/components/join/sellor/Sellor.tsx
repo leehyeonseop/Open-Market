@@ -4,14 +4,16 @@ import { Input, Label, Strong } from '../Join.style';
 import { CertificationButton, RegistrationNumberInput } from './Sellor.style';
 
 const Sellor = (props: any) => {
-    const { register, errors, setError, getValues } = props;
-
     const {
+        register,
+        errors,
+        setError,
+        getValues,
         registrationNumberVerify,
-        registrationNumberChecked,
         setRegistrationNumberChecked,
+        registrationNumberChecked,
         registrationSuccessMessage,
-    } = useAuth();
+    } = props;
 
     return (
         <>

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { ReactComponent as Logo } from '../../assets/icons/Logo.svg';
 import upArrow from '../../assets/icons/icon-up-arrow.svg';
 import downArrow from '../../assets/icons/icon-down-arrow.svg';
+import checkbox from '../../assets/icons/check-box.svg';
+import filledCheckbox from '../../assets/icons/check-fill-box.svg';
 
 export const Section = styled.section`
     /* width: 28.64583333333333%; */
@@ -188,22 +190,33 @@ export const Footer = styled.footer`
     margin: 34px auto 110px auto;
 `;
 
-export const FooterWrapper = styled.div`
-    display: flex;
-`;
-
 export const CheckBox = styled.input`
-    margin: 2px 10px 0 0;
-    width: 16px;
-    height: 16px;
-`;
+    display: none;
 
-export const P = styled.p`
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    color: #767676;
+    & + label {
+        display: flex;
+        /* align-items: center; */
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.25rem;
+        color: #767676;
+    }
+
+    & + label::before {
+        flex-shrink: 0;
+        display: block;
+        /* align-self: baseline; */
+        content: '';
+        margin-right: 2.380952380952381%;
+        width: 16px;
+        height: 16px;
+        background-image: url(${checkbox});
+        margin-top: 3px;
+    }
+
+    &:checked + label::before {
+        background-image: url(${filledCheckbox});
+    }
 `;
 
 export const JoinButton = styled(IdCheckButton)`
@@ -225,4 +238,53 @@ export const RegistrationNumberInput = styled(Input)`
 export const CertificationButton = styled(IdCheckButton)`
     padding: 17px 0;
     width: 25.41666666666667%;
+`;
+
+export const SelectBox = styled.div`
+    position: relative;
+    width: 32%;
+    button {
+        width: 100%;
+        background-color: inherit;
+        border: 1px solid #c4c4c4;
+        border-radius: 5px;
+        padding: 16px 15px;
+        line-height: 20px;
+        text-align: left;
+        box-sizing: border-box;
+        background-image: url(${downArrow});
+        background-repeat: no-repeat;
+        background-position: center right 10px;
+        cursor: pointer;
+
+        &:focus {
+            border: 1px solid #21bf48;
+            background-image: url(${upArrow});
+        }
+    }
+
+    ul {
+        /* display: none; */
+        position: absolute;
+        width: 100%;
+        box-sizing: border-box;
+        z-index: 100;
+        margin-top: 6px;
+        border: 1px solid #c4c4c4;
+        border-radius: 5px;
+        height: 150px;
+        background-color: #fff;
+        overflow-y: scroll;
+        button {
+            background-image: none;
+            display: block;
+            width: 100%;
+            border: none;
+
+            &:focus {
+                border: none;
+                background-image: none;
+            }
+        }
+    }
 `;
