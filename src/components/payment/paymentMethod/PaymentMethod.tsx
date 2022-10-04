@@ -25,7 +25,6 @@ const PaymentMethod = (props: IPaymentMethod) => {
                     <Radio
                         type="radio"
                         id="credit"
-                        // name="method"
                         value="CARD"
                         {...register('paymentMethod')}
                     />
@@ -35,7 +34,6 @@ const PaymentMethod = (props: IPaymentMethod) => {
                     <Radio
                         type="radio"
                         id="bankbook"
-                        // name="method"
                         value="DEPOSIT"
                         {...register('paymentMethod')}
                     />
@@ -45,7 +43,6 @@ const PaymentMethod = (props: IPaymentMethod) => {
                     <Radio
                         type="radio"
                         id="phone"
-                        // name="method"
                         value="PHONE_PAYMENT"
                         {...register('paymentMethod')}
                     />
@@ -55,7 +52,6 @@ const PaymentMethod = (props: IPaymentMethod) => {
                     <Radio
                         type="radio"
                         id="naverpay"
-                        // name="method"
                         value="NAVERPAY"
                         {...register('paymentMethod')}
                     />
@@ -65,7 +61,6 @@ const PaymentMethod = (props: IPaymentMethod) => {
                     <Radio
                         type="radio"
                         id="kakaopay"
-                        // name="method"
                         value="KAKAOPAY"
                         {...register('paymentMethod')}
                     />

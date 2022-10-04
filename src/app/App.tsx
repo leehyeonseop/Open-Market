@@ -10,6 +10,7 @@ import HomePage from '../pages/homePage/HomePage';
 import JoinCompletePage from '../pages/joinCompletePage/JoinCompletePage';
 import PaymentPage from '../pages/paymentPage/PaymentPage';
 import ProductDetailPage from '../pages/productDetailPage/ProductDetailPage';
+import SellerCenterPage from '../pages/sellerCenterPage/SellerCenterPage';
 
 import { queryClient } from '../react-query/queryClient';
 import { GlobalStyle } from './GlobalStyle';
@@ -34,6 +35,10 @@ function App() {
                         />
                         <Route path="/cart" element={<CartPage />} />
                         <Route path="/payment" element={<PaymentPage />} />
+                        <Route
+                            path="/sellerCenter"
+                            element={<SellerCenterPage />}
+                        />
                     </Routes>
                 </BrowserRouter>
                 <ReactQueryDevtools />

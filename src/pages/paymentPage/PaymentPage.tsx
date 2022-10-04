@@ -1,10 +1,12 @@
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { cartItemState, checkedCartItemState } from '../../atom';
+import { axiosInstance, getJWTHeader } from '../../axiosInstance';
 import Header from '../../components/header/Header';
 import DeliveryInfo from '../../components/payment/deliveryInfo/DeliverInfo';
 import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
 import PaymentItem from '../../components/payment/paymentItem/PaymentItem';
+import { getUser } from '../../localStorage';
 import {
     Div,
     H2,
@@ -34,8 +36,40 @@ const PaymentPage = () => {
 
     const { register, handleSubmit } = useForm();
 
+    const order = async (
+        data: FieldValues,
+        totalPrice: number,
+        orderKind: string,
+    ) => {
+        console.log(totalPrice);
+
+        const user = getUser();
+
+        const phone_number =
+            data.startPhoneNum + data.centerPhoneNum + data.endPhoneNum;
+
+        const reqData = {
+            total_price: totalPrice,
+            order_kind: orderKind,
+            receiver: data.receiver,
+            receiver_phone_number: phone_number,
+            address: data.address,
+            address_message: data.message,
+            payment_method: data.paymentMethod,
+        };
+
+        console.log('reqData : ', reqData);
+
+        const a = await axiosInstance.post('order/', reqData, {
+            headers: getJWTHeader(user),
+        });
+
+        console.log('a : ', a);
+    };
+
     const onSubmit = handleSubmit((data) => {
         console.log('data : ', data);
+        order(data, totalPrice, 'cart_order');
     });
 
     return (

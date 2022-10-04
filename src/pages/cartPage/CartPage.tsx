@@ -23,6 +23,8 @@ import {
 function CartPage() {
     const { cartItems } = useCart();
 
+    console.log('장바구니 페이지에서 : ', cartItems);
+
     const cartItem = useRecoilValue(cartItemState);
     const setCheckedItems = useSetRecoilState(checkedCartItemState);
 

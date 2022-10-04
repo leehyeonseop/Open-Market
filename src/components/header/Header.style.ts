@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ReactComponent as Logo } from '../../assets/icons/Logo.svg';
 
 export const Wrapper = styled.header`
-    padding: 20px 16.66666666666667%;
+    padding: 22px 16.66666666666667%;
     display: flex;
     align-items: center;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);

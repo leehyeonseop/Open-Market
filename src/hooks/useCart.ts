@@ -17,6 +17,8 @@ export const useCart = (isChecked?: boolean) => {
             headers: getJWTHeader(user),
         });
 
+        console.log('장바구니 : ', data.results);
+
         return data.results;
     };
 

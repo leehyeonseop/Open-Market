@@ -34,6 +34,8 @@ function ProductDetail(props: any) {
     const { productID } = props;
     const { data } = useProductDetail(productID);
 
+    console.log('재곡 : ', data);
+
     const [amount, setAmount] = useState(1);
 
     const { cartItems } = useCart();
