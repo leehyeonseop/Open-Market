@@ -41,6 +41,7 @@ export const useAuth = () => {
 
             if (resData) {
                 setUser(resData);
+                navigate('/');
             }
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -61,8 +62,6 @@ export const useAuth = () => {
         data: FieldValues,
         joinType: string,
     ) => {
-        console.log('가입할때 데이터 : ', data);
-
         const phone_number =
             data.startPhoneNum + data.centerPhoneNum + data.endPhoneNum;
 
@@ -95,8 +94,6 @@ export const useAuth = () => {
                 postURL,
                 reqData,
             );
-
-            console.log('가입성공 : ', resData);
 
             if (resData) navigate('/joinComplete');
         } catch (error) {

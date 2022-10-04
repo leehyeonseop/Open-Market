@@ -133,7 +133,9 @@ function CartPage() {
                             <CartInfo />
                         </>
                     )}
-                    <OrderButton type="submit">주문하기</OrderButton>
+                    {cartItems.length !== 0 && (
+                        <OrderButton type="submit">주문하기</OrderButton>
+                    )}
                 </form>
             </Main>
         </>

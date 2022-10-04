@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import checkOff from '../../assets/icons/icon-check-off.svg';
@@ -50,6 +50,7 @@ function Join() {
         handleSubmit,
         getValues,
         setError,
+        setValue,
         formState: { errors, isValid },
     } = useForm({ mode: 'onChange' });
 
@@ -64,6 +65,11 @@ function Join() {
         setRegistrationNumberChecked,
         registrationSuccessMessage,
     } = useAuth();
+
+    const buyerJoinRef = useRef<HTMLHeadingElement>(null);
+    const sellorJoinRef = useRef<HTMLHeadingElement>(null);
+    const selectListRef = useRef<HTMLUListElement>(null);
+    const checkBoxRef = useRef<HTMLInputElement>(null);
 
     const onSubmit = handleSubmit((data) => {
         if (!idChecked) {
@@ -80,9 +86,16 @@ function Join() {
         join(setError, data, joinType);
     });
 
-    const buyerJoinRef = useRef<HTMLHeadingElement>(null);
-    const sellorJoinRef = useRef<HTMLHeadingElement>(null);
-    const checkBoxRef = useRef<HTMLInputElement>(null);
+    const handleSelect = (
+        e: React.MouseEvent<HTMLUListElement, MouseEvent>,
+    ) => {
+        if (e.target instanceof HTMLButtonElement) {
+            setValue('startPhoneNum', e.target.value);
+            e.currentTarget.previousElementSibling!.textContent =
+                e.target.value;
+            e.currentTarget.style.display = 'none';
+        }
+    };
 
     useEffect(() => {
         if (!checkBoxRef.current?.checked) return;
@@ -219,25 +232,38 @@ function Join() {
                         )}
                         <Fieldset>
                             <Legend>휴대폰 번호</Legend>
-                            {/* <Select {...register('startPhoneNum')}>
-                                <option value="010">010</option>
-                                <option value="011">011</option>
-                                <option value="019">019</option>
-                            </Select> */}
                             <SelectBox>
-                                <button type="button">010</button>
-                                <ul>
+                                <button
+                                    type="button"
+                                    value="010"
+                                    onClick={() => {
+                                        selectListRef.current!.style.display =
+                                            'block';
+                                    }}
+                                    {...register('startPhoneNum')}
+                                >
+                                    010
+                                </button>
+                                <ul ref={selectListRef} onClick={handleSelect}>
                                     <li>
-                                        <button type="button">010</button>
+                                        <button type="button" value="010">
+                                            010
+                                        </button>
                                     </li>
                                     <li>
-                                        <button type="button">011</button>
+                                        <button type="button" value="011">
+                                            011
+                                        </button>
                                     </li>
                                     <li>
-                                        <button type="button">016</button>
+                                        <button type="button" value="016">
+                                            016
+                                        </button>
                                     </li>
                                     <li>
-                                        <button type="button">017</button>
+                                        <button type="button" value="017">
+                                            017
+                                        </button>
                                     </li>
                                 </ul>
                             </SelectBox>

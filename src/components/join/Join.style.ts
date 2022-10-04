@@ -264,7 +264,7 @@ export const SelectBox = styled.div`
     }
 
     ul {
-        /* display: none; */
+        display: none;
         position: absolute;
         width: 100%;
         box-sizing: border-box;
@@ -275,6 +275,18 @@ export const SelectBox = styled.div`
         height: 150px;
         background-color: #fff;
         overflow-y: scroll;
+        ::-webkit-scrollbar {
+            width: 10px;
+            background-color: #f2f2f2;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #c4c4c4;
+            border: 3px solid transparent;
+            border-radius: 10px;
+            background-clip: content-box;
+        }
         button {
             background-image: none;
             display: block;

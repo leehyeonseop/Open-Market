@@ -1,7 +1,7 @@
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import {
     AddressInput,
     DestinationInfo,
-    FirstPhoneInput,
     H3,
     H4,
     Input,
@@ -17,23 +17,30 @@ import {
     PostField,
     SearchButton,
     Span,
+    StartPhoneInput,
     Wrapper,
 } from './DeliveryInfo.style';
 
-const DeliveryInfo = () => {
+type InputProps = {
+    register: UseFormRegister<FieldValues>;
+};
+
+const DeliveryInfo = (props: InputProps) => {
+    const { register } = props;
+
     return (
         <Wrapper>
             <H3>배송정보</H3>
             <OrdererInfo>
                 <H4>주문자 정보</H4>
                 <InputBox>
-                    <Label>이름</Label>
-                    <Input type="text" />
+                    <Label htmlFor="name">이름</Label>
+                    <Input id="name" type="text" />
                 </InputBox>
                 <InputBox>
                     <Legend>휴대폰</Legend>
                     <PhoneField>
-                        <FirstPhoneInput type="tel" />
+                        <StartPhoneInput type="tel" />
                         <Span>-</Span>
                         <PhoneInput type="tel" />
                         <Span>-</Span>
@@ -41,24 +48,34 @@ const DeliveryInfo = () => {
                     </PhoneField>
                 </InputBox>
                 <InputBox>
-                    <Label>이메일</Label>
-                    <Input type="email" />
+                    <Label htmlFor="email">이메일</Label>
+                    <Input id="email" type="email" />
                 </InputBox>
             </OrdererInfo>
             <DestinationInfo>
                 <H4>배송지 정보</H4>
                 <InputBox>
-                    <Label>수령인</Label>
-                    <Input type="text" />
+                    <Label htmlFor="receiver">수령인</Label>
+                    <Input
+                        id="receiver"
+                        type="text"
+                        {...register('receiver')}
+                    />
                 </InputBox>
                 <InputBox>
                     <Legend>휴대폰</Legend>
                     <PhoneField>
-                        <FirstPhoneInput type="tel" />
+                        <StartPhoneInput
+                            type="tel"
+                            {...register('startPhoneNum')}
+                        />
                         <Span>-</Span>
-                        <PhoneInput type="tel" />
+                        <PhoneInput
+                            type="tel"
+                            {...register('centerPhoneNum')}
+                        />
                         <Span>-</Span>
-                        <PhoneInput type="tel" />
+                        <PhoneInput type="tel" {...register('endPhoneNum')} />
                     </PhoneField>
                 </InputBox>
                 <InputBox>
@@ -70,13 +87,17 @@ const DeliveryInfo = () => {
                                 우편번호 조회
                             </SearchButton>
                         </PostCodeWrapper>
-                        <AddressInput />
+                        <AddressInput id="address" {...register('address')} />
                         <AddressInput />
                     </PostField>
                 </InputBox>
                 <InputBox>
-                    <Label>배송 메시지</Label>
-                    <MessageInput type="text" />
+                    <Label htmlFor="message">배송 메시지</Label>
+                    <MessageInput
+                        id="message"
+                        type="text"
+                        {...register('message')}
+                    />
                 </InputBox>
             </DestinationInfo>
         </Wrapper>

@@ -1,3 +1,4 @@
+import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { cartItemState, checkedCartItemState } from '../../atom';
 import Header from '../../components/header/Header';
@@ -31,6 +32,12 @@ const PaymentPage = () => {
 
     let totalPrice = totalProductPrice + totalShippingFee;
 
+    const { register, handleSubmit } = useForm();
+
+    const onSubmit = handleSubmit((data) => {
+        console.log('data : ', data);
+    });
+
     return (
         <>
             <Header />
@@ -55,15 +62,17 @@ const PaymentPage = () => {
                         </TotalPrice>
                     </Total>
                 </PaymentInfo>
-                <DeliveryInfo />
-                <Wrapper>
-                    <StyledPaymentMethod />
-                    <FinalPayment
-                        totalProductPrice={totalProductPrice}
-                        totalShippingFee={totalShippingFee}
-                        totalPrice={totalPrice}
-                    />
-                </Wrapper>
+                <form onSubmit={onSubmit}>
+                    <DeliveryInfo register={register} />
+                    <Wrapper>
+                        <StyledPaymentMethod register={register} />
+                        <FinalPayment
+                            totalProductPrice={totalProductPrice}
+                            totalShippingFee={totalShippingFee}
+                            totalPrice={totalPrice}
+                        />
+                    </Wrapper>
+                </form>
             </Main>
         </>
     );

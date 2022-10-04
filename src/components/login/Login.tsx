@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/useAuth';
@@ -28,11 +28,24 @@ function Login() {
         handleSubmit,
     } = useForm({ mode: 'onBlur' });
 
+    const buyerLoginRef = useRef<HTMLLIElement>(null);
+    const sellorLoginRef = useRef<HTMLLIElement>(null);
+
     const { login } = useAuth();
 
     const onSubmit = handleSubmit((data) => {
         login(setError, data, login_type);
     });
+
+    useEffect(() => {
+        if (login_type === 'BUYER') {
+            buyerLoginRef.current!.style.backgroundColor = 'white';
+            sellorLoginRef.current!.style.backgroundColor = '#f2f2f2';
+        } else {
+            buyerLoginRef.current!.style.backgroundColor = '#f2f2f2';
+            sellorLoginRef.current!.style.backgroundColor = 'white';
+        }
+    }, [login_type]);
 
     return (
         <>
@@ -44,8 +57,18 @@ function Login() {
             <Section>
                 <nav>
                     <ul>
-                        <NavList>구매회원 로그인</NavList>
-                        <NavList>판매회원 로그인</NavList>
+                        <NavList
+                            ref={buyerLoginRef}
+                            onClick={() => setLoginType('BUYER')}
+                        >
+                            구매회원 로그인
+                        </NavList>
+                        <NavList
+                            ref={sellorLoginRef}
+                            onClick={() => setLoginType('SELLER')}
+                        >
+                            판매회원 로그인
+                        </NavList>
                     </ul>
                 </nav>
                 <form onSubmit={onSubmit}>

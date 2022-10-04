@@ -60,7 +60,7 @@ export const PhoneField = styled.fieldset`
     align-items: center;
 `;
 
-export const FirstPhoneInput = styled(Input)`
+export const StartPhoneInput = styled(Input)`
     width: 23.95209580838323%;
 `;
 

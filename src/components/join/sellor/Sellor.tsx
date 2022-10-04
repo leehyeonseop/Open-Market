@@ -19,13 +19,15 @@ const Sellor = (props: any) => {
         <>
             <Label marginTop={50}>사업자 등록번호</Label>
             <RegistrationNumberInput
-                type="number"
+                type="text"
+                maxLength={10}
                 id="company_registration_number"
                 {...register('company_registration_number', {
                     required: '필수 정보입니다.',
-                    pattern: {
-                        value: registrationNumberRegExp,
-                        message: '10자의 숫자만 입력가능 합니다.',
+                    validate: {
+                        number: (inputValue: string) =>
+                            registrationNumberRegExp.test(inputValue) ||
+                            '10자의 숫자만 입력가능 합니다.',
                     },
                     onChange: () => {
                         if (registrationNumberChecked) {
