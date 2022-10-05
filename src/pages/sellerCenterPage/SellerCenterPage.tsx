@@ -9,11 +9,11 @@ import { ReactComponent as Plus } from '../../assets/icons/icon-plus.svg';
 import Nav from '../../components/nav/Nav';
 import ProductOnSale from '../../components/productOnSale/ProductOnSale';
 import { useSellerProduct } from '../../hooks/useSellerProduct';
+import { useNavigate } from 'react-router-dom';
 
 const SellerCenterPage = () => {
     const { productOnSaleItems } = useSellerProduct();
-
-    console.log('판매자 페이지에서 : ', productOnSaleItems);
+    const navigate = useNavigate();
 
     return (
         <>
@@ -22,7 +22,10 @@ const SellerCenterPage = () => {
                 <Wrapper>
                     <H2>대시보드</H2>
                     <span>백엔드글로벌</span>
-                    <ProductUploadButton>
+                    <ProductUploadButton
+                        type="button"
+                        onClick={() => navigate('/productRegistration')}
+                    >
                         <Plus />
                         <span>상품 업로드</span>
                     </ProductUploadButton>

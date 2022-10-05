@@ -10,6 +10,7 @@ import HomePage from '../pages/homePage/HomePage';
 import JoinCompletePage from '../pages/joinCompletePage/JoinCompletePage';
 import PaymentPage from '../pages/paymentPage/PaymentPage';
 import ProductDetailPage from '../pages/productDetailPage/ProductDetailPage';
+import ProductRegistrationPage from '../pages/productRegistrationPage/ProductRegistrationPage';
 import SellerCenterPage from '../pages/sellerCenterPage/SellerCenterPage';
 
 import { queryClient } from '../react-query/queryClient';
@@ -38,6 +39,10 @@ function App() {
                         <Route
                             path="/sellerCenter"
                             element={<SellerCenterPage />}
+                        />
+                        <Route
+                            path="/productRegistration"
+                            element={<ProductRegistrationPage />}
                         />
                     </Routes>
                 </BrowserRouter>
