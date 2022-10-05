@@ -21,6 +21,7 @@ export const Wrapper = styled.nav`
                 font-weight: 500;
                 font-size: 1rem;
                 line-height: 1.125rem;
+                cursor: pointer;
                 &:hover {
                     background-color: #effff3;
                 }

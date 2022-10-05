@@ -8,8 +8,13 @@ import {
 import { ReactComponent as Plus } from '../../assets/icons/icon-plus.svg';
 import Nav from '../../components/nav/Nav';
 import ProductOnSale from '../../components/productOnSale/ProductOnSale';
+import { useSellerProduct } from '../../hooks/useSellerProduct';
 
 const SellerCenterPage = () => {
+    const { productOnSaleItems } = useSellerProduct();
+
+    console.log('판매자 페이지에서 : ', productOnSaleItems);
+
     return (
         <>
             <SellerHeader />
@@ -22,8 +27,10 @@ const SellerCenterPage = () => {
                         <span>상품 업로드</span>
                     </ProductUploadButton>
                 </Wrapper>
-                <Nav />
-                <ProductOnSale />
+                <div>
+                    <Nav />
+                    <ProductOnSale productOnSaleItems={productOnSaleItems} />
+                </div>
             </Main>
         </>
     );

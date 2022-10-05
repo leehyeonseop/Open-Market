@@ -7,6 +7,20 @@ export const Main = styled.main`
 export const Wrapper = styled.div`
     display: flex;
     align-items: center;
+
+    & + div {
+        display: flex;
+        margin-top: 38px;
+
+        nav {
+            width: 14.53488372093023%;
+        }
+
+        section {
+            width: 83.72093023255814%;
+            margin-left: auto;
+        }
+    }
 `;
 
 export const H2 = styled.h2`

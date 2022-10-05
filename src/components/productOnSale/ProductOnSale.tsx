@@ -1,23 +1,28 @@
-import { ProductItem } from './ProductOnSale.style';
+import { ISaleItem } from '../../types';
+import ProductOnSaleItem from '../productOnSaleItem/ProductOnSaleItem';
+import { ProductOnSaleHeader, Section } from './ProductOnSale.style';
 
-const ProductOnSale = () => {
+interface IProductOnSale {
+    productOnSaleItems: ISaleItem[];
+}
+
+const ProductOnSale = (props: IProductOnSale) => {
+    const { productOnSaleItems } = props;
+
     return (
-        <>
+        <Section>
+            <ProductOnSaleHeader>
+                <span>상품정보</span>
+                <span>판매가격</span>
+                <span>수정</span>
+                <span>삭제</span>
+            </ProductOnSaleHeader>
             <ul>
-                <ProductItem>
-                    <figure>
-                        <img src="" alt="" />
-                    </figure>
-                    <div>
-                        <span>딥러닝 개발자 무릎 담요</span>
-                        <span>재고 : 370개</span>
-                    </div>
-                    <strong>17,500원</strong>
-                    <button type="button">수정</button>
-                    <button type="button">삭제</button>
-                </ProductItem>
+                {productOnSaleItems.map((productOnSaleItem) => (
+                    <ProductOnSaleItem productOnSaleItem={productOnSaleItem} />
+                ))}
             </ul>
-        </>
+        </Section>
     );
 };
 
