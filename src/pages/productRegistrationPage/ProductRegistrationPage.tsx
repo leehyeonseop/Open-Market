@@ -51,16 +51,24 @@ const ProductRegistrationPage = () => {
 
     const onSubmit = handleSubmit(async (data: FieldValues) => {
         console.log('제출된 데이터 : ', data);
-        console.log(data.image);
+        console.log('보내려고하는 이미지 : ', data.image);
 
         let formData = new FormData();
         formData.append('image', data.image);
+        formData.append('product_name', data.name);
+        formData.append('price', data.price);
+        formData.append('shipping_method', data.shippingMethod);
+        formData.append('shipping_fee', data.deliveryFee);
+        formData.append('stock', data.stock);
+        formData.append('product_info', data.description);
+
+        console.log('formData : ', formData.get('image'));
 
         // await imageUpload(data.image);
         const user = getUser();
         const reqData = {
             product_name: data.name,
-            image: data.image,
+            image: formData,
             price: +data.price,
             shipping_method: data.shippingMethod,
             shipping_fee: +data.deliveryFee,
@@ -71,8 +79,11 @@ const ProductRegistrationPage = () => {
 
         console.log('reqData : ', reqData);
 
-        const a = await axiosInstance.post('products/', reqData, {
-            headers: getJWTHeader(user),
+        const a = await axiosInstance.post('products/', formData, {
+            headers: {
+                Authorization: `JWT ${user.token}`,
+                // 'Content-Type': 'multipart/form-data',
+            },
         });
 
         console.log('a : ', a);

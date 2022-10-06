@@ -32,7 +32,7 @@ export const Search = styled.input`
 
 export const Nav = styled.nav`
     display: flex;
-    width: 10%;
+    align-items: center;
     margin-left: auto;
 `;
 
@@ -41,15 +41,49 @@ export const StyledLink = styled(Link)`
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    &:not(:last-child) {
-        margin-right: 20.3125%;
+    &:last-child {
+        margin-left: 1.354166666666667vw;
     }
 `;
 
+export const Button = styled.button`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    border: 0;
+    background-color: #fff;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+`;
+
 export const Span = styled.span`
+    font-family: 'Spoqa Han Sans Neo';
     font-size: 12px;
     line-height: 14px;
     color: #767676;
     margin-top: 5px;
     word-break: keep-all;
+`;
+
+export const SellerCenterLink = styled(Link)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 8.75vw; */
+    width: 168px;
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.438rem;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 11px 0;
+    background: #21bf48;
+    border-radius: 5px;
+    margin-left: 1.5625vw;
+    svg {
+        margin-right: 8px;
+    }
 `;

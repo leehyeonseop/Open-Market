@@ -1,10 +1,13 @@
-import { ReactComponent as Logo } from '../../../assets/icons/Logo.svg';
-import { H1, Wrapper } from './SellerHeader.style';
+import { useNavigate } from 'react-router-dom';
+
+import { H1, StyledLogo, Wrapper } from './SellerHeader.style';
 
 const SellerHeader = () => {
+    const navigate = useNavigate();
+
     return (
         <Wrapper>
-            <Logo width={80} height={24} />
+            <StyledLogo width={80} height={24} onClick={() => navigate('/')} />
             <H1>판매자 센터</H1>
         </Wrapper>
     );

@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import { ReactComponent as Logo } from '../../../assets/icons/Logo.svg';
 
 export const Wrapper = styled.header`
     display: flex;
     align-items: center;
     padding: 26px 5.208333333333333%;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+`;
+
+export const StyledLogo = styled(Logo)`
+    cursor: pointer;
 `;
 
 export const H1 = styled.h1`
