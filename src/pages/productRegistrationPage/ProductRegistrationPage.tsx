@@ -1,5 +1,9 @@
+import axios from 'axios';
 import { useState, SyntheticEvent } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import { axiosInstance, getJWTHeader } from '../../axiosInstance';
 import SellerHeader from '../../components/header/sellerHeader/SellerHeader';
+import { getUser } from '../../localStorage';
 import {
     Aside,
     ButtonWrapper,
@@ -15,14 +19,64 @@ import {
 } from './ProductRegistrationPage.style';
 
 const ProductRegistrationPage = () => {
+    const [previewImgURL, setPreviewImgURL] = useState('');
     const [imgURL, setImgURL] = useState('');
+
+    const {
+        register,
+        formState: { isValid },
+        handleSubmit,
+        setValue,
+    } = useForm();
 
     const handleImage = (e: SyntheticEvent) => {
         if (e.target instanceof HTMLInputElement && e.target.files !== null) {
-            setImgURL(URL.createObjectURL(e.target.files[0]));
-            URL.revokeObjectURL(imgURL);
+            setValue('image', e.target.files[0]);
+            setPreviewImgURL(URL.createObjectURL(e.target.files[0]));
+            URL.revokeObjectURL(previewImgURL);
         }
     };
+
+    const imageUpload = async (file: any) => {
+        const url = 'https://mandarin.api.weniv.co.kr/image/uploadfile';
+        try {
+            let formData = new FormData();
+            formData.append('image', file);
+            const { data } = await axios.post(url, formData);
+            setImgURL('https://mandarin.api.weniv.co.kr/' + data.filename);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const onSubmit = handleSubmit(async (data: FieldValues) => {
+        console.log('제출된 데이터 : ', data);
+        console.log(data.image);
+
+        let formData = new FormData();
+        formData.append('image', data.image);
+
+        // await imageUpload(data.image);
+        const user = getUser();
+        const reqData = {
+            product_name: data.name,
+            image: data.image,
+            price: +data.price,
+            shipping_method: data.shippingMethod,
+            shipping_fee: +data.deliveryFee,
+            stock: +data.stock,
+            product_info: data.description,
+            // token: String,
+        };
+
+        console.log('reqData : ', reqData);
+
+        const a = await axiosInstance.post('products/', reqData, {
+            headers: getJWTHeader(user),
+        });
+
+        console.log('a : ', a);
+    });
 
     return (
         <>
@@ -50,66 +104,104 @@ const ProductRegistrationPage = () => {
                         </p>
                     </Aside>
                     <Main>
-                        <form>
-                            <ImageLabel htmlFor="productImage" imgURL={imgURL}>
+                        <form onSubmit={onSubmit}>
+                            <ImageLabel
+                                htmlFor="productImage"
+                                imgURL={previewImgURL}
+                            >
                                 상품 이미지
                             </ImageLabel>
                             <input
                                 id="productImage"
                                 type="file"
-                                onChange={handleImage}
+                                {...(register('image'),
+                                {
+                                    onChange: handleImage,
+                                })}
                             />
                             <ProductDetail>
                                 <Container>
                                     <label htmlFor="productName">상품명</label>
-                                    <input id="productName" type="text" />
+                                    <input
+                                        id="productName"
+                                        type="text"
+                                        {...register('name')}
+                                    />
                                 </Container>
                                 <Container>
                                     <label htmlFor="price">판매가</label>
                                     <InputWrapper>
-                                        <input id="price" type="text" />
+                                        <input
+                                            id="price"
+                                            type="text"
+                                            {...register('price')}
+                                        />
                                         <span>원</span>
                                     </InputWrapper>
                                 </Container>
                                 <Container>
-                                    <label htmlFor="delivery">배송방법</label>
-                                    <ButtonWrapper>
-                                        <button type="button">
-                                            택배, 소포, 등기
-                                        </button>
-                                        <button type="button">
-                                            직접배송(화물배달)
-                                        </button>
-                                    </ButtonWrapper>
+                                    <fieldset>
+                                        <legend>배송방법</legend>
+                                        <ButtonWrapper>
+                                            <input
+                                                id="parcel"
+                                                type="radio"
+                                                value="PARCEL"
+                                                {...register('shippingMethod')}
+                                            />
+                                            <label htmlFor="parcel">
+                                                택배, 소포, 등기
+                                            </label>
+                                            <input
+                                                id="direct"
+                                                type="radio"
+                                                value="DELIVERY"
+                                                {...register('shippingMethod')}
+                                            />
+                                            <label htmlFor="direct">
+                                                직접배송(화물배달)
+                                            </label>
+                                        </ButtonWrapper>
+                                    </fieldset>
                                 </Container>
                                 <Container>
                                     <label htmlFor="deliveryFee">
                                         기본 배송비
                                     </label>
                                     <InputWrapper>
-                                        <input id="deliveryFee" type="text" />
+                                        <input
+                                            id="deliveryFee"
+                                            type="text"
+                                            {...register('deliveryFee')}
+                                        />
                                         <span>원</span>
                                     </InputWrapper>
                                 </Container>
                                 <Container>
                                     <label htmlFor="stock">재고</label>
                                     <InputWrapper>
-                                        <input id="stock" type="text" />
+                                        <input
+                                            id="stock"
+                                            type="text"
+                                            {...register('stock')}
+                                        />
                                         <span>개</span>
                                     </InputWrapper>
                                 </Container>
                             </ProductDetail>
                             <ProductDescription>
-                                <label htmlFor="">상품 상세 정보</label>
+                                <label htmlFor="description">
+                                    상품 상세 정보
+                                </label>
                                 <textarea
-                                    name=""
-                                    id=""
+                                    id="description"
                                     cols={30}
                                     rows={10}
-                                ></textarea>
+                                    {...register('description')}
+                                />
                             </ProductDescription>
                             <CancleButton type="button">취소</CancleButton>
-                            <SaveButton type="button">저장</SaveButton>
+                            <SaveButton type="submit">저장</SaveButton>
                         </form>
                     </Main>
                 </div>

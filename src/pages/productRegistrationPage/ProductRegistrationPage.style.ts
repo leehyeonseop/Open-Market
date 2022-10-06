@@ -67,9 +67,12 @@ export const ImageLabel = styled.label`
         align-self: stretch;
         height: calc(100% - 28px);
         box-sizing: border-box;
-        background-image: url(${(props: IImageLabel) => props.imgURL || inputImage});
+        background-image: url(${(props: IImageLabel) =>
+            props.imgURL || inputImage});
         background-repeat: no-repeat;
         background-position: center;
+        background-size: ${(props: IImageLabel) =>
+            props.imgURL !== '' ? 'cover' : 'auto'};
         cursor: pointer;
         margin-top: 10px;
     }
@@ -87,7 +90,8 @@ export const ProductDetail = styled.div`
     flex-flow: column nowrap;
     justify-content: space-between;
 
-    label {
+    label,
+    legend {
         display: block;
         font-weight: 400;
         font-size: 1rem;
@@ -153,7 +157,7 @@ export const ButtonWrapper = styled.div`
     display: flex;
     justify-content: space-between;
 
-    button {
+    label {
         width: 48.88888888888889%;
         padding: 17px 0;
         box-sizing: border-box;
@@ -165,12 +169,17 @@ export const ButtonWrapper = styled.div`
         font-size: 1rem;
         line-height: 1.25rem;
         color: #767676;
+        text-align: center;
         cursor: pointer;
+        margin-bottom: 0;
+    }
 
-        &:focus {
+    input[type='radio'] {
+        display: none;
+        &:checked + label {
             background-color: #21bf48;
             color: white;
-            border: none;
+            border: 0;
         }
     }
 `;

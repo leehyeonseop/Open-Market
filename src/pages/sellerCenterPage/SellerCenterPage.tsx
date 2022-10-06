@@ -4,7 +4,7 @@ import {
     Main,
     ProductUploadButton,
     Wrapper,
-} from './SellorCenterPage.style';
+} from './SellerCenterPage.style';
 import { ReactComponent as Plus } from '../../assets/icons/icon-plus.svg';
 import Nav from '../../components/nav/Nav';
 import ProductOnSale from '../../components/productOnSale/ProductOnSale';
