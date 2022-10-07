@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, createRef, SyntheticEvent } from 'react';
+import { useQueries } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { checkedCartItemState, cartItemState } from '../../atom';
@@ -6,6 +7,7 @@ import CartInfo from '../../components/cart/cartInfo/CartInfo';
 import CartList from '../../components/cart/cartList/CartList';
 import Header from '../../components/header/Header';
 import { useCart } from '../../hooks/useCart';
+import { getProductDetail } from '../../hooks/useProductDetail';
 import { ICartItemDetail, ICartItemData } from '../../types';
 import {
     CartHeader,
@@ -24,6 +26,21 @@ function CartPage() {
     const { cartItems } = useCart();
 
     console.log('장바구니 페이지에서 : ', cartItems);
+
+    console.log('이게뭘까 ? ', !cartItems);
+    console.log('이게뭘까2 ? ', !!cartItems);
+
+    // === start
+    const cartItemsDetailList = useQueries(
+        cartItems.map((item: any) => {
+            return {
+                queryKey: ['productDetail', item.product_id],
+                queryFn: () => getProductDetail(item.product_id),
+            };
+        }),
+    );
+
+    console.log('cartItemsDetailList : ', cartItemsDetailList);
 
     const cartItem = useRecoilValue(cartItemState);
     const setCheckedItems = useSetRecoilState(checkedCartItemState);

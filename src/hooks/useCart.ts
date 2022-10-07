@@ -29,9 +29,7 @@ export const useCart = () => {
                 //         element.product_id,
                 //     );
                 //     cartItemDetail.quantity = element.quantity;
-
                 //     // setCartItem을 바깥으로 (렌더링 반복문때문에 너무 많이됨)
-
                 //     setCartItem((prev) => {
                 //         const newArr = [...prev, cartItemDetail];
                 //         const filteredArr = newArr.filter(
@@ -41,24 +39,22 @@ export const useCart = () => {
                 //                     (t) => t.product_id === element.product_id,
                 //                 ),
                 //         );
-
                 //         return filteredArr;
                 //     });
                 // });
-
-                const cartItemDetailArray: ICartItemDetail[] = [];
-
-                (async function () {
-                    for (let i of data) {
-                        const productDetail = await getProductDetail(
-                            i.product_id,
-                        );
-                        const cartItemDetail = Object.assign({}, productDetail);
-                        cartItemDetail.quantity = i.quantity;
-                        cartItemDetailArray.push(cartItemDetail);
-                    }
-                    setCartItem(cartItemDetailArray);
-                })();
+                // ===================================================
+                // const cartItemDetailArray: ICartItemDetail[] = [];
+                // (async function () {
+                //     for (let i of data) {
+                //         const productDetail = await getProductDetail(
+                //             i.product_id,
+                //         );
+                //         const cartItemDetail = Object.assign({}, productDetail);
+                //         cartItemDetail.quantity = i.quantity;
+                //         cartItemDetailArray.push(cartItemDetail);
+                //     }
+                //     setCartItem(cartItemDetailArray);
+                // })();
             },
         },
     );
