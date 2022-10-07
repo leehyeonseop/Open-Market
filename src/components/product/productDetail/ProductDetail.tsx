@@ -34,17 +34,13 @@ function ProductDetail(props: any) {
     const { productID } = props;
     const { data } = useProductDetail(productID);
 
-    console.log('재곡 : ', data);
-
     const [amount, setAmount] = useState(1);
-
-    const { cartItems } = useCart();
     const { putCartItem, checkInCart } = usePutCart();
 
     const cartItemInfo: ICartItem = {
         quantity: amount,
         product_id: productID,
-        check: checkInCart(productID, cartItems),
+        check: checkInCart(productID),
     };
 
     return (
@@ -88,7 +84,7 @@ function ProductDetail(props: any) {
                         type="button"
                         text="장바구니"
                         onClick={() => {
-                            checkInCart(productID, cartItems)
+                            checkInCart(productID)
                                 ? putCartItem(cartItemInfo)
                                 : alert('이미잇어요');
                         }}

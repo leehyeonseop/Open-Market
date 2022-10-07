@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { axiosInstance } from '../axiosInstance';
+import { IProduct } from '../types';
 
-export const useProduct = (currentPage: number) => {
+export const useProduct = () => {
+    const [currentPage, setCurrentPage] = useState(1);
     const [maxPage, setMaxPage] = useState(0);
     const queryClient = useQueryClient();
 
     const getProducts = async (pageNum: number) => {
         const { data } = await axiosInstance.get(`products/?page=${pageNum}`);
         setMaxPage(Math.ceil(data.count / 15));
+
         return data.results;
     };
 
@@ -22,20 +25,7 @@ export const useProduct = (currentPage: number) => {
         }
     }, [queryClient, currentPage, maxPage]);
 
-    interface Product {
-        image: string;
-        price: number;
-        product_id: number;
-        product_info: string;
-        product_name: string;
-        seller: number;
-        seller_store: string;
-        shipping_fee: number;
-        shipping_method: string;
-        stock: number;
-    }
-
-    const fallBack: Product[] = [];
+    const fallBack: IProduct[] = [];
 
     const {
         data: products = fallBack,
@@ -46,5 +36,5 @@ export const useProduct = (currentPage: number) => {
         keepPreviousData: true,
     });
 
-    return { products };
+    return { products, maxPage, currentPage, setCurrentPage };
 };

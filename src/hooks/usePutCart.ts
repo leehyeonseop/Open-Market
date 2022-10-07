@@ -3,6 +3,7 @@ import { getJWTHeader } from './../axiosInstance/index';
 import { axiosInstance } from '../axiosInstance';
 import { getUser } from '../localStorage';
 import { useMutation, useQueryClient } from 'react-query';
+import { useCart } from './useCart';
 
 const putCart = async (
     user: User,
@@ -24,8 +25,9 @@ const putCart = async (
 export const usePutCart = () => {
     const user = getUser();
     const queryClient = useQueryClient();
+    const { cartItems } = useCart();
 
-    const checkInCart = (product_id: string, cartItems: ICartItemData[]) => {
+    const checkInCart = (product_id: string) => {
         const inCartItem = cartItems.find(
             (item: ICartItemData) => item.product_id === parseInt(product_id),
         );

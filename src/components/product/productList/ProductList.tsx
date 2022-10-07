@@ -1,10 +1,8 @@
 import ProductItem from '../productItem/ProductItem';
 import { Products } from './ProductList.style';
-import { useProduct } from '../../../hooks/useProduct';
 
 function ProductList(props: any) {
-    const { currentPage } = props;
-    const { products } = useProduct(currentPage);
+    const { products } = props;
 
     return (
         <Products>

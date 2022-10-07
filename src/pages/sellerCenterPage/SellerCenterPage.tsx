@@ -8,11 +8,9 @@ import {
 import { ReactComponent as Plus } from '../../assets/icons/icon-plus.svg';
 import Nav from '../../components/nav/Nav';
 import ProductOnSale from '../../components/productOnSale/ProductOnSale';
-import { useSellerProduct } from '../../hooks/useSellerProduct';
 import { useNavigate } from 'react-router-dom';
 
 const SellerCenterPage = () => {
-    const { productOnSaleItems } = useSellerProduct();
     const navigate = useNavigate();
 
     return (
@@ -32,7 +30,7 @@ const SellerCenterPage = () => {
                 </Wrapper>
                 <div>
                     <Nav />
-                    <ProductOnSale productOnSaleItems={productOnSaleItems} />
+                    <ProductOnSale />
                 </div>
             </Main>
         </>

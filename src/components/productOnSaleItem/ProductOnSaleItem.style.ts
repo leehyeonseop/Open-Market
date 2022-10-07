@@ -5,7 +5,11 @@ export const Wrapper = styled.li`
     align-items: center;
     padding: 16px 2.083333333333333%;
     background-color: #fff;
-    border-bottom: 1px solid #c4c4c4;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid #c4c4c4;
+    }
+
     div:nth-child(1) {
         width: 51.31944444444444%;
         display: flex;

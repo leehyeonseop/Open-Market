@@ -4,10 +4,9 @@ import { useRecoilState } from 'recoil';
 import { cartItemState } from '../atom';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
 import { getUser } from '../localStorage';
-import { getProductDetail, useProductDetail } from './useProductDetail';
+import { getProductDetail } from './useProductDetail';
 
-export const useCart = (isChecked?: boolean) => {
-    const queryClient = useQueryClient();
+export const useCart = () => {
     const user = getUser();
     const [cartItem, setCartItem] = useRecoilState(cartItemState);
 
@@ -16,8 +15,6 @@ export const useCart = (isChecked?: boolean) => {
         const { data } = await axiosInstance.get('cart/', {
             headers: getJWTHeader(user),
         });
-
-        console.log('장바구니 : ', data.results);
 
         return data.results;
     };

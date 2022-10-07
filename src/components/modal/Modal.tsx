@@ -22,6 +22,8 @@ const Modal = (props: any) => {
         product_id,
     } = props;
 
+    console.log('props : ', props);
+
     const user = getUser();
     const amountModify = useAmountModify();
     const modifyData: IModifyData = {

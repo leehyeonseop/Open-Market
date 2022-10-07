@@ -7,7 +7,8 @@ const cartItemModify = async (modifyData: IModifyData) => {
     const reqData = {
         product_id: modifyData.product_id,
         quantity: modifyData.amount,
-        is_active: modifyData.is_active,
+        // is_active: modifyData.is_active,
+        is_active: false,
     };
 
     await axiosInstance.put(`cart/${modifyData.cart_item_id}/`, reqData, {

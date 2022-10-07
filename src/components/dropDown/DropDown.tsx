@@ -1,6 +1,7 @@
 import { Wrapper } from './DropDown.style';
 
 import { removeUser } from '../../localStorage/index';
+import { useNavigate } from 'react-router-dom';
 
 interface IDropDown {
     dropDown: boolean;
@@ -8,6 +9,13 @@ interface IDropDown {
 
 const DropDown = (props: IDropDown) => {
     const { dropDown } = props;
+
+    const navigate = useNavigate();
+
+    const logOut = () => {
+        removeUser();
+        navigate('/');
+    };
 
     return (
         <>
@@ -17,7 +25,7 @@ const DropDown = (props: IDropDown) => {
                         <button type="button">마이 페이지</button>
                     </li>
                     <li>
-                        <button type="button" onClick={removeUser}>
+                        <button type="button" onClick={logOut}>
                             로그아웃
                         </button>
                     </li>
