@@ -1,11 +1,14 @@
+import InfiniteScroll from 'react-infinite-scroller';
 import styled from 'styled-components';
 
 export const Section = styled.section`
     background: #f2f2f2;
     border: 1px solid #c4c4c4;
     border-radius: 5px;
-    overflow: hidden;
-    min-height: 880px;
+    /* overflow: hidden;
+    overflow: scroll; */
+    /* min-height: 880px; */
+    /* height: 880px; */
 `;
 
 export const ProductOnSaleHeader = styled.div`
@@ -31,6 +34,11 @@ export const ProductOnSaleHeader = styled.div`
         margin-left: 4.166666666666667%;
         width: 5.555555555555556%;
     }
+`;
+
+export const ProductOnSaleList = styled.ul`
+    height: calc(100% - 53px);
+    /* overflow-y: scroll; */
 `;
 
 export const ProductOnSaleItem = styled.li`
@@ -108,4 +116,9 @@ export const ProductOnSaleItem = styled.li`
             color: black;
         }
     }
+`;
+
+export const StyledInfiniteScroller = styled(InfiniteScroll)`
+    /* height: 500px;
+    overflow-y: scroll; */
 `;

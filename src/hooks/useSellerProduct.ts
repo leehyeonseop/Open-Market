@@ -12,6 +12,8 @@ export const useSellerProduct = () => {
             headers: getJWTHeader(user),
         });
 
+        console.log('data : ', data);
+
         return data.results;
     };
 

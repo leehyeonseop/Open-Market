@@ -55,10 +55,11 @@ function Header() {
                             <ShoppingCartIcon />
                             <Span>장바구니</Span>
                         </StyledLink>
-                        <StyledLink to="/login">
+                        <Button onClick={() => setDropDown((prev) => !prev)}>
                             <UserIcon />
                             <Span>마이페이지</Span>
-                        </StyledLink>
+                            <DropDown dropDown={dropDown} />
+                        </Button>
                     </>
                 )}
                 {user && user.user_type === 'SELLER' && (

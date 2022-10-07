@@ -5,6 +5,7 @@ import { RecoilRoot } from 'recoil';
 
 import Join from '../components/join/Join';
 import Login from '../components/login/Login';
+import ProductOnSale from '../components/productOnSale/ProductOnSale';
 import CartPage from '../pages/cartPage/CartPage';
 import HomePage from '../pages/homePage/HomePage';
 import JoinCompletePage from '../pages/joinCompletePage/JoinCompletePage';
@@ -44,6 +45,7 @@ function App() {
                             path="/productRegistration"
                             element={<ProductRegistrationPage />}
                         />
+                        <Route path="/test" element={<ProductOnSale />} />
                     </Routes>
                 </BrowserRouter>
                 <ReactQueryDevtools />

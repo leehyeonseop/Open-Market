@@ -34,6 +34,7 @@ export const Nav = styled.nav`
     display: flex;
     align-items: center;
     margin-left: auto;
+    gap: 1.354166666666667vw;
 `;
 
 export const StyledLink = styled(Link)`
@@ -41,9 +42,6 @@ export const StyledLink = styled(Link)`
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    &:last-child {
-        margin-left: 1.354166666666667vw;
-    }
 `;
 
 export const Button = styled.button`
@@ -82,7 +80,6 @@ export const SellerCenterLink = styled(Link)`
     padding: 11px 0;
     background: #21bf48;
     border-radius: 5px;
-    margin-left: 1.5625vw;
     svg {
         margin-right: 8px;
     }
