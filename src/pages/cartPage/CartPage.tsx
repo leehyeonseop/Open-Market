@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, createRef, SyntheticEvent } from 'react';
-import { useQueries } from 'react-query';
+import { useQueries, UseQueryResult } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { checkedCartItemState, cartItemState } from '../../atom';
+import { useSetRecoilState } from 'recoil';
+import { checkedCartItemState } from '../../atom';
 import CartInfo from '../../components/cart/cartInfo/CartInfo';
 import CartList from '../../components/cart/cartList/CartList';
 import Header from '../../components/header/Header';
@@ -25,12 +25,8 @@ import {
 function CartPage() {
     const { cartItems } = useCart();
 
-    console.log('장바구니 페이지에서 : ', cartItems);
+    console.log('장바구니 : ', cartItems);
 
-    console.log('이게뭘까 ? ', !cartItems);
-    console.log('이게뭘까2 ? ', !!cartItems);
-
-    // === start
     const cartItemsDetailList = useQueries(
         cartItems.map((item: any) => {
             return {
@@ -38,11 +34,10 @@ function CartPage() {
                 queryFn: () => getProductDetail(item.product_id),
             };
         }),
-    );
+    ) as UseQueryResult<ICartItemDetail, unknown>[];
 
-    console.log('cartItemsDetailList : ', cartItemsDetailList);
+    const isSuccess = cartItemsDetailList.every((detail) => detail.isSuccess);
 
-    const cartItem = useRecoilValue(cartItemState);
     const setCheckedItems = useSetRecoilState(checkedCartItemState);
 
     const formRef = useRef<HTMLFormElement>(null);
@@ -101,20 +96,53 @@ function CartPage() {
         const checkedItems = checkboxRefs.reduce<ICartItemDetail[]>(
             (res, ref, i) => {
                 if (ref.current && ref.current.checked) {
-                    const targetDetail = cartItem.find(
-                        (element) =>
-                            element.product_id === cartItems[i].product_id,
+                    const targetDetail = cartItemsDetailList.find(
+                        ({ data }) =>
+                            data?.product_id === cartItems[i].product_id,
                     );
-                    targetDetail && res.push(targetDetail);
-                }
 
+                    if (targetDetail && targetDetail.data) {
+                        const details = Object.assign({}, targetDetail.data);
+                        details.quantity = cartItems[i].quantity;
+                        res.push(details);
+                    }
+                }
                 return res;
             },
             [],
         );
 
+        console.log('checkedItems : ', checkedItems);
+
         setCheckedItems(checkedItems);
     }, [cartItems, formData]);
+
+    // 처음에 모두 체크
+    // useEffect(() => {
+    //     // checkAllRef.current!.checked = true;
+    //     // setItemsCheckedFromAll();
+    //     if (!isSuccess) return;
+    //     let checkedItems: ICartItemDetail[] = [];
+    //     cartItems.forEach((item: any, index: number) => {
+    //         if (item.is_active) {
+    //             console.log(item);
+
+    //             console.log('checkboxRefs : ', checkboxRefs);
+    //             checkboxRefs[index].current!.checked = true;
+
+    //             // const targetDetail = cartItemsDetailList.find(
+    //             //     ({ data }) => data?.product_id === item.product_id,
+    //             // );
+    //             // if (targetDetail) {
+    //             //     const details = Object.assign({}, targetDetail.data);
+    //             //     details.quantity = item.quantity;
+    //             //     checkedItems.push(details);
+    //             // }
+    //         }
+    //     });
+
+    //     setCheckedItems(checkedItems);
+    // }, [cartItems, checkboxRefs, cartItemsDetailList]);
 
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
@@ -138,22 +166,22 @@ function CartPage() {
                         <Amount>수량</Amount>
                         <ProductPrice>상품금액</ProductPrice>
                     </CartHeader>
-                    {cartItems.length === 0 ? (
+                    {cartItems.length === 0 && (
                         <>
                             <Strong>장바구니에 담긴 상품이 없습니다.</Strong>
                             <Span>원하는 상품을 장바구니에 담아보세요!</Span>
                         </>
-                    ) : (
+                    )}
+                    {isSuccess && cartItems.length !== 0 && (
                         <>
                             <CartList
                                 cartItems={cartItems}
+                                cartItemsDetailList={cartItemsDetailList}
                                 checkboxRefs={checkboxRefs}
                             />
                             <CartInfo />
+                            <OrderButton type="submit">주문하기</OrderButton>
                         </>
-                    )}
-                    {cartItems.length !== 0 && (
-                        <OrderButton type="submit">주문하기</OrderButton>
                     )}
                 </form>
             </Main>
