@@ -7,7 +7,7 @@ import {
     PositiveButton,
 } from './Modal.style';
 import AmountControl from '../button/AmountControl';
-import { useAmountModify } from '../../hooks/useAmountModify';
+import { useModify } from '../../hooks/useModify';
 import { IModifyData } from '../../types';
 
 const Modal = (props: any) => {
@@ -25,7 +25,7 @@ const Modal = (props: any) => {
     console.log('props : ', props);
 
     const user = getUser();
-    const amountModify = useAmountModify();
+    const modify = useModify();
     const modifyData: IModifyData = {
         user: user,
         cart_item_id: cart_item_id,
@@ -55,7 +55,7 @@ const Modal = (props: any) => {
                 <PositiveButton
                     type="button"
                     onClick={() => {
-                        amountModify(modifyData);
+                        modify(modifyData);
                         setModalOpen(false);
                     }}
                 >

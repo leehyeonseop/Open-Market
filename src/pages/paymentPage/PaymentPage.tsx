@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
+import { useQueries } from 'react-query';
+import { useLocation, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { cartItemState, checkedCartItemState } from '../../atom';
 import { axiosInstance, getJWTHeader } from '../../axiosInstance';
@@ -6,7 +9,10 @@ import Header from '../../components/header/Header';
 import DeliveryInfo from '../../components/payment/deliveryInfo/DeliverInfo';
 import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
 import PaymentItem from '../../components/payment/paymentItem/PaymentItem';
+import { useCart } from '../../hooks/useCart';
+import { getProductDetail } from '../../hooks/useProductDetail';
 import { getUser } from '../../localStorage';
+import { ICartItemDetail } from '../../types';
 import {
     Div,
     H2,
@@ -22,18 +28,6 @@ import {
 } from './PaymentPage.style';
 
 const PaymentPage = () => {
-    const checkedItems = useRecoilValue(checkedCartItemState);
-
-    let totalProductPrice = 0;
-    let totalShippingFee = 0;
-
-    checkedItems.forEach((item) => {
-        totalProductPrice += item.price * item.quantity;
-        totalShippingFee += item.shipping_fee;
-    });
-
-    let totalPrice = totalProductPrice + totalShippingFee;
-
     const { register, handleSubmit } = useForm();
 
     const order = async (
@@ -72,6 +66,31 @@ const PaymentPage = () => {
         order(data, totalPrice, 'cart_order');
     });
 
+    // 여기부터 시작
+    // 체크된것만 결제페이지 이동
+    // is_active는 모두 true인 상태
+    // 결제하기 버튼을 누르는 순간 체크된것이 is_active라면 is_active를 true로 변경해주고 체크 안된것들은 is_active를 false로 수정
+
+    interface IState {
+        order_kind: string;
+        items: ICartItemDetail[];
+    }
+
+    const location = useLocation();
+    const state = location.state as IState;
+
+    console.log(state.items);
+
+    let totalProductPrice = 0;
+    let totalShippingFee = 0;
+
+    state.items.forEach((item) => {
+        totalProductPrice += item.price * item.quantity;
+        totalShippingFee += item.shipping_fee;
+    });
+
+    let totalPrice = totalProductPrice + totalShippingFee;
+
     return (
         <>
             <Header />
@@ -85,7 +104,7 @@ const PaymentPage = () => {
                         <Div>주문금액</Div>
                     </PaymentHeader>
                     <ul>
-                        {checkedItems.map((item) => {
+                        {state.items.map((item) => {
                             return <PaymentItem item={item} />;
                         })}
                     </ul>

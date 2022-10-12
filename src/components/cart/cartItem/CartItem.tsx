@@ -1,6 +1,9 @@
-import { useState, ForwardedRef, forwardRef } from 'react';
+import { useState, useEffect, ForwardedRef, forwardRef } from 'react';
+import { useModify } from '../../../hooks/useModify';
 import { useCartDelete } from '../../../hooks/useCartDelete';
+import { getUser } from '../../../localStorage';
 import ModalPortal from '../../../modalPortal';
+import { IModifyData } from '../../../types';
 import AmountControl from '../../button/AmountControl';
 import Modal from '../../modal/Modal';
 import {
@@ -20,87 +23,64 @@ import {
     TotalPrice,
     Wrapper,
 } from './CartItem.style';
+import { useNavigate } from 'react-router-dom';
 
 function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
     const { product_id, quantity, cart_item_id, is_active, details } = props;
 
+    // const [count, setCount] = useState(0);
     const [amount, setAmount] = useState(quantity);
     const [modalOpen, setModalOpen] = useState(false);
+    // const [active, setActive] = useState<boolean>(is_active);
+
+    const user = getUser();
+    // const modifyData: IModifyData = {
+    //     user: user,
+    //     cart_item_id: cart_item_id,
+    //     product_id: product_id,
+    //     is_active: active,
+    //     amount: quantity,
+    // };
 
     const deleteItem = useCartDelete();
+    // const modify = useModify();
+
+    // useEffect(() => {
+    //     if (count >= 1) {
+    //         modify(modifyData);
+    //     }
+    // }, [active]);
+
+    // useEffect(() => {
+    //     setActive(is_active);
+    // }, [is_active]);
+
+    const navigate = useNavigate();
+
+    const goPaymentPage = () => {
+        const newDetails = Object.assign({}, details);
+        newDetails.quantity = quantity;
+
+        navigate('/payment', {
+            state: {
+                order_kind: 'cart_one_order',
+                items: [newDetails],
+            },
+        });
+    };
 
     return (
         <>
-            {/* {cartItemData && (
-                <Wrapper>
-                    <Checkbox ref={ref} name={'check-item'} />
-                    <ProductInfo>
-                        <Figure
-                            style={{
-                                backgroundImage: `url(${cartItemData.image})`,
-                            }}
-                        >
-                            <Image />
-                        </Figure>
-                        <Description>
-                            <Sellor>{cartItemData.store_name}</Sellor>
-                            <ProductName>
-                                {cartItemData.product_name}
-                            </ProductName>
-                            <Price>
-                                {cartItemData.price &&
-                                    cartItemData.price.toLocaleString('ko-KR')}
-                                원
-                            </Price>
-                            <Delivery>
-                                {cartItemData.shipping_method}{' '}
-                                {cartItemData.shipping_fee}
-                            </Delivery>
-                        </Description>
-                    </ProductInfo>
-                    <Amount>
-                        <AmountControl
-                            width={100}
-                            stock={cartItemData.stock}
-                            amount={amount}
-                            setAmount={setAmount}
-                            onClick={() => {
-                                setModalOpen((prev: any) => !prev);
-                            }}
-                        />
-                    </Amount>
-                    <ProductPrice>
-                        <TotalPrice>
-                            {(cartItemData.price * amount).toLocaleString(
-                                'ko-KR',
-                            )}
-                            원
-                        </TotalPrice>
-                        <OrderButton
-                            type="button"
-                            text="주문하기"
-                            padding={10}
-                        ></OrderButton>
-                    </ProductPrice>
-                    <DeleteButton onClick={() => deleteItem(cart_item_id)} />
-                    {modalOpen && (
-                        <ModalPortal>
-                            <Modal
-                                setModalOpen={setModalOpen}
-                                amount={amount}
-                                setAmount={setAmount}
-                                stock={cartItemData.stock}
-                                quantity={quantity}
-                                cart_item_id={cart_item_id}
-                                is_active={is_active}
-                                product_id={product_id}
-                            />
-                        </ModalPortal>
-                    )}
-                </Wrapper>
-            )} */}
             <Wrapper>
-                <Checkbox ref={ref} name={'check-item'} />
+                <Checkbox
+                    ref={ref}
+                    // checked={active}
+                    name={'check-item'}
+                    // onChange={() => {
+                    //     setCount((prev: number) => prev + 1);
+                    //     setActive((prev: boolean) => !prev);
+                    // }}
+                />
                 <ProductInfo>
                     <Figure
                         style={{
@@ -141,6 +121,7 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
                         type="button"
                         text="주문하기"
                         padding={10}
+                        onClick={goPaymentPage}
                     ></OrderButton>
                 </ProductPrice>
                 <DeleteButton onClick={() => deleteItem(cart_item_id)} />
