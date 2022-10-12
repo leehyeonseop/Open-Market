@@ -202,6 +202,7 @@ function CartPage() {
                   state: {
                       order_kind: 'cart_order',
                       items: checkedItems,
+                      cartItems: cartItems,
                   },
               });
     };

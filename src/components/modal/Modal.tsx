@@ -54,7 +54,7 @@ const Modal = (props: any) => {
                 </Button>
                 <PositiveButton
                     type="button"
-                    onClick={() => {
+                    onClick={async () => {
                         modify(modifyData);
                         setModalOpen(false);
                     }}

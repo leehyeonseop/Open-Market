@@ -18,11 +18,12 @@ const cartItemModify = async (modifyData: IModifyData) => {
 export const useModify = () => {
     const queryClient = useQueryClient();
 
-    const { mutate } = useMutation(cartItemModify, {
+    const { mutateAsync } = useMutation(cartItemModify, {
         onSuccess: () => {
+            console.log('수정 성공!');
             queryClient.invalidateQueries(['cartItem']);
         },
     });
 
-    return mutate;
+    return mutateAsync;
 };
