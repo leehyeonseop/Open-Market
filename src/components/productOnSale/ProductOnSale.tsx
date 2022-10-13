@@ -2,14 +2,12 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { useSellerProduct } from '../../hooks/useSellerProduct';
 
 import { ISaleItem } from '../../types';
+import Loading from '../loading/Loading';
 import ProductOnSaleItem from '../productOnSaleItem/ProductOnSaleItem';
 import { ProductOnSaleHeader, Section } from './ProductOnSale.style';
 
 const ProductOnSale = () => {
-    const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
-        useSellerProduct();
-
-    if (isLoading) return <div>로딩중!</div>;
+    const { data, fetchNextPage, hasNextPage, isFetching } = useSellerProduct();
 
     return (
         <>
@@ -25,7 +23,6 @@ const ProductOnSale = () => {
                         loadMore={fetchNextPage}
                         hasMore={hasNextPage}
                     >
-                        {isFetching && <div>로딩중!</div>}
                         {data &&
                             data.pages.map((page) => {
                                 return (

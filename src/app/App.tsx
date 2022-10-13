@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 import Join from '../components/join/Join';
+import Loading from '../components/loading/Loading';
 import Login from '../components/login/Login';
 import ProductOnSale from '../components/productOnSale/ProductOnSale';
 import CartPage from '../pages/cartPage/CartPage';
@@ -20,6 +21,7 @@ import { GlobalStyle } from './GlobalStyle';
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
+            <Loading />
             <RecoilRoot>
                 <GlobalStyle />
                 <BrowserRouter>
