@@ -29,6 +29,7 @@ import { useState } from 'react';
 import { ICartItem } from '../../../types';
 import { useCart } from '../../../hooks/useCart';
 import { usePutCart } from '../../../hooks/usePutCart';
+import { useNavigate } from 'react-router-dom';
 
 function ProductDetail(props: any) {
     const { productID } = props;
@@ -36,6 +37,8 @@ function ProductDetail(props: any) {
 
     const [amount, setAmount] = useState(1);
     const { putCartItem, checkInCart } = usePutCart();
+
+    const navigate = useNavigate();
 
     const cartItemInfo: ICartItem = {
         quantity: amount,
@@ -79,16 +82,29 @@ function ProductDetail(props: any) {
                     </TotalPrice>
                 </TotalWrapper>
                 <ButtonWrapper>
-                    <BuyButton text="바로 구매" />
+                    <BuyButton
+                        type="button"
+                        onClick={() =>
+                            navigate('/payment', {
+                                state: {
+                                    order_kind: 'direct_order',
+                                    items: [{ ...data, quantity: amount }],
+                                },
+                            })
+                        }
+                    >
+                        바로구매
+                    </BuyButton>
                     <CartButton
                         type="button"
-                        text="장바구니"
                         onClick={() => {
                             checkInCart(productID)
                                 ? putCartItem(cartItemInfo)
                                 : alert('이미잇어요');
                         }}
-                    />
+                    >
+                        장바구니
+                    </CartButton>
                 </ButtonWrapper>
             </Description>
         </Wrapper>

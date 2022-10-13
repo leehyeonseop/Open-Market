@@ -26,7 +26,14 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
-    const { product_id, quantity, cart_item_id, is_active, details } = props;
+    const {
+        product_id,
+        quantity,
+        cart_item_id,
+        is_active,
+        details,
+        cartItems,
+    } = props;
 
     // const [count, setCount] = useState(0);
     const [amount, setAmount] = useState(quantity);
@@ -65,6 +72,7 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
             state: {
                 order_kind: 'cart_one_order',
                 items: [newDetails],
+                cartItems: cartItems,
             },
         });
     };

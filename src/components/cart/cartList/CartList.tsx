@@ -10,6 +10,7 @@ const CartList = (props: any) => {
                 {cartItems.map((item: any, index: number) => (
                     <CartItem
                         key={item.product_id}
+                        cartItems={cartItems}
                         {...item}
                         details={cartItemsDetailList[index].data}
                         ref={checkboxRefs[index]}

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import AmountControl from '../../button/AmountControl';
-import Button from '../../button/Button';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -157,15 +156,25 @@ export const ButtonWrapper = styled.div`
     justify-content: space-between;
 `;
 
-export const BuyButton = styled(Button)`
+export const BuyButton = styled.button`
     width: 66.03174603174603%;
     margin-top: 3.492063492063492%;
     padding: 3.015873015873016%;
+    border: 0;
+    background: #21bf48;
+    border-radius: 5px;
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: white;
+    cursor: pointer;
 `;
 
-export const CartButton = styled(Button)`
+export const CartButton = styled(BuyButton)`
     width: 31.74603174603175%;
     padding: 3.015873015873016%;
     background: #767676;
     align-self: flex-end;
+    background: #767676;
 `;

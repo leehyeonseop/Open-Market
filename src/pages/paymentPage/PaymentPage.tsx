@@ -1,17 +1,11 @@
-import { useState, useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { useQueries, useQueryClient } from 'react-query';
-import { useLocation, useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { cartItemState, checkedCartItemState } from '../../atom';
+import { useLocation } from 'react-router-dom';
 import { axiosInstance, getJWTHeader } from '../../axiosInstance';
 import Header from '../../components/header/Header';
 import DeliveryInfo from '../../components/payment/deliveryInfo/DeliverInfo';
 import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
 import PaymentItem from '../../components/payment/paymentItem/PaymentItem';
-import { useCart } from '../../hooks/useCart';
 import { useModify } from '../../hooks/useModify';
-import { getProductDetail } from '../../hooks/useProductDetail';
 import { getUser } from '../../localStorage';
 import { ICartItemDetail, ICartItemData, IModifyData } from '../../types';
 import {
@@ -50,11 +44,11 @@ const PaymentPage = () => {
 
     let totalPrice = totalProductPrice + totalShippingFee;
 
+    const orderKind = state.order_kind;
     const cartItems = state.cartItems;
     const items = state.items;
 
     console.log('결제페이지에서 장바구니 아이템 : ', cartItems);
-
     console.log('선택해서 결제페이지로 온 아이템들 : ', items);
 
     interface IBaseOrderData {
@@ -75,47 +69,30 @@ const PaymentPage = () => {
     const modify = useModify();
     const user = getUser();
 
-    useEffect(() => {
-        console.log('자 처음에는 머가 나올까!');
-        console.log(orderItemCheck());
-        console.log('요고는?');
-    }, []);
-
     const orderItemCheck = () => {
         // 1. 선택된 아이템들의 아이디를 뽑아냅니다.
         const selectedProductIDList = items.map((item: any) => item.product_id);
-        console.log('selectedProductIDList : ', selectedProductIDList);
 
         // 2. 카트아이템에서 선택된 아이템들을 뽑아낼겁니다.
-        const selectedItemList = cartItems.reduce(
-            (res: any, ref: any, i: number) => {
-                if (selectedProductIDList.includes(ref.product_id)) {
-                    res.push(ref);
-                }
-                return res;
-            },
-            [],
-        );
+        const selectedItemList = cartItems.reduce((res: any, ref: any) => {
+            if (selectedProductIDList.includes(ref.product_id)) {
+                res.push(ref);
+            }
+            return res;
+        }, []);
 
         // 3 선택되지 아이템들은 is_active를 false로 바꿔줘야하기 때문에 또한 뽑아냅니다.
-        const unSelectedItemList = cartItems.reduce(
-            (res: any, ref: any, i: number) => {
-                if (!selectedProductIDList.includes(ref.product_id)) {
-                    res.push(ref);
-                }
-                return res;
-            },
-            [],
-        );
-
-        console.log('선택된 아이템이 맞을까요  ? ', selectedItemList);
-        console.log('선택되지 않은 아이템 리스트들 : ', unSelectedItemList);
-
-        const promiseList: any = [];
+        const unSelectedItemList = cartItems.reduce((res: any, ref: any) => {
+            if (!selectedProductIDList.includes(ref.product_id)) {
+                res.push(ref);
+            }
+            return res;
+        }, []);
 
         // 4. 선택된 아이템이 is_active가 false라면? 안되죠!
-        selectedItemList.forEach((item: any) => {
-            if (!item.is_active) {
+        const selectedPromiseList = selectedItemList
+            .filter((item: any) => !item.is_active)
+            .map((item: any) => {
                 const modifyData: IModifyData = {
                     user: user,
                     cart_item_id: item.cart_item_id,
@@ -123,14 +100,13 @@ const PaymentPage = () => {
                     is_active: !item.is_active,
                     amount: item.quantity,
                 };
-
-                promiseList.push(modify(modifyData));
-            }
-        });
+                return modify(modifyData);
+            });
 
         // 5. 선택되지 않은 아이템들은 is_active가 true라면 false로 바꿔줘야 합니다.
-        unSelectedItemList.forEach((item: any) => {
-            if (item.is_active) {
+        const unselectedPromiseList = unSelectedItemList
+            .filter((item: any) => item.is_active)
+            .map((item: any) => {
                 const modifyData: IModifyData = {
                     user: user,
                     cart_item_id: item.cart_item_id,
@@ -138,11 +114,10 @@ const PaymentPage = () => {
                     is_active: !item.is_active,
                     amount: item.quantity,
                 };
+                return modify(modifyData);
+            });
 
-                promiseList.push(modify(modifyData));
-            }
-        });
-        console.log('아이템 체크 끝');
+        const promiseList = selectedPromiseList.concat(unselectedPromiseList);
 
         return promiseList;
     };
@@ -152,8 +127,6 @@ const PaymentPage = () => {
         totalPrice: number,
         orderKind: string,
     ) => {
-        console.log('totalPrice : ', totalPrice);
-
         const phone_number =
             data.startPhoneNum + data.centerPhoneNum + data.endPhoneNum;
 
@@ -169,40 +142,27 @@ const PaymentPage = () => {
             quantity: undefined,
         };
 
-        // if (orderKind === 'cart_one_order') {
-        //     baseReqData.product_id = 3;
-        // }
+        if (orderKind === 'cart_one_order' || 'direct_order') {
+            reqData.product_id = items[0].product_id;
+            reqData.quantity = items[0].quantity;
+        }
 
-        console.log('reqData : ', reqData);
-
-        const a = await axiosInstance.post('order/', reqData, {
+        const response = await axiosInstance.post('order/', reqData, {
             headers: getJWTHeader(user),
         });
 
-        console.log('a : ', a);
+        console.log('response : ', response);
     };
 
     const onSubmit = handleSubmit(async (data) => {
-        // await orderItemCheck();
-        await Promise.all(orderItemCheck());
-        console.log('data : ', data);
-        order(data, totalPrice, state.order_kind);
+        if (orderKind !== 'direct_order') {
+            const promiseList = orderItemCheck();
+            await Promise.all(promiseList);
+        }
+        order(data, totalPrice, orderKind);
     });
 
-    // const onSubmit = async (data: any) => {
-    //     // await orderItemCheck();
-    //     const a = new Promise(orderItemCheck);
-    //     a.then((result) => {
-    //         console.log('하이');
-    //         console.log(result);
-    //     });
-    //     // order(data, totalPrice, state.order_kind);
-    // };
-
     // 여기부터 시작
-    // 체크된것만 결제페이지 이동
-    // is_active는 모두 true인 상태
-    // 결제하기 버튼을 누르는 순간 체크된것이 is_active라면 is_active를 true로 변경해주고 체크 안된것들은 is_active를 false로 수정
 
     return (
         <>

@@ -20,7 +20,6 @@ export const useModify = () => {
 
     const { mutateAsync } = useMutation(cartItemModify, {
         onSuccess: () => {
-            console.log('수정 성공!');
             queryClient.invalidateQueries(['cartItem']);
         },
     });
