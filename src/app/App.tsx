@@ -1,22 +1,13 @@
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import Join from '../components/join/Join';
 import Loading from '../components/loading/Loading';
-import Login from '../components/login/Login';
-import ProductOnSale from '../components/productOnSale/ProductOnSale';
-import CartPage from '../pages/cartPage/CartPage';
-import HomePage from '../pages/homePage/HomePage';
-import JoinCompletePage from '../pages/joinCompletePage/JoinCompletePage';
-import PaymentPage from '../pages/paymentPage/PaymentPage';
-import ProductDetailPage from '../pages/productDetailPage/ProductDetailPage';
-import ProductRegistrationPage from '../pages/productRegistrationPage/ProductRegistrationPage';
-import SellerCenterPage from '../pages/sellerCenterPage/SellerCenterPage';
 
 import { queryClient } from '../react-query/queryClient';
 import { GlobalStyle } from './GlobalStyle';
+import router from './Router';
 
 function App() {
     return (
@@ -24,32 +15,7 @@ function App() {
             <Loading />
             <RecoilRoot>
                 <GlobalStyle />
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/join" element={<Join />} />
-                        <Route
-                            path="/joinComplete"
-                            element={<JoinCompletePage />}
-                        />
-                        <Route
-                            path="/product/:productID"
-                            element={<ProductDetailPage />}
-                        />
-                        <Route path="/cart" element={<CartPage />} />
-                        <Route path="/payment" element={<PaymentPage />} />
-                        <Route
-                            path="/sellerCenter"
-                            element={<SellerCenterPage />}
-                        />
-                        <Route
-                            path="/productRegistration"
-                            element={<ProductRegistrationPage />}
-                        />
-                        <Route path="/test" element={<ProductOnSale />} />
-                    </Routes>
-                </BrowserRouter>
+                <RouterProvider router={router} />
                 <ReactQueryDevtools />
             </RecoilRoot>
         </QueryClientProvider>

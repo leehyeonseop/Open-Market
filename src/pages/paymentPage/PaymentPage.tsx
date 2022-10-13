@@ -1,4 +1,5 @@
 import { FieldValues, useForm } from 'react-hook-form';
+import { ScrollRestoration } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { axiosInstance, getJWTHeader } from '../../axiosInstance';
 import Header from '../../components/header/Header';
@@ -166,6 +167,7 @@ const PaymentPage = () => {
 
     return (
         <>
+            <ScrollRestoration />
             <Header />
             <Main>
                 <H2>주문/결제하기</H2>
