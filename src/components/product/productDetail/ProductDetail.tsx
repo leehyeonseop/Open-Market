@@ -30,13 +30,20 @@ import { ICartItem } from '../../../types';
 import { useCart } from '../../../hooks/useCart';
 import { usePutCart } from '../../../hooks/usePutCart';
 import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../../localStorage';
+import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
+import Modal from '../../modal/Modal';
+import ModalPortal from '../../../modalPortal';
 
 function ProductDetail(props: any) {
     const { productID } = props;
     const { data } = useProductDetail(productID);
 
     const [amount, setAmount] = useState(1);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+    const [cartModalOpen, setCartModalOpen] = useState(false);
     const { putCartItem, checkInCart } = usePutCart();
+    const user = getUser();
 
     const navigate = useNavigate();
 
@@ -66,7 +73,6 @@ function ProductDetail(props: any) {
                 </PriceWrapper>
                 <Delivery>택배배송 / 무료배송</Delivery>
                 <StyledAmountControl
-                    width={23.80952380952381}
                     stock={data.stock}
                     amount={amount}
                     setAmount={setAmount}
@@ -98,15 +104,62 @@ function ProductDetail(props: any) {
                     <CartButton
                         type="button"
                         onClick={() => {
+                            if (!user) {
+                                // alert('로그인한 유저만 이용 가능합니다.');
+                                setLoginModalOpen(true);
+                                return;
+                            }
                             checkInCart(productID)
                                 ? putCartItem(cartItemInfo)
-                                : alert('이미잇어요');
+                                : setCartModalOpen(true);
                         }}
                     >
                         장바구니
                     </CartButton>
                 </ButtonWrapper>
             </Description>
+            {loginModalOpen && (
+                <ModalPortal>
+                    <Modal
+                        MainContent={
+                            <p>
+                                로그인이 필요한 서비스입니다.
+                                <br />
+                                로그인 하시겠습니까?
+                            </p>
+                        }
+                        positiveOnClick={() => {
+                            navigate('/login');
+                        }}
+                        positiveText="예"
+                        negativeOnClick={() => {
+                            setLoginModalOpen(false);
+                        }}
+                        negativeText="아니요"
+                    />
+                </ModalPortal>
+            )}
+            {cartModalOpen && (
+                <ModalPortal>
+                    <Modal
+                        MainContent={
+                            <p>
+                                이미 장바구니에 있는 상품입니다.
+                                <br />
+                                장바구니로 이동하시겠습니까?
+                            </p>
+                        }
+                        positiveOnClick={() => {
+                            navigate('/cart');
+                        }}
+                        positiveText="예"
+                        negativeOnClick={() => {
+                            setCartModalOpen(false);
+                        }}
+                        negativeText="아니요"
+                    />
+                </ModalPortal>
+            )}
         </Wrapper>
     );
 }

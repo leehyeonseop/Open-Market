@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import Join from '../components/join/Join';
 import Login from '../components/login/Login';
+import Modal from '../components/modal/Modal';
 import CartPage from '../pages/cartPage/CartPage';
 import HomePage from '../pages/homePage/HomePage';
 import JoinCompletePage from '../pages/joinCompletePage/JoinCompletePage';
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
                 path="productRegistration"
                 element={<ProductRegistrationPage />}
             />
+            {/* <Route path="test" element={<Modal />} /> */}
         </>,
     ),
 );

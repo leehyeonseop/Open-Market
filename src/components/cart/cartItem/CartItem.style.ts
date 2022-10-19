@@ -99,6 +99,7 @@ export const Delivery = styled.span`
 `;
 
 export const Amount = styled.div`
+    display: flex;
     width: 11.71875%;
 `;
 

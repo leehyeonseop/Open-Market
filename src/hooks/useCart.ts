@@ -20,7 +20,8 @@ export const useCart = () => {
     };
 
     const { data: cartItems = [] } = useQuery(
-        ['cartItem', user.id],
+        // ['cartItem', user.id],
+        ['cartItem'],
         getCartItems,
         {
             onSuccess(data) {

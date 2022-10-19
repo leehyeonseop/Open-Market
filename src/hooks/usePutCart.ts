@@ -25,9 +25,11 @@ const putCart = async (
 export const usePutCart = () => {
     const user = getUser();
     const queryClient = useQueryClient();
+
     const { cartItems } = useCart();
 
     const checkInCart = (product_id: string) => {
+        if (!user || !cartItems) return false;
         const inCartItem = cartItems.find(
             (item: ICartItemData) => item.product_id === parseInt(product_id),
         );

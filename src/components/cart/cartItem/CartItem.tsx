@@ -77,6 +77,16 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
         });
     };
 
+    // 모달 수정 후
+    const modify = useModify();
+    const modifyData: IModifyData = {
+        user: user,
+        cart_item_id: cart_item_id,
+        product_id: product_id,
+        is_active: is_active,
+        amount: amount,
+    };
+
     return (
         <>
             <Wrapper>
@@ -112,7 +122,6 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
                 </ProductInfo>
                 <Amount>
                     <AmountControl
-                        width={100}
                         stock={details.stock}
                         amount={amount}
                         setAmount={setAmount}
@@ -136,14 +145,23 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
                 {modalOpen && (
                     <ModalPortal>
                         <Modal
-                            setModalOpen={setModalOpen}
-                            amount={amount}
-                            setAmount={setAmount}
-                            stock={details.stock}
-                            quantity={quantity}
-                            cart_item_id={cart_item_id}
-                            is_active={is_active}
-                            product_id={product_id}
+                            MainContent={
+                                <AmountControl
+                                    stock={details.stock}
+                                    amount={amount}
+                                    setAmount={setAmount}
+                                />
+                            }
+                            positiveOnClick={async () => {
+                                modify(modifyData);
+                                setModalOpen(false);
+                            }}
+                            positiveText="수정"
+                            negativeOnClick={() => {
+                                setAmount(quantity);
+                                setModalOpen(false);
+                            }}
+                            negativeText="취소"
                         />
                     </ModalPortal>
                 )}

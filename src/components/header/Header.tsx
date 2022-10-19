@@ -16,16 +16,19 @@ import { ReactComponent as ShoppingBagIcon } from '../../assets/icons/icon-shopp
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../localStorage';
 import DropDown from '../dropDown/DropDown';
+import ModalPortal from '../../modalPortal';
+import Modal from '../modal/Modal';
 
 function Header() {
     const navigate = useNavigate();
     const user = getUser();
 
     const [dropDown, setDropDown] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
 
     const isUser = () => {
         if (!user) {
-            alert('로그인한 유저만 이용 가능합니다!');
+            setLoginModalOpen(true);
             return;
         } else {
             navigate('/cart');
@@ -76,6 +79,27 @@ function Header() {
                     </>
                 )}
             </Nav>
+            {loginModalOpen && (
+                <ModalPortal>
+                    <Modal
+                        MainContent={
+                            <p>
+                                로그인이 필요한 서비스입니다.
+                                <br />
+                                로그인 하시겠습니까?
+                            </p>
+                        }
+                        positiveOnClick={() => {
+                            navigate('/login');
+                        }}
+                        positiveText="예"
+                        negativeOnClick={() => {
+                            setLoginModalOpen(false);
+                        }}
+                        negativeText="아니요"
+                    />
+                </ModalPortal>
+            )}
         </Wrapper>
     );
 }
