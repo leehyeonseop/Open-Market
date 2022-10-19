@@ -30,7 +30,6 @@ const router = createBrowserRouter(
                 path="productRegistration"
                 element={<ProductRegistrationPage />}
             />
-            {/* <Route path="test" element={<Modal />} /> */}
         </>,
     ),
 );

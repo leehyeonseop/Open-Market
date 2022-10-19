@@ -4,6 +4,7 @@ import { axiosInstance } from '../axiosInstance';
 import { getUser } from '../localStorage';
 import { useMutation, useQueryClient } from 'react-query';
 import { useCart } from './useCart';
+import { useState } from 'react';
 
 const putCart = async (
     user: User,
@@ -24,6 +25,8 @@ const putCart = async (
 
 export const usePutCart = () => {
     const user = getUser();
+    const [open, setOpen] = useState(false);
+
     const queryClient = useQueryClient();
 
     const { cartItems } = useCart();
@@ -47,10 +50,11 @@ export const usePutCart = () => {
             ),
         {
             onSuccess: () => {
+                setOpen(true);
                 queryClient.invalidateQueries(['cartItem']);
             },
         },
     );
 
-    return { putCartItem, checkInCart };
+    return { putCartItem, checkInCart, open, setOpen };
 };

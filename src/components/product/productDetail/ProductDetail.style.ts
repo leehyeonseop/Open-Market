@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import AmountControl from '../../button/AmountControl';
+import { Alert } from '@mui/material';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -177,4 +178,12 @@ export const CartButton = styled(BuyButton)`
     background: #767676;
     align-self: flex-end;
     background: #767676;
+`;
+
+export const SuccessMessage = styled.strong`
+    font-family: 'Spoqa Han Sans Neo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1rem;
 `;

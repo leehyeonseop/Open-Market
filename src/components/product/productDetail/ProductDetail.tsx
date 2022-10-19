@@ -16,6 +16,7 @@ import {
     Sellor,
     Span,
     StyledAmountControl,
+    SuccessMessage,
     TotalAmount,
     TotalNumber,
     TotalPrice,
@@ -34,6 +35,8 @@ import { getUser } from '../../../localStorage';
 import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
 import Modal from '../../modal/Modal';
 import ModalPortal from '../../../modalPortal';
+import { Alert, Button, IconButton, Snackbar } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 function ProductDetail(props: any) {
     const { productID } = props;
@@ -42,7 +45,7 @@ function ProductDetail(props: any) {
     const [amount, setAmount] = useState(1);
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [cartModalOpen, setCartModalOpen] = useState(false);
-    const { putCartItem, checkInCart } = usePutCart();
+    const { putCartItem, checkInCart, open, setOpen } = usePutCart();
     const user = getUser();
 
     const navigate = useNavigate();
@@ -52,6 +55,33 @@ function ProductDetail(props: any) {
         product_id: productID,
         check: checkInCart(productID),
     };
+
+    const handleClose = (
+        event: React.SyntheticEvent | Event,
+        reason?: string,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    const action = (
+        <>
+            <Button color="secondary" size="small" onClick={handleClose}>
+                UNDO
+            </Button>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </>
+    );
 
     return (
         <Wrapper>
@@ -105,7 +135,6 @@ function ProductDetail(props: any) {
                         type="button"
                         onClick={() => {
                             if (!user) {
-                                // alert('로그인한 유저만 이용 가능합니다.');
                                 setLoginModalOpen(true);
                                 return;
                             }
@@ -160,6 +189,22 @@ function ProductDetail(props: any) {
                     />
                 </ModalPortal>
             )}
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert
+                    onClose={handleClose}
+                    severity="success"
+                    sx={{ width: '100%' }}
+                >
+                    <SuccessMessage>
+                        장바구니에 메뉴를 추가했습니다.
+                    </SuccessMessage>
+                </Alert>
+            </Snackbar>
         </Wrapper>
     );
 }
