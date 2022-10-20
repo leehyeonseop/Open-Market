@@ -1,6 +1,4 @@
 import { useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
-import { cartItemState } from '../atom';
 import { axiosInstance } from '../axiosInstance';
 
 export const getProductDetail = async (productID: string) => {

@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-// interface AmountControlProps {
-//     width: number;
-// }
-
 export const Wrapper = styled.div`
     width: 150px;
     height: 50px;

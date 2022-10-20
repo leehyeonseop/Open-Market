@@ -1,4 +1,3 @@
-import { ScrollRestoration } from 'react-router-dom';
 import {
     createRoutesFromElements,
     createBrowserRouter,
@@ -6,7 +5,6 @@ import {
 } from 'react-router-dom';
 import Join from '../components/join/Join';
 import Login from '../components/login/Login';
-import Modal from '../components/modal/Modal';
 import CartPage from '../pages/cartPage/CartPage';
 import HomePage from '../pages/homePage/HomePage';
 import JoinCompletePage from '../pages/joinCompletePage/JoinCompletePage';

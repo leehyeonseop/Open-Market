@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface User {
     id: number;
     token: string;
@@ -87,4 +89,12 @@ export interface IState {
     order_kind: string;
     items: ICartItemDetail[];
     cartItems: ICartItemData[];
+}
+
+export interface AmountControlProps {
+    className?: string;
+    stock: number;
+    amount: number;
+    setAmount: Dispatch<SetStateAction<number>>;
+    onClick?: () => void;
 }

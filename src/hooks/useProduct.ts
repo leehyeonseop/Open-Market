@@ -27,14 +27,13 @@ export const useProduct = () => {
 
     const fallBack: IProduct[] = [];
 
-    const {
-        data: products = fallBack,
-        isLoading,
-        isError,
-        error,
-    } = useQuery(['products', currentPage], () => getProducts(currentPage), {
-        keepPreviousData: true,
-    });
+    const { data: products = fallBack } = useQuery(
+        ['products', currentPage],
+        () => getProducts(currentPage),
+        {
+            keepPreviousData: true,
+        },
+    );
 
     return { products, maxPage, currentPage, setCurrentPage };
 };

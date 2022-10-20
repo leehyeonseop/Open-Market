@@ -1,14 +1,9 @@
-import { ICartItemDetail } from './../types';
-import { useQuery, useQueryClient } from 'react-query';
-import { useRecoilState } from 'recoil';
-import { cartItemState } from '../atom';
+import { useQuery } from 'react-query';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
 import { getUser } from '../localStorage';
-import { getProductDetail } from './useProductDetail';
 
 export const useCart = () => {
     const user = getUser();
-    const [cartItem, setCartItem] = useRecoilState(cartItemState);
 
     const getCartItems = async () => {
         if (!user) return null;
@@ -19,46 +14,7 @@ export const useCart = () => {
         return data.results;
     };
 
-    const { data: cartItems = [] } = useQuery(
-        // ['cartItem', user.id],
-        ['cartItem'],
-        getCartItems,
-        {
-            onSuccess(data) {
-                // data.forEach(async (element: any) => {
-                //     const cartItemDetail = await getProductDetail(
-                //         element.product_id,
-                //     );
-                //     cartItemDetail.quantity = element.quantity;
-                //     // setCartItem을 바깥으로 (렌더링 반복문때문에 너무 많이됨)
-                //     setCartItem((prev) => {
-                //         const newArr = [...prev, cartItemDetail];
-                //         const filteredArr = newArr.filter(
-                //             (element, index, array) =>
-                //                 index ===
-                //                 array.findIndex(
-                //                     (t) => t.product_id === element.product_id,
-                //                 ),
-                //         );
-                //         return filteredArr;
-                //     });
-                // });
-                // ===================================================
-                // const cartItemDetailArray: ICartItemDetail[] = [];
-                // (async function () {
-                //     for (let i of data) {
-                //         const productDetail = await getProductDetail(
-                //             i.product_id,
-                //         );
-                //         const cartItemDetail = Object.assign({}, productDetail);
-                //         cartItemDetail.quantity = i.quantity;
-                //         cartItemDetailArray.push(cartItemDetail);
-                //     }
-                //     setCartItem(cartItemDetailArray);
-                // })();
-            },
-        },
-    );
+    const { data: cartItems = [] } = useQuery(['cartItem'], getCartItems);
 
     return { cartItems };
 };

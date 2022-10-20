@@ -13,7 +13,6 @@ import {
     Sellor,
     Span,
     StyledAmountControl,
-    SuccessMessage,
     TotalAmount,
     TotalNumber,
     TotalPrice,
@@ -30,8 +29,6 @@ import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../../localStorage';
 import Modal from '../../modal/Modal';
 import ModalPortal from '../../../modalPortal';
-import { Alert, Snackbar } from '@mui/material';
-import Success from '../../success/Success';
 
 function ProductDetail(props: any) {
     const { productID } = props;
@@ -49,17 +46,6 @@ function ProductDetail(props: any) {
         quantity: amount,
         product_id: productID,
         check: checkInCart(productID),
-    };
-
-    const handleClose = (
-        event: React.SyntheticEvent | Event,
-        reason?: string,
-    ) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpen(false);
     };
 
     return (
@@ -168,11 +154,27 @@ function ProductDetail(props: any) {
                     />
                 </ModalPortal>
             )}
-            <Success
-                open={open}
-                setOpen={setOpen}
-                message="장바구니에 메뉴를 추가했습니다."
-            />
+            {open && (
+                <ModalPortal>
+                    <Modal
+                        MainContent={
+                            <p>
+                                상품이 장바구니에 추가 되었습니다.
+                                <br />
+                                장바구니로 이동하시겠습니까?
+                            </p>
+                        }
+                        positiveOnClick={() => {
+                            navigate('/cart');
+                        }}
+                        positiveText="예"
+                        negativeOnClick={() => {
+                            setOpen(false);
+                        }}
+                        negativeText="아니요"
+                    />
+                </ModalPortal>
+            )}
         </Wrapper>
     );
 }

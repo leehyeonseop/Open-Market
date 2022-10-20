@@ -1,4 +1,4 @@
-import { useState, useEffect, ForwardedRef, forwardRef } from 'react';
+import { useState, ForwardedRef, forwardRef } from 'react';
 import { useModify } from '../../../hooks/useModify';
 import { useCartDelete } from '../../../hooks/useCartDelete';
 import { getUser } from '../../../localStorage';
@@ -35,34 +35,14 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
         cartItems,
     } = props;
 
-    // const [count, setCount] = useState(0);
     const [amount, setAmount] = useState(quantity);
     const [modalOpen, setModalOpen] = useState(false);
-    // const [active, setActive] = useState<boolean>(is_active);
-
-    const user = getUser();
-    // const modifyData: IModifyData = {
-    //     user: user,
-    //     cart_item_id: cart_item_id,
-    //     product_id: product_id,
-    //     is_active: active,
-    //     amount: quantity,
-    // };
-
-    const deleteItem = useCartDelete();
-    // const modify = useModify();
-
-    // useEffect(() => {
-    //     if (count >= 1) {
-    //         modify(modifyData);
-    //     }
-    // }, [active]);
-
-    // useEffect(() => {
-    //     setActive(is_active);
-    // }, [is_active]);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     const navigate = useNavigate();
+    const user = getUser();
+    const deleteItem = useCartDelete();
+    const modify = useModify();
 
     const goPaymentPage = () => {
         const newDetails = Object.assign({}, details);
@@ -77,8 +57,6 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
         });
     };
 
-    // 모달 수정 후
-    const modify = useModify();
     const modifyData: IModifyData = {
         user: user,
         cart_item_id: cart_item_id,
@@ -90,15 +68,7 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
     return (
         <>
             <Wrapper>
-                <Checkbox
-                    ref={ref}
-                    // checked={active}
-                    name={'check-item'}
-                    // onChange={() => {
-                    //     setCount((prev: number) => prev + 1);
-                    //     setActive((prev: boolean) => !prev);
-                    // }}
-                />
+                <Checkbox ref={ref} name={'check-item'} />
                 <ProductInfo>
                     <Figure
                         style={{
@@ -141,7 +111,7 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
                         onClick={goPaymentPage}
                     ></OrderButton>
                 </ProductPrice>
-                <DeleteButton onClick={() => deleteItem(cart_item_id)} />
+                <DeleteButton onClick={() => setDeleteModalOpen(true)} />
                 {modalOpen && (
                     <ModalPortal>
                         <Modal
@@ -160,6 +130,22 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
                             negativeOnClick={() => {
                                 setAmount(quantity);
                                 setModalOpen(false);
+                            }}
+                            negativeText="취소"
+                        />
+                    </ModalPortal>
+                )}
+                {deleteModalOpen && (
+                    <ModalPortal>
+                        <Modal
+                            MainContent={<p>상품을 삭제하시겠습니까?</p>}
+                            positiveOnClick={async () => {
+                                deleteItem(cart_item_id);
+                                setDeleteModalOpen(false);
+                            }}
+                            positiveText="확인"
+                            negativeOnClick={() => {
+                                setDeleteModalOpen(false);
                             }}
                             negativeText="취소"
                         />

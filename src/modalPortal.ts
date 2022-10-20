@@ -7,7 +7,6 @@ interface Props {
 
 const ModalPortal = ({ children }: Props) => {
     const el = document.getElementById('modal-root') as HTMLElement;
-
     return ReactDom.createPortal(children, el);
 };
 
