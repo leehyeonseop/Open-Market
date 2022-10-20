@@ -12,8 +12,13 @@ import {
 } from './FinalPayment.style';
 
 const FinalPayment = (props: any) => {
-    const { className, totalProductPrice, totalShippingFee, totalPrice } =
-        props;
+    const {
+        className,
+        totalProductPrice,
+        totalShippingFee,
+        totalPrice,
+        isValid,
+    } = props;
 
     return (
         <Section className={className}>
@@ -58,7 +63,7 @@ const FinalPayment = (props: any) => {
                     <label htmlFor="agreement">
                         주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
                     </label>
-                    <PaymentButton>결제하기</PaymentButton>
+                    <PaymentButton disabled={!isValid}>결제하기</PaymentButton>
                 </PriceInfoFooter>
             </Wrapper>
         </Section>

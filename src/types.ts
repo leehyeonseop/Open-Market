@@ -67,3 +67,24 @@ export interface ISaleItem {
     seller: number;
     store_name: string;
 }
+
+export interface IBaseOrderData {
+    total_price: number;
+    order_kind: string;
+    receiver: string;
+    receiver_phone_number: string;
+    address: string;
+    address_message: string;
+    payment_method: string;
+}
+
+export interface IOrderData extends IBaseOrderData {
+    product_id?: number;
+    quantity?: number;
+}
+
+export interface IState {
+    order_kind: string;
+    items: ICartItemDetail[];
+    cartItems: ICartItemData[];
+}

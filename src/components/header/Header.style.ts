@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ReactComponent as Logo } from '../../assets/icons/Logo.svg';
+import { ReactComponent as UserIcon } from '../../assets/icons/icon-user.svg';
+import { ReactComponent as ShoppingCartIcon } from '../../assets/icons/icon-shopping-cart.svg';
+import { ReactComponent as ShoppingBagIcon } from '../../assets/icons/icon-shopping-bag.svg';
 
 export const Wrapper = styled.header`
     padding: 22px 16.66666666666667%;
@@ -82,5 +85,29 @@ export const SellerCenterLink = styled(Link)`
     border-radius: 5px;
     svg {
         margin-right: 8px;
+    }
+`;
+
+export const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
+    &:hover {
+        path {
+            stroke: #21bf48;
+        }
+
+        & + span {
+            color: #21bf48;
+        }
+    }
+`;
+
+export const StyledUserIcon = styled(UserIcon)`
+    &:hover {
+        path {
+            stroke: #21bf48;
+        }
+
+        & + span {
+            color: #21bf48;
+        }
     }
 `;

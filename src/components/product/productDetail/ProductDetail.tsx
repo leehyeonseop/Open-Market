@@ -1,11 +1,8 @@
 import { useProductDetail } from '../../../hooks/useProductDetail';
 import {
-    Amount,
-    AmountButton,
     ButtonWrapper,
     BuyButton,
     CartButton,
-    Count,
     Delivery,
     Description,
     Figure,
@@ -28,15 +25,13 @@ import {
 
 import { useState } from 'react';
 import { ICartItem } from '../../../types';
-import { useCart } from '../../../hooks/useCart';
 import { usePutCart } from '../../../hooks/usePutCart';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../../localStorage';
-import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
 import Modal from '../../modal/Modal';
 import ModalPortal from '../../../modalPortal';
-import { Alert, Button, IconButton, Snackbar } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Alert, Snackbar } from '@mui/material';
+import Success from '../../success/Success';
 
 function ProductDetail(props: any) {
     const { productID } = props;
@@ -66,22 +61,6 @@ function ProductDetail(props: any) {
 
         setOpen(false);
     };
-
-    const action = (
-        <>
-            <Button color="secondary" size="small" onClick={handleClose}>
-                UNDO
-            </Button>
-            <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-            >
-                <CloseIcon fontSize="small" />
-            </IconButton>
-        </>
-    );
 
     return (
         <Wrapper>
@@ -189,22 +168,11 @@ function ProductDetail(props: any) {
                     />
                 </ModalPortal>
             )}
-            <Snackbar
+            <Success
                 open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            >
-                <Alert
-                    onClose={handleClose}
-                    severity="success"
-                    sx={{ width: '100%' }}
-                >
-                    <SuccessMessage>
-                        장바구니에 메뉴를 추가했습니다.
-                    </SuccessMessage>
-                </Alert>
-            </Snackbar>
+                setOpen={setOpen}
+                message="장바구니에 메뉴를 추가했습니다."
+            />
         </Wrapper>
     );
 }

@@ -7,11 +7,12 @@ import {
     SellerCenterLink,
     Span,
     StyledLink,
+    StyledShoppingCartIcon,
+    StyledUserIcon,
     Wrapper,
 } from './Header.style';
 
 import { ReactComponent as UserIcon } from '../../assets/icons/icon-user.svg';
-import { ReactComponent as ShoppingCartIcon } from '../../assets/icons/icon-shopping-cart.svg';
 import { ReactComponent as ShoppingBagIcon } from '../../assets/icons/icon-shopping-bag.svg';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../localStorage';
@@ -43,11 +44,11 @@ function Header() {
                 {user === null && (
                     <>
                         <Button onClick={isUser}>
-                            <ShoppingCartIcon />
+                            <StyledShoppingCartIcon />
                             <Span>장바구니</Span>
                         </Button>
                         <StyledLink to="/login">
-                            <UserIcon />
+                            <StyledUserIcon />
                             <Span>로그인</Span>
                         </StyledLink>
                     </>
@@ -55,11 +56,11 @@ function Header() {
                 {user && user.user_type === 'BUYER' && (
                     <>
                         <StyledLink to="/cart">
-                            <ShoppingCartIcon />
+                            <StyledShoppingCartIcon />
                             <Span>장바구니</Span>
                         </StyledLink>
                         <Button onClick={() => setDropDown((prev) => !prev)}>
-                            <UserIcon />
+                            <StyledUserIcon />
                             <Span>마이페이지</Span>
                             <DropDown dropDown={dropDown} />
                         </Button>
@@ -68,7 +69,7 @@ function Header() {
                 {user && user.user_type === 'SELLER' && (
                     <>
                         <Button onClick={() => setDropDown((prev) => !prev)}>
-                            <UserIcon />
+                            <StyledUserIcon />
                             <Span>마이페이지</Span>
                             <DropDown dropDown={dropDown} />
                         </Button>

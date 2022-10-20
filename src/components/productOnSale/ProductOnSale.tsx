@@ -2,12 +2,11 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { useSellerProduct } from '../../hooks/useSellerProduct';
 
 import { ISaleItem } from '../../types';
-import Loading from '../loading/Loading';
 import ProductOnSaleItem from '../productOnSaleItem/ProductOnSaleItem';
 import { ProductOnSaleHeader, Section } from './ProductOnSale.style';
 
 const ProductOnSale = () => {
-    const { data, fetchNextPage, hasNextPage, isFetching } = useSellerProduct();
+    const { data, fetchNextPage, hasNextPage } = useSellerProduct();
 
     return (
         <>
