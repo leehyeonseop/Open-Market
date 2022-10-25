@@ -22,7 +22,13 @@ const SellerCenterPage = () => {
                     <span>백엔드글로벌</span>
                     <ProductUploadButton
                         type="button"
-                        onClick={() => navigate('/productRegistration')}
+                        onClick={() =>
+                            navigate('/productRegistration', {
+                                state: {
+                                    mode: 'register',
+                                },
+                            })
+                        }
                     >
                         <Plus />
                         <span>상품 업로드</span>

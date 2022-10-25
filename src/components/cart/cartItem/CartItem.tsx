@@ -1,5 +1,5 @@
 import { useState, ForwardedRef, forwardRef } from 'react';
-import { useModify } from '../../../hooks/useModify';
+import { useCartModify } from '../../../hooks/useCartModify';
 import { useCartDelete } from '../../../hooks/useCartDelete';
 import { getUser } from '../../../localStorage';
 import ModalPortal from '../../../modalPortal';
@@ -42,7 +42,7 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
     const navigate = useNavigate();
     const user = getUser();
     const deleteItem = useCartDelete();
-    const modify = useModify();
+    const modify = useCartModify();
 
     const goPaymentPage = () => {
         const newDetails = Object.assign({}, details);

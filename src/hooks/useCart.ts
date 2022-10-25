@@ -6,7 +6,7 @@ export const useCart = () => {
     const user = getUser();
 
     const getCartItems = async () => {
-        if (!user) return null;
+        if (!user || user.user_type === 'SELLER') return null;
         const { data } = await axiosInstance.get('cart/', {
             headers: getJWTHeader(user),
         });

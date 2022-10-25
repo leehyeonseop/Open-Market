@@ -4,13 +4,13 @@ import { useMutation } from 'react-query';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
 import { getUser } from '../localStorage';
 import { IModifyData, IOrderData } from '../types';
-import { useModify } from './useModify';
+import { useCartModify } from './useCartModify';
 
 const user = getUser();
 
 export const useOrder = () => {
     const [open, setOpen] = useState(false);
-    const modify = useModify();
+    const modify = useCartModify();
 
     const orderItemCheck = (items: any, cartItems: any) => {
         // 1. 선택된 아이템들의 아이디를 뽑아냅니다.

@@ -93,6 +93,7 @@ function ProductDetail(props: any) {
                                 },
                             })
                         }
+                        disabled={user.user_type === 'SELLER'}
                     >
                         바로구매
                     </BuyButton>
@@ -107,6 +108,7 @@ function ProductDetail(props: any) {
                                 ? putCartItem(cartItemInfo)
                                 : setCartModalOpen(true);
                         }}
+                        disabled={user.user_type === 'SELLER'}
                     >
                         장바구니
                     </CartButton>

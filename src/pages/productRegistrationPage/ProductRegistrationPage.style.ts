@@ -16,27 +16,6 @@ export const Wrapper = styled.div`
     }
 `;
 
-export const Aside = styled.aside`
-    width: 18.6046511627907%;
-
-    span {
-        font-weight: 500;
-        font-size: 1rem;
-        line-height: 1.25rem;
-        color: #eb5757;
-    }
-
-    p {
-        margin-top: 10px;
-        padding: 20px;
-        background-color: #ffefe8;
-        border-radius: 5px;
-        font-weight: 400;
-        font-size: 0.875rem;
-        line-height: 1.125rem;
-    }
-`;
-
 export const Main = styled.main`
     width: 76.74418604651163%;
     margin-left: auto;
@@ -67,8 +46,7 @@ export const ImageLabel = styled.label`
         align-self: stretch;
         height: calc(100% - 28px);
         box-sizing: border-box;
-        background-image: url(${(props: IImageLabel) =>
-            props.imgURL || inputImage});
+        background-image: url(${(props: IImageLabel) => props.imgURL || inputImage});
         background-repeat: no-repeat;
         background-position: center;
         background-size: ${(props: IImageLabel) =>

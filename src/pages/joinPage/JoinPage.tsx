@@ -1,7 +1,11 @@
-import React from 'react';
+import Join from '../../components/join/Join';
 
-function JoinPage() {
-    return <div></div>;
-}
+const JoinPage = () => {
+    return (
+        <>
+            <Join />
+        </>
+    );
+};
 
 export default JoinPage;

@@ -98,3 +98,7 @@ export interface AmountControlProps {
     setAmount: Dispatch<SetStateAction<number>>;
     onClick?: () => void;
 }
+
+export interface IProductOnSaleItem {
+    productOnSaleItem: ISaleItem;
+}

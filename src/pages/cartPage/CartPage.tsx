@@ -27,12 +27,14 @@ function CartPage() {
     const { cartItems } = useCart();
 
     const cartItemsDetailList = useQueries(
-        cartItems.map((item: any) => {
-            return {
-                queryKey: ['productDetail', item.product_id],
-                queryFn: () => getProductDetail(item.product_id),
-            };
-        }),
+        !!cartItems
+            ? cartItems.map((item: ICartItemData) => {
+                  return {
+                      queryKey: ['productDetail', item.product_id],
+                      queryFn: () => getProductDetail(String(item.product_id)),
+                  };
+              })
+            : [],
     ) as UseQueryResult<ICartItemDetail, unknown>[];
 
     const isSuccess = cartItemsDetailList.every((detail) => detail.isSuccess);

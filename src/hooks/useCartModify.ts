@@ -15,7 +15,7 @@ const cartItemModify = async (modifyData: IModifyData) => {
     });
 };
 
-export const useModify = () => {
+export const useCartModify = () => {
     const queryClient = useQueryClient();
 
     const { mutateAsync } = useMutation(cartItemModify, {

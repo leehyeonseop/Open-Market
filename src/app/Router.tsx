@@ -3,11 +3,12 @@ import {
     createBrowserRouter,
     Route,
 } from 'react-router-dom';
-import Join from '../components/join/Join';
-import Login from '../components/login/Login';
+
 import CartPage from '../pages/cartPage/CartPage';
 import HomePage from '../pages/homePage/HomePage';
 import JoinCompletePage from '../pages/joinCompletePage/JoinCompletePage';
+import JoinPage from '../pages/joinPage/JoinPage';
+import LoginPage from '../pages/loginPage/LoginPage';
 import PaymentPage from '../pages/paymentPage/PaymentPage';
 import ProductDetailPage from '../pages/productDetailPage/ProductDetailPage';
 import ProductRegistrationPage from '../pages/productRegistrationPage/ProductRegistrationPage';
@@ -17,8 +18,8 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path="/" element={<HomePage />} />
-            <Route path="login" element={<Login />} />
-            <Route path="join" element={<Join />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="join" element={<JoinPage />} />
             <Route path="joinComplete" element={<JoinCompletePage />} />
             <Route path="product/:productID" element={<ProductDetailPage />} />
             <Route path="cart" element={<CartPage />} />

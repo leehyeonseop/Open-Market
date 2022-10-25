@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import AmountControl from '../../button/AmountControl';
-import { Alert } from '@mui/material';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -63,7 +62,6 @@ export const Delivery = styled.span`
     font-size: 1rem;
     line-height: 1.25rem;
     color: #767676;
-    /* margin-top: 21.9047619047619%; */
     margin-top: auto;
     padding-bottom: 3.174603174603175%;
     border-bottom: 1px solid #c4c4c4;
@@ -170,6 +168,11 @@ export const BuyButton = styled.button`
     line-height: 22px;
     color: white;
     cursor: pointer;
+
+    &:disabled {
+        cursor: default;
+        background-color: lightgray;
+    }
 `;
 
 export const CartButton = styled(BuyButton)`
