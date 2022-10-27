@@ -85,15 +85,19 @@ function ProductDetail(props: any) {
                 <ButtonWrapper>
                     <BuyButton
                         type="button"
-                        onClick={() =>
+                        onClick={() => {
+                            if (!user) {
+                                setLoginModalOpen(true);
+                                return;
+                            }
                             navigate('/payment', {
                                 state: {
                                     order_kind: 'direct_order',
                                     items: [{ ...data, quantity: amount }],
                                 },
-                            })
-                        }
-                        disabled={user.user_type === 'SELLER'}
+                            });
+                        }}
+                        disabled={user && user.user_type === 'SELLER'}
                     >
                         바로구매
                     </BuyButton>
@@ -108,7 +112,7 @@ function ProductDetail(props: any) {
                                 ? putCartItem(cartItemInfo)
                                 : setCartModalOpen(true);
                         }}
-                        disabled={user.user_type === 'SELLER'}
+                        disabled={user && user.user_type === 'SELLER'}
                     >
                         장바구니
                     </CartButton>
