@@ -77,7 +77,12 @@ const PaymentPage = () => {
                     </PaymentHeader>
                     <ul>
                         {state.items.map((item) => {
-                            return <PaymentItem item={item} />;
+                            return (
+                                <PaymentItem
+                                    key={item.product_id}
+                                    item={item}
+                                />
+                            );
                         })}
                     </ul>
                     <Total>

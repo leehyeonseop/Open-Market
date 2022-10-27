@@ -37,8 +37,6 @@ export const useAuth = () => {
                 reqData,
             );
 
-            console.log('로그인 : ', resData);
-
             if (resData) {
                 setUser(resData);
                 navigate('/');
@@ -147,7 +145,6 @@ export const useAuth = () => {
                 await axiosInstance.post('accounts/signup/valid/username/', {
                     username: getValues('id'),
                 });
-            console.log('data : ', data);
             setIdChecked(true);
             setSuccessMessage(data.Success);
         } catch (error) {

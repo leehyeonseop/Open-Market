@@ -115,7 +115,6 @@ function CartPage() {
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
         const selectedCount = getSelectedCount();
-        console.log('selectedCount : ', selectedCount);
         selectedCount === 0
             ? setOpen(true)
             : navigate('/payment', {

@@ -47,7 +47,7 @@ export const StyledLink = styled(Link)`
     text-decoration: none;
 `;
 
-export const Button = styled.button`
+export const Button = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

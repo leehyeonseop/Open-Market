@@ -22,7 +22,7 @@ const ProductOnSale = () => {
                         loadMore={fetchNextPage}
                         hasMore={hasNextPage}
                     >
-                        {data &&
+                        {data ? (
                             data.pages.map((page) => {
                                 return (
                                     page &&
@@ -30,6 +30,9 @@ const ProductOnSale = () => {
                                         (productOnSaleItem: ISaleItem) => {
                                             return (
                                                 <ProductOnSaleItem
+                                                    key={
+                                                        productOnSaleItem.product_id
+                                                    }
                                                     productOnSaleItem={
                                                         productOnSaleItem
                                                     }
@@ -38,7 +41,10 @@ const ProductOnSale = () => {
                                         },
                                     )
                                 );
-                            })}
+                            })
+                        ) : (
+                            <></>
+                        )}
                     </InfiniteScroll>
                 </ul>
             </Section>

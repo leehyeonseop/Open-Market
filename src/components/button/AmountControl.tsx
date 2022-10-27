@@ -14,7 +14,7 @@ function AmountControl(props: AmountControlProps) {
                 onClick={onClick ? onClick : () => setAmount(amount - 1)}
                 disabled={amount <= 1}
             >
-                <Minus />
+                <Minus width={20} height={20} />
             </AmountButton>
             <Count>{amount}</Count>
             <AmountButton
@@ -22,7 +22,7 @@ function AmountControl(props: AmountControlProps) {
                 onClick={onClick ? onClick : () => setAmount(amount + 1)}
                 disabled={amount >= stock}
             >
-                <Plus />
+                <Plus width={20} height={20} />
             </AmountButton>
         </Wrapper>
     );
