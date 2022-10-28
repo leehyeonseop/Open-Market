@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
     CheckBox,
     Dd,
@@ -19,6 +20,8 @@ const FinalPayment = (props: any) => {
         totalPrice,
         isValid,
     } = props;
+
+    const [checked, setChecked] = useState(false);
 
     return (
         <Section className={className}>
@@ -59,11 +62,17 @@ const FinalPayment = (props: any) => {
                     </PriceWrapper>
                 </PriceList>
                 <PriceInfoFooter>
-                    <CheckBox id="agreement" type="checkbox" />
+                    <CheckBox
+                        id="agreement"
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => setChecked((prev) => !prev)}
+                    />
                     <label htmlFor="agreement">
                         주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
                     </label>
-                    <PaymentButton disabled={!isValid}>결제하기</PaymentButton>
+                    <PaymentButton disabled={!checked}>결제하기</PaymentButton>
+                    {/* <PaymentButton>결제하기</PaymentButton> */}
                 </PriceInfoFooter>
             </Wrapper>
         </Section>

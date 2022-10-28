@@ -31,8 +31,6 @@ import {
     JoinButton,
     Wrapper,
     Section,
-    RegistrationNumberInput,
-    CertificationButton,
     SelectBox,
 } from './Join.style';
 import { useAuth } from '../../auth/useAuth';

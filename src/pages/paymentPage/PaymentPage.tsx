@@ -1,12 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { ScrollRestoration } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Header from '../../components/header/Header';
+import Modal from '../../components/modal/Modal';
 import DeliveryInfo from '../../components/payment/deliveryInfo/DeliverInfo';
 import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
 import PaymentItem from '../../components/payment/paymentItem/PaymentItem';
-import Success from '../../components/success/Success';
 import { useOrder } from '../../hooks/useOrder';
+import ModalPortal from '../../modalPortal';
 import { IState } from '../../types';
 import {
     Div,
@@ -26,9 +28,10 @@ const PaymentPage = () => {
     const {
         register,
         handleSubmit,
-        formState: { isValid },
+        formState: { isValid, errors },
     } = useForm();
-    const { orderItem, orderItemCheck, open, setOpen } = useOrder();
+    const navigate = useNavigate();
+    const { orderItem, orderItemCheck, open } = useOrder();
 
     const location = useLocation();
     const state = location.state as IState;
@@ -93,9 +96,12 @@ const PaymentPage = () => {
                     </Total>
                 </PaymentInfo>
                 <form onSubmit={onSubmit}>
-                    <DeliveryInfo register={register} />
+                    <DeliveryInfo register={register} errors={errors} />
                     <Wrapper>
-                        <StyledPaymentMethod register={register} />
+                        <StyledPaymentMethod
+                            register={register}
+                            errors={errors}
+                        />
                         <FinalPayment
                             isValid={isValid}
                             totalProductPrice={totalProductPrice}
@@ -105,11 +111,27 @@ const PaymentPage = () => {
                     </Wrapper>
                 </form>
             </Main>
-            <Success
-                open={open}
-                setOpen={setOpen}
-                message="주문이 완료되었습니다."
-            />
+            {open && (
+                <ModalPortal>
+                    <Modal
+                        MainContent={
+                            <p>
+                                주문이 완료되었습니다.
+                                <br />
+                                장바구니로 이동하시겠습니까?
+                            </p>
+                        }
+                        positiveOnClick={() => {
+                            navigate('/cart');
+                        }}
+                        positiveText="예"
+                        negativeOnClick={() => {
+                            navigate('/');
+                        }}
+                        negativeText="아니요"
+                    />
+                </ModalPortal>
+            )}
         </>
     );
 };

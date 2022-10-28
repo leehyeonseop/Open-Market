@@ -114,4 +114,8 @@ export const PaymentButton = styled.button`
     font-size: 1.5rem;
     line-height: 1.875rem;
     cursor: pointer;
+    &:disabled {
+        background-color: #c4c4c4;
+        cursor: default;
+    }
 `;

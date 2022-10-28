@@ -22,6 +22,7 @@ import {
     OrderButton,
 } from './CartPage.style';
 import Error from '../../components/error/Error';
+import { ScrollRestoration } from 'react-router-dom';
 
 function CartPage() {
     const { cartItems } = useCart();
@@ -128,6 +129,7 @@ function CartPage() {
 
     return (
         <>
+            <ScrollRestoration />
             <Header />
             <Main>
                 <H2>장바구니</H2>

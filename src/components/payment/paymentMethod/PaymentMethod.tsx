@@ -1,4 +1,4 @@
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import {
     Fieldset,
     H3,
@@ -11,10 +11,11 @@ import {
 interface IPaymentMethod {
     className?: string;
     register: UseFormRegister<FieldValues>;
+    errors: FieldErrors;
 }
 
 const PaymentMethod = (props: IPaymentMethod) => {
-    const { className, register } = props;
+    const { className, register, errors } = props;
 
     return (
         <Wrapper className={className}>
@@ -26,7 +27,9 @@ const PaymentMethod = (props: IPaymentMethod) => {
                         type="radio"
                         id="credit"
                         value="CARD"
-                        {...register('paymentMethod')}
+                        {...register('paymentMethod', {
+                            required: '필수 정보입니다.',
+                        })}
                     />
                     <label htmlFor="credit">신용/체크카드</label>
                 </RadioWrapper>
@@ -35,7 +38,9 @@ const PaymentMethod = (props: IPaymentMethod) => {
                         type="radio"
                         id="bankbook"
                         value="DEPOSIT"
-                        {...register('paymentMethod')}
+                        {...register('paymentMethod', {
+                            required: '필수 정보입니다.',
+                        })}
                     />
                     <label htmlFor="bankbook">무통장 입금</label>
                 </RadioWrapper>
@@ -44,7 +49,9 @@ const PaymentMethod = (props: IPaymentMethod) => {
                         type="radio"
                         id="phone"
                         value="PHONE_PAYMENT"
-                        {...register('paymentMethod')}
+                        {...register('paymentMethod', {
+                            required: '필수 정보입니다.',
+                        })}
                     />
                     <label htmlFor="phone">휴대폰 결제</label>
                 </RadioWrapper>
@@ -53,7 +60,9 @@ const PaymentMethod = (props: IPaymentMethod) => {
                         type="radio"
                         id="naverpay"
                         value="NAVERPAY"
-                        {...register('paymentMethod')}
+                        {...register('paymentMethod', {
+                            required: '필수 정보입니다.',
+                        })}
                     />
                     <label htmlFor="naverpay">네이버페이</label>
                 </RadioWrapper>
@@ -62,11 +71,16 @@ const PaymentMethod = (props: IPaymentMethod) => {
                         type="radio"
                         id="kakaopay"
                         value="KAKAOPAY"
-                        {...register('paymentMethod')}
+                        {...register('paymentMethod', {
+                            required: '필수 정보입니다.',
+                        })}
                     />
                     <label htmlFor="kakaopay">카카오페이</label>
                 </RadioWrapper>
             </Fieldset>
+            {errors.paymentMethod && (
+                <strong>{errors.paymentMethod?.message?.toString()}</strong>
+            )}
         </Wrapper>
     );
 };

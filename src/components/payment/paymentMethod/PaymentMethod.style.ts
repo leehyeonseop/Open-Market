@@ -14,6 +14,14 @@ export const Fieldset = styled.fieldset`
     padding: 18px;
     display: flex;
     justify-content: space-between;
+    & + strong {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        color: #eb5757;
+        margin-left: 10px;
+    }
 `;
 
 export const Legend = styled.legend`

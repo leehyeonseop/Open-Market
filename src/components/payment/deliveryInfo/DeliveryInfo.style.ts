@@ -29,6 +29,15 @@ export const InputBox = styled.div`
     display: flex;
     align-items: center;
     border-bottom: 1px solid #c4c4c4;
+
+    strong {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        color: #eb5757;
+        margin-left: 10px;
+    }
 `;
 
 export const Label = styled.label`

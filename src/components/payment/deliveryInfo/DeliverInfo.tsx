@@ -1,4 +1,4 @@
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import {
     AddressInput,
     DestinationInfo,
@@ -23,10 +23,11 @@ import {
 
 type InputProps = {
     register: UseFormRegister<FieldValues>;
+    errors: FieldErrors;
 };
 
 const DeliveryInfo = (props: InputProps) => {
-    const { register } = props;
+    const { register, errors } = props;
 
     return (
         <Wrapper>
@@ -59,24 +60,53 @@ const DeliveryInfo = (props: InputProps) => {
                     <Input
                         id="receiver"
                         type="text"
-                        {...register('receiver')}
+                        {...register('receiver', {
+                            required: '필수 정보입니다.',
+                        })}
                     />
+                    {errors.receiver && (
+                        <strong>{errors.receiver?.message?.toString()}</strong>
+                    )}
                 </InputBox>
                 <InputBox>
                     <Legend>휴대폰</Legend>
                     <PhoneField>
                         <StartPhoneInput
                             type="tel"
-                            {...register('startPhoneNum')}
+                            {...register('startPhoneNum', {
+                                required: '필수 정보입니다.',
+                            })}
                         />
                         <Span>-</Span>
                         <PhoneInput
                             type="tel"
-                            {...register('centerPhoneNum')}
+                            {...register('centerPhoneNum', {
+                                required: '필수 정보입니다.',
+                            })}
                         />
                         <Span>-</Span>
-                        <PhoneInput type="tel" {...register('endPhoneNum')} />
+                        <PhoneInput
+                            type="tel"
+                            {...register('endPhoneNum', {
+                                required: '필수 정보입니다.',
+                            })}
+                        />
                     </PhoneField>
+                    {(errors.startPhoneNum && (
+                        <strong>
+                            {errors.startPhoneNum?.message?.toString()}
+                        </strong>
+                    )) ||
+                        (errors.centerPhoneNum && (
+                            <strong>
+                                {errors.centerPhoneNum?.message?.toString()}
+                            </strong>
+                        )) ||
+                        (errors.endPhoneNum && (
+                            <strong>
+                                {errors.endPhoneNum?.message?.toString()}
+                            </strong>
+                        ))}
                 </InputBox>
                 <InputBox>
                     <Legend>배송주소</Legend>
@@ -87,8 +117,18 @@ const DeliveryInfo = (props: InputProps) => {
                                 우편번호 조회
                             </SearchButton>
                         </PostCodeWrapper>
-                        <AddressInput id="address" {...register('address')} />
+                        <AddressInput
+                            id="address"
+                            {...register('address', {
+                                required: '필수 정보입니다.',
+                            })}
+                        />
                         <AddressInput />
+                        {errors.address && (
+                            <strong>
+                                {errors.address?.message?.toString()}
+                            </strong>
+                        )}
                     </PostField>
                 </InputBox>
                 <InputBox>
@@ -96,8 +136,13 @@ const DeliveryInfo = (props: InputProps) => {
                     <MessageInput
                         id="message"
                         type="text"
-                        {...register('message')}
+                        {...register('message', {
+                            required: '필수 정보입니다.',
+                        })}
                     />
+                    {errors.message && (
+                        <strong>{errors.message?.message?.toString()}</strong>
+                    )}
                 </InputBox>
             </DestinationInfo>
         </Wrapper>
