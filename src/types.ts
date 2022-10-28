@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { FieldValues } from 'react-hook-form';
 
 export interface User {
     id: number;
@@ -70,6 +71,10 @@ export interface ISaleItem {
     store_name: string;
 }
 
+export interface IOrderItemDetail extends ISaleItem {
+    quantity: number;
+}
+
 export interface IBaseOrderData {
     total_price: number;
     order_kind: string;
@@ -85,9 +90,16 @@ export interface IOrderData extends IBaseOrderData {
     quantity?: number;
 }
 
+export interface IOrder {
+    data: FieldValues;
+    totalPrice: number;
+    orderKind: string;
+    items: IOrderItemDetail[];
+}
+
 export interface IState {
     order_kind: string;
-    items: ICartItemDetail[];
+    items: IOrderItemDetail[];
     cartItems: ICartItemData[];
 }
 

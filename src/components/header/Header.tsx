@@ -12,7 +12,6 @@ import {
     Wrapper,
 } from './Header.style';
 
-import { ReactComponent as UserIcon } from '../../assets/icons/icon-user.svg';
 import { ReactComponent as ShoppingBagIcon } from '../../assets/icons/icon-shopping-bag.svg';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../localStorage';

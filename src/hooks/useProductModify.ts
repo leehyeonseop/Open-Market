@@ -16,9 +16,7 @@ const productModify = async (data: FieldValues, id: string) => {
         image: data.image,
     };
 
-    console.log('reqData : ', reqData);
-
-    await axiosInstance.put(`products/${id}/`, reqData, {
+    await axiosInstance.patch(`products/${id}/`, reqData, {
         headers: {
             ...getJWTHeader(user),
             'Content-Type': 'multipart/form-data',

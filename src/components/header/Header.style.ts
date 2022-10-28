@@ -9,6 +9,11 @@ import { ReactComponent as ShoppingBagIcon } from '../../assets/icons/icon-shopp
 export const Wrapper = styled.header`
     padding: 22px 16.66666666666667%;
     display: flex;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
     align-items: center;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
 `;

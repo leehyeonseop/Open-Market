@@ -3,7 +3,13 @@ import { FieldValues } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
 import { getUser } from '../localStorage';
-import { IModifyData, IOrderData } from '../types';
+import {
+    ICartItemData,
+    IModifyData,
+    IOrder,
+    IOrderData,
+    IOrderItemDetail,
+} from '../types';
 import { useCartModify } from './useCartModify';
 
 const user = getUser();
@@ -12,30 +18,41 @@ export const useOrder = () => {
     const [open, setOpen] = useState(false);
     const modify = useCartModify();
 
-    const orderItemCheck = (items: any, cartItems: any) => {
+    const orderItemCheck = (
+        items: IOrderItemDetail[],
+        cartItems: ICartItemData[],
+    ) => {
         // 1. 선택된 아이템들의 아이디를 뽑아냅니다.
-        const selectedProductIDList = items.map((item: any) => item.product_id);
+        const selectedProductIDList = items.map(
+            (item: IOrderItemDetail) => item.product_id,
+        );
 
         // 2. 카트아이템에서 선택된 아이템들을 뽑아냅니다.
-        const selectedItemList = cartItems.reduce((res: any, ref: any) => {
-            if (selectedProductIDList.includes(ref.product_id)) {
-                res.push(ref);
-            }
-            return res;
-        }, []);
+        const selectedItemList = cartItems.reduce(
+            (res: ICartItemData[], ref: ICartItemData) => {
+                if (selectedProductIDList.includes(ref.product_id)) {
+                    res.push(ref);
+                }
+                return res;
+            },
+            [],
+        );
 
         // 3 선택되지 아이템들은 is_active를 false로 바꿔줘야하기 때문에 또한 뽑아냅니다.
-        const unSelectedItemList = cartItems.reduce((res: any, ref: any) => {
-            if (!selectedProductIDList.includes(ref.product_id)) {
-                res.push(ref);
-            }
-            return res;
-        }, []);
+        const unSelectedItemList = cartItems.reduce(
+            (res: ICartItemData[], ref: ICartItemData) => {
+                if (!selectedProductIDList.includes(ref.product_id)) {
+                    res.push(ref);
+                }
+                return res;
+            },
+            [],
+        );
 
         // 4. 선택된 아이템이 is_active가 false라면 true로 변경
         const selectedPromiseList = selectedItemList
-            .filter((item: any) => !item.is_active)
-            .map((item: any) => {
+            .filter((item: ICartItemData) => !item.is_active)
+            .map((item: ICartItemData) => {
                 const modifyData: IModifyData = {
                     user: user,
                     cart_item_id: item.cart_item_id,
@@ -48,8 +65,8 @@ export const useOrder = () => {
 
         // 5. 선택되지 않은 아이템들은 is_active가 true라면 false로 변경
         const unselectedPromiseList = unSelectedItemList
-            .filter((item: any) => item.is_active)
-            .map((item: any) => {
+            .filter((item: ICartItemData) => item.is_active)
+            .map((item: ICartItemData) => {
                 const modifyData: IModifyData = {
                     user: user,
                     cart_item_id: item.cart_item_id,
@@ -69,7 +86,7 @@ export const useOrder = () => {
         data: FieldValues,
         totalPrice: number,
         orderKind: string,
-        items: any,
+        items: IOrderItemDetail[],
     ) => {
         const phone_number =
             data.startPhoneNum + data.centerPhoneNum + data.endPhoneNum;
@@ -97,7 +114,7 @@ export const useOrder = () => {
     };
 
     const { mutate: orderItem } = useMutation(
-        (orderData: any) =>
+        (orderData: IOrder) =>
             order(
                 orderData.data,
                 orderData.totalPrice,
