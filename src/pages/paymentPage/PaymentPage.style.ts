@@ -3,7 +3,7 @@ import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
 import PaymentMethod from '../../components/payment/paymentMethod/PaymentMethod';
 
 export const Main = styled.main`
-    padding: 54px 16.66666666666667% 358px;
+    padding: 149px 16.66666666666667% 358px;
 `;
 
 export const H2 = styled.h2`

@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Image, NextButton, PreviousButton } from './Carousel.style';
+import { Image, NextButton, PreviousButton, Wrapper } from './Carousel.style';
 
 import image1 from '../../assets/images/store.jpg';
 import image2 from '../../assets/images/grocery.jpg';
@@ -40,7 +40,7 @@ function Carousel() {
     };
 
     return (
-        <>
+        <Wrapper>
             <Slider {...settings}>
                 <Image src={image1} alt="이미지1" />
                 <Image src={image2} alt="이미지2" />
@@ -48,7 +48,7 @@ function Carousel() {
                 <Image src={image4} alt="이미지4" />
                 <Image src={image5} alt="이미지5" />
             </Slider>
-        </>
+        </Wrapper>
     );
 }
 
