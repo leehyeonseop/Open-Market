@@ -12,6 +12,8 @@ export const PreviousButton = styled(Prev)`
     height: 124px;
     position: absolute;
     left: 3%;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 10;
 `;
 
@@ -21,5 +23,6 @@ export const NextButton = styled(Next)`
     position: absolute;
     top: 50%;
     right: 3%;
+    transform: translateY(-50%);
     z-index: 10;
 `;

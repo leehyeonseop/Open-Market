@@ -11,7 +11,7 @@ export const H3 = styled.h3`
 `;
 
 export const Fieldset = styled.fieldset`
-    padding: 18px;
+    padding: 18px 0;
     display: flex;
     justify-content: space-between;
     & + strong {
