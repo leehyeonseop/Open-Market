@@ -5,8 +5,8 @@
     반응형 구현 예정입니다.
 
 -   배포 URL : https://open-market.netlify.app/
-    -   ID : whobego@feocean.com
-    -   PassWord : feocean
+    -   구매자ID / 판매자ID  : buyer001 / seller001
+    -   PassWord : test1234
 
 <br>
 
