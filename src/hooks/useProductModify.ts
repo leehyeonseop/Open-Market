@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
@@ -25,9 +26,14 @@ const productModify = async (data: FieldValues, id: string) => {
 };
 
 export const useProductModify = () => {
-    const { mutate } = useMutation((modifyInfo: any) =>
-        productModify(modifyInfo.data, modifyInfo.product_id),
+    const [modifyModalOpen, setModifyModalOpen] = useState(false);
+    const { mutate: modify } = useMutation(
+        (modifyInfo: any) =>
+            productModify(modifyInfo.data, modifyInfo.product_id),
+        {
+            onSuccess: () => setModifyModalOpen(true),
+        },
     );
 
-    return mutate;
+    return { modify, modifyModalOpen, setModifyModalOpen };
 };

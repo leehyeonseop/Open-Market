@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { axiosInstance, getJWTHeader } from '../axiosInstance';
@@ -5,29 +6,31 @@ import { getUser } from '../localStorage';
 
 const user = getUser();
 
-const createFormData = (data: FieldValues) => {
-    let formData = new FormData();
-    formData.append('image', data.image);
-    formData.append('product_name', data.name);
-    formData.append('price', data.price);
-    formData.append('shipping_method', data.shippingMethod);
-    formData.append('shipping_fee', data.deliveryFee);
-    formData.append('stock', data.stock);
-    formData.append('product_info', data.description);
-
-    return formData;
-};
-
 const productRegistration = async (data: FieldValues) => {
-    const formData = createFormData(data);
-    await axiosInstance.post('products/', formData, {
-        headers: getJWTHeader(user),
+    const reqData = {
+        product_name: data.name,
+        image: data.image,
+        price: data.price,
+        shipping_method: data.shippingMethod, // PARCEL 또는 DELIVERY 선택
+        shipping_fee: data.deliveryFee,
+        stock: data.stock,
+        product_info: data.description,
+    };
+    await axiosInstance.post('products/', reqData, {
+        headers: {
+            ...getJWTHeader(user),
+            'Content-Type': 'multipart/form-data',
+        },
     });
 };
 
 export const useProductRegistration = () => {
-    const { mutate } = useMutation((data: FieldValues) =>
-        productRegistration(data),
+    const [open, setOpen] = useState(false);
+    const { mutate: productRegister } = useMutation(
+        (data: FieldValues) => productRegistration(data),
+        {
+            onSuccess: () => setOpen(true),
+        },
     );
-    return mutate;
+    return { productRegister, open, setOpen };
 };

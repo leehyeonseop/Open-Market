@@ -3,9 +3,11 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import SellerHeader from '../../components/header/sellerHeader/SellerHeader';
+import Modal from '../../components/modal/Modal';
 import Precaution from '../../components/precaution/Precaution';
 import { useProductModify } from '../../hooks/useProductModify';
 import { useProductRegistration } from '../../hooks/useProductRegistration';
+import ModalPortal from '../../modalPortal';
 import {
     ButtonWrapper,
     CancleButton,
@@ -21,8 +23,8 @@ import {
 
 const ProductRegistrationPage = () => {
     const [previewImgURL, setPreviewImgURL] = useState('');
-    const productRegistration = useProductRegistration();
-    const productModify = useProductModify();
+    const { productRegister, open } = useProductRegistration();
+    const { modify, modifyModalOpen } = useProductModify();
     const navigate = useNavigate();
 
     const {
@@ -58,13 +60,13 @@ const ProductRegistrationPage = () => {
     };
 
     const onSubmit = handleSubmit(async (data: FieldValues) => {
-        if (state.mode === 'register') productRegistration(data);
+        if (state.mode === 'register') productRegister(data);
         else if (state.mode === 'modify') {
             const productInfo = {
                 data: data,
                 product_id: state.productOnSaleItem.product_id,
             };
-            productModify(productInfo);
+            modify(productInfo);
         }
     });
 
@@ -182,6 +184,28 @@ const ProductRegistrationPage = () => {
                         </form>
                     </Main>
                 </div>
+                {(open || modifyModalOpen) && (
+                    <ModalPortal>
+                        <Modal
+                            MainContent={
+                                <p>
+                                    상품 {open ? '등록' : '수정'} 이
+                                    완료되었습니다.
+                                    <br />
+                                    판매자 센터로 이동할까요?
+                                </p>
+                            }
+                            positiveOnClick={() => {
+                                navigate('/sellerCenter');
+                            }}
+                            positiveText="예"
+                            negativeOnClick={() => {
+                                navigate('/');
+                            }}
+                            negativeText="아니요"
+                        />
+                    </ModalPortal>
+                )}
             </Wrapper>
         </>
     );
