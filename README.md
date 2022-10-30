@@ -6,7 +6,7 @@
 
 -   배포 URL : https://open-market.netlify.app/
     -   구매자ID / 판매자ID  : buyer001 / seller001
-    -   PassWord : test1234
+    -   PassWord : test4146
 
 <br>
 
