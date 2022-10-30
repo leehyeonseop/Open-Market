@@ -69,8 +69,8 @@
 
 -   URL: https://open-market.netlify.app/
 -   계정
-    -   🧑🏻‍💻 `ID`: whobego@feocean.com
-    -   🔐 `PassWord`: feocean
+    -   🧑💻 `구매자ID / 판매자ID`  : buyer001 / seller001
+    -   🔐 `PassWord` : test4146
 
 </br>
 </br>
