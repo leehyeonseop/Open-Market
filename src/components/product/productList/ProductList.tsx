@@ -9,8 +9,6 @@ interface IProductListProps {
 function ProductList(props: IProductListProps) {
     const { products } = props;
 
-    console.log('products : ', products);
-
     return (
         <Products>
             {products.map((product) => {
