@@ -44,9 +44,12 @@ function CartPage() {
 
     const formRef = useRef<HTMLFormElement>(null);
     const checkAllRef = useRef<HTMLInputElement>(null);
-    const checkboxRefs = (cartItems as ICartItemData[]).map(() =>
-        createRef<HTMLInputElement>(),
-    );
+    const checkboxRefs =
+        cartItems !== null
+            ? (cartItems as ICartItemData[]).map(() =>
+                  createRef<HTMLInputElement>(),
+              )
+            : [];
 
     const [formData, setFormData] = useState<FormData>();
     const [open, setOpen] = useState<boolean>(false);

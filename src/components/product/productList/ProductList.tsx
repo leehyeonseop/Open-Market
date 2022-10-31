@@ -1,4 +1,4 @@
-import { IProductDetail, IProductItemProps } from '../../../types';
+import { IProductDetail } from '../../../types';
 import ProductItem from '../productItem/ProductItem';
 import { Products } from './ProductList.style';
 
