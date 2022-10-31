@@ -152,7 +152,7 @@ function CartPage() {
                             <Span>원하는 상품을 장바구니에 담아보세요!</Span>
                         </>
                     )}
-                    {isSuccess && cartItems.length !== 0 && (
+                    {isSuccess && cartItems !== null && cartItems.length !== 0 && (
                         <>
                             <CartList
                                 cartItems={cartItems}
