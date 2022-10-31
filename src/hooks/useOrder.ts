@@ -12,9 +12,8 @@ import {
 } from '../types';
 import { useCartModify } from './useCartModify';
 
-const user = getUser();
-
 export const useOrder = () => {
+    const user = getUser();
     const [open, setOpen] = useState(false);
     const modify = useCartModify();
 
