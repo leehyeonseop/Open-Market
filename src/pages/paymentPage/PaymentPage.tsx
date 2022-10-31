@@ -1,13 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { ScrollRestoration } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useOrder } from '../../hooks/useOrder';
+import { ScrollRestoration, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../../components/header/Header';
 import Modal from '../../components/modal/Modal';
 import DeliveryInfo from '../../components/payment/deliveryInfo/DeliverInfo';
 import FinalPayment from '../../components/payment/finalPayment/FinalPayment';
 import PaymentItem from '../../components/payment/paymentItem/PaymentItem';
-import { useOrder } from '../../hooks/useOrder';
 import ModalPortal from '../../modalPortal';
 import { IState } from '../../types';
 import {
@@ -28,7 +26,7 @@ const PaymentPage = () => {
     const {
         register,
         handleSubmit,
-        formState: { isValid, errors },
+        formState: { errors },
     } = useForm();
     const navigate = useNavigate();
     const { orderItem, orderItemCheck, open } = useOrder();
@@ -103,7 +101,6 @@ const PaymentPage = () => {
                             errors={errors}
                         />
                         <FinalPayment
-                            isValid={isValid}
                             totalProductPrice={totalProductPrice}
                             totalShippingFee={totalShippingFee}
                             totalPrice={totalPrice}

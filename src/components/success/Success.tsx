@@ -1,7 +1,8 @@
 import { Alert, Snackbar } from '@mui/material';
+import { ISuccessProps } from '../../types';
 import { SuccessMessage } from './Success.style';
 
-const Success = (props: any) => {
+const Success = (props: ISuccessProps) => {
     const { open, setOpen, message } = props;
 
     const handleClose = (

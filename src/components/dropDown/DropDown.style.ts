@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-
-interface IDropDown {
-    dropDown: boolean;
-}
+import { IDropDown } from '../../types';
 
 export const Wrapper = styled.div`
     width: 130px;

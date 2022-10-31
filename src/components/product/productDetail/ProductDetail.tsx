@@ -1,4 +1,11 @@
+import { useState } from 'react';
 import { useProductDetail } from '../../../hooks/useProductDetail';
+import { usePutCart } from '../../../hooks/usePutCart';
+import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../../localStorage';
+import Modal from '../../modal/Modal';
+import ModalPortal from '../../../modalPortal';
+import { ICartItem } from '../../../types';
 import {
     ButtonWrapper,
     BuyButton,
@@ -22,15 +29,11 @@ import {
     Wrapper,
 } from './ProductDetail.style';
 
-import { useState } from 'react';
-import { ICartItem } from '../../../types';
-import { usePutCart } from '../../../hooks/usePutCart';
-import { useNavigate } from 'react-router-dom';
-import { getUser } from '../../../localStorage';
-import Modal from '../../modal/Modal';
-import ModalPortal from '../../../modalPortal';
+interface IProductDetailProps {
+    productID: string;
+}
 
-function ProductDetail(props: any) {
+function ProductDetail(props: IProductDetailProps) {
     const { productID } = props;
     const { data } = useProductDetail(productID);
 

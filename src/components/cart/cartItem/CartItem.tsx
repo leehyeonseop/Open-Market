@@ -1,9 +1,10 @@
 import { useState, ForwardedRef, forwardRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCartModify } from '../../../hooks/useCartModify';
 import { useCartDelete } from '../../../hooks/useCartDelete';
 import { getUser } from '../../../localStorage';
 import ModalPortal from '../../../modalPortal';
-import { IModifyData } from '../../../types';
+import { ICartItemProps, IModifyData } from '../../../types';
 import AmountControl from '../../button/AmountControl';
 import Modal from '../../modal/Modal';
 import {
@@ -23,9 +24,8 @@ import {
     TotalPrice,
     Wrapper,
 } from './CartItem.style';
-import { useNavigate } from 'react-router-dom';
 
-function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
+function CartItem(props: ICartItemProps, ref: ForwardedRef<HTMLInputElement>) {
     const {
         product_id,
         quantity,
@@ -39,8 +39,8 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
     const [modalOpen, setModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-    const navigate = useNavigate();
     const user = getUser();
+    const navigate = useNavigate();
     const deleteItem = useCartDelete();
     const modify = useCartModify();
 
@@ -67,91 +67,93 @@ function CartItem(props: any, ref: ForwardedRef<HTMLInputElement>) {
 
     return (
         <>
-            <Wrapper>
-                <Checkbox ref={ref} name={'check-item'} />
-                <ProductInfo>
-                    <Figure
-                        style={{
-                            backgroundImage: `url(${details.image})`,
-                        }}
-                    >
-                        <Image />
-                    </Figure>
-                    <Description>
-                        <Sellor>{details.store_name}</Sellor>
-                        <ProductName>{details.product_name}</ProductName>
-                        <Price>
-                            {details.price &&
-                                details.price.toLocaleString('ko-KR')}
-                            원
-                        </Price>
-                        <Delivery>
-                            {details.shipping_method} {details.shipping_fee}
-                        </Delivery>
-                    </Description>
-                </ProductInfo>
-                <Amount>
-                    <AmountControl
-                        stock={details.stock}
-                        amount={amount}
-                        setAmount={setAmount}
-                        onClick={() => {
-                            setModalOpen((prev: any) => !prev);
-                        }}
-                    />
-                </Amount>
-                <ProductPrice>
-                    <TotalPrice>
-                        {(details.price * amount).toLocaleString('ko-KR')}원
-                    </TotalPrice>
-                    <OrderButton
-                        type="button"
-                        text="주문하기"
-                        padding={10}
-                        onClick={goPaymentPage}
-                    ></OrderButton>
-                </ProductPrice>
-                <DeleteButton onClick={() => setDeleteModalOpen(true)} />
-                {modalOpen && (
-                    <ModalPortal>
-                        <Modal
-                            MainContent={
-                                <AmountControl
-                                    stock={details.stock}
-                                    amount={amount}
-                                    setAmount={setAmount}
-                                />
-                            }
-                            positiveOnClick={async () => {
-                                modify(modifyData);
-                                setModalOpen(false);
+            {details && (
+                <Wrapper>
+                    <Checkbox ref={ref} name={'check-item'} />
+                    <ProductInfo>
+                        <Figure
+                            style={{
+                                backgroundImage: `url(${details.image})`,
                             }}
-                            positiveText="수정"
-                            negativeOnClick={() => {
-                                setAmount(quantity);
-                                setModalOpen(false);
+                        >
+                            <Image />
+                        </Figure>
+                        <Description>
+                            <Sellor>{details.store_name}</Sellor>
+                            <ProductName>{details.product_name}</ProductName>
+                            <Price>
+                                {details.price &&
+                                    details.price.toLocaleString('ko-KR')}
+                                원
+                            </Price>
+                            <Delivery>
+                                {details.shipping_method} {details.shipping_fee}
+                            </Delivery>
+                        </Description>
+                    </ProductInfo>
+                    <Amount>
+                        <AmountControl
+                            stock={details.stock}
+                            amount={amount}
+                            setAmount={setAmount}
+                            onClick={() => {
+                                setModalOpen((prev: boolean) => !prev);
                             }}
-                            negativeText="취소"
                         />
-                    </ModalPortal>
-                )}
-                {deleteModalOpen && (
-                    <ModalPortal>
-                        <Modal
-                            MainContent={<p>상품을 삭제하시겠습니까?</p>}
-                            positiveOnClick={async () => {
-                                deleteItem(cart_item_id);
-                                setDeleteModalOpen(false);
-                            }}
-                            positiveText="확인"
-                            negativeOnClick={() => {
-                                setDeleteModalOpen(false);
-                            }}
-                            negativeText="취소"
-                        />
-                    </ModalPortal>
-                )}
-            </Wrapper>
+                    </Amount>
+                    <ProductPrice>
+                        <TotalPrice>
+                            {(details.price * amount).toLocaleString('ko-KR')}원
+                        </TotalPrice>
+                        <OrderButton
+                            type="button"
+                            text="주문하기"
+                            padding={10}
+                            onClick={goPaymentPage}
+                        ></OrderButton>
+                    </ProductPrice>
+                    <DeleteButton onClick={() => setDeleteModalOpen(true)} />
+                    {modalOpen && (
+                        <ModalPortal>
+                            <Modal
+                                MainContent={
+                                    <AmountControl
+                                        stock={details.stock}
+                                        amount={amount}
+                                        setAmount={setAmount}
+                                    />
+                                }
+                                positiveOnClick={async () => {
+                                    modify(modifyData);
+                                    setModalOpen(false);
+                                }}
+                                positiveText="수정"
+                                negativeOnClick={() => {
+                                    setAmount(quantity);
+                                    setModalOpen(false);
+                                }}
+                                negativeText="취소"
+                            />
+                        </ModalPortal>
+                    )}
+                    {deleteModalOpen && (
+                        <ModalPortal>
+                            <Modal
+                                MainContent={<p>상품을 삭제하시겠습니까?</p>}
+                                positiveOnClick={async () => {
+                                    deleteItem(cart_item_id);
+                                    setDeleteModalOpen(false);
+                                }}
+                                positiveText="확인"
+                                negativeOnClick={() => {
+                                    setDeleteModalOpen(false);
+                                }}
+                                negativeText="취소"
+                            />
+                        </ModalPortal>
+                    )}
+                </Wrapper>
+            )}
         </>
     );
 }

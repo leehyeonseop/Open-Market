@@ -79,23 +79,14 @@ export const Price = styled.strong`
     line-height: 1.125rem;
 `;
 
-// export const Won = styled.span`
-//     font-weight: 400;
-//     font-size: 1.125rem;
-//     line-height: 1.438rem;
-//     margin-left: 2px;
-// `;
-
 export const Delivery = styled.span`
     display: block;
     font-weight: 400;
     font-size: 0.875rem;
     line-height: 1.125rem;
     color: #767676;
-    /* margin-top: 21.9047619047619%; */
     margin-top: auto;
     padding-bottom: 2.60586319218241%;
-    /* border-bottom: 1px solid #c4c4c4; */
 `;
 
 export const Amount = styled.div`

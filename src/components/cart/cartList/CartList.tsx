@@ -1,13 +1,14 @@
+import { ICartItemData, ICartListProps } from '../../../types';
 import CartItem from '../cartItem/CartItem';
 import { CartItemList } from './CartList.style';
 
-const CartList = (props: any) => {
+const CartList = (props: ICartListProps) => {
     const { cartItems, checkboxRefs, cartItemsDetailList } = props;
 
     return (
         <>
             <CartItemList>
-                {cartItems.map((item: any, index: number) => (
+                {cartItems.map((item: ICartItemData, index: number) => (
                     <CartItem
                         key={item.product_id}
                         cartItems={cartItems}

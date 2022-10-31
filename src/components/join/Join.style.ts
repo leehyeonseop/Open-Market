@@ -6,13 +6,11 @@ import checkbox from '../../assets/icons/check-box.svg';
 import filledCheckbox from '../../assets/icons/check-fill-box.svg';
 
 export const Section = styled.section`
-    /* width: 28.64583333333333%; */
     max-width: 550px;
     margin: 0 auto;
 `;
 
 export const StyledLogo = styled(Logo)`
-    /* width: 12.39583333333333%; */
     display: block;
     margin: 70px auto;
     cursor: pointer;
@@ -195,7 +193,6 @@ export const CheckBox = styled.input`
 
     & + label {
         display: flex;
-        /* align-items: center; */
         font-weight: 400;
         font-size: 1rem;
         line-height: 1.25rem;
@@ -205,7 +202,6 @@ export const CheckBox = styled.input`
     & + label::before {
         flex-shrink: 0;
         display: block;
-        /* align-self: baseline; */
         content: '';
         margin-right: 2.380952380952381%;
         width: 16px;

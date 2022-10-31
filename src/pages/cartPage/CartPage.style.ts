@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import plus from '../../assets/icons/icon-plus-line.svg';
-import minus from '../../assets/icons/icon-minus-line.svg';
 
 export const Main = styled.main`
     padding: 145px 16.66666666666667% 160px;

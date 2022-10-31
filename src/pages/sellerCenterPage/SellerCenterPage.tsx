@@ -1,14 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import SellerHeader from '../../components/header/sellerHeader/SellerHeader';
+import ProductOnSale from '../../components/productOnSale/ProductOnSale';
+import Nav from '../../components/nav/Nav';
+import { ReactComponent as Plus } from '../../assets/icons/icon-plus.svg';
 import {
     H2,
     Main,
     ProductUploadButton,
     Wrapper,
 } from './SellerCenterPage.style';
-import { ReactComponent as Plus } from '../../assets/icons/icon-plus.svg';
-import Nav from '../../components/nav/Nav';
-import ProductOnSale from '../../components/productOnSale/ProductOnSale';
-import { useNavigate } from 'react-router-dom';
 
 const SellerCenterPage = () => {
     const navigate = useNavigate();

@@ -1,11 +1,12 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     FieldValues,
     UseFormGetValues,
     UseFormSetError,
 } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+
 import { axiosInstance } from '../axiosInstance';
 import { setUser } from '../localStorage';
 
@@ -150,7 +151,6 @@ export const useAuth = () => {
         } catch (error) {
             console.error(error);
             if (error instanceof AxiosError) {
-                console.log(error.response?.data);
                 setError('id', {
                     type: 'idError',
                     message: error.response?.data.FAIL_Message,

@@ -1,12 +1,19 @@
+import { IProductDetail, IProductItemProps } from '../../../types';
 import ProductItem from '../productItem/ProductItem';
 import { Products } from './ProductList.style';
 
-function ProductList(props: any) {
+interface IProductListProps {
+    products: IProductDetail[];
+}
+
+function ProductList(props: IProductListProps) {
     const { products } = props;
+
+    console.log('products : ', products);
 
     return (
         <Products>
-            {products.map((product: any) => {
+            {products.map((product) => {
                 return (
                     <ProductItem
                         key={product.product_id}

@@ -1,4 +1,4 @@
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import { IDeliveryInfoProps } from '../../../types';
 import {
     AddressInput,
     DestinationInfo,
@@ -21,12 +21,7 @@ import {
     Wrapper,
 } from './DeliveryInfo.style';
 
-type InputProps = {
-    register: UseFormRegister<FieldValues>;
-    errors: FieldErrors;
-};
-
-const DeliveryInfo = (props: InputProps) => {
+const DeliveryInfo = (props: IDeliveryInfoProps) => {
     const { register, errors } = props;
 
     return (

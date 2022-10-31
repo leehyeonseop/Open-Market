@@ -1,9 +1,9 @@
+import { ScrollRestoration } from 'react-router-dom';
+import { useProduct } from '../../hooks/useProduct';
 import Header from '../../components/header/Header';
 import Carousel from '../../components/carousel/Carousel';
 import ProductList from '../../components/product/productList/ProductList';
 import { Main, PageButton } from './HomePage.style';
-import { useProduct } from '../../hooks/useProduct';
-import { ScrollRestoration } from 'react-router-dom';
 
 function HomePage() {
     const { products, maxPage, setCurrentPage } = useProduct();

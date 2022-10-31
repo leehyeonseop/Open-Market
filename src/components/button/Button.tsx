@@ -1,16 +1,7 @@
-import React from 'react';
+import { IButtonProps } from '../../types';
 import { MainButton } from './Button.style';
 
-interface ButtonProps {
-    type?: 'button' | 'submit' | 'reset';
-    text: string;
-    padding?: number;
-    className?: string;
-    onClick?: () => void;
-    disabled?: boolean;
-}
-
-function Button(props: ButtonProps) {
+function Button(props: IButtonProps) {
     const { type, text, padding, className, onClick, disabled } = props;
 
     return (

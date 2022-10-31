@@ -1,3 +1,4 @@
+import { IModalProps } from '../../types';
 import {
     Button,
     CloseButton,
@@ -7,7 +8,7 @@ import {
     PositiveButton,
 } from './Modal.style';
 
-const Modal = (props: any) => {
+const Modal = (props: IModalProps) => {
     const {
         positiveText,
         MainContent,

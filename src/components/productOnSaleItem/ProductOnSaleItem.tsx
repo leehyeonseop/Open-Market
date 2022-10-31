@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProductDelete } from '../../hooks/useProductDelete';
 import ModalPortal from '../../modalPortal';
-import { IProductOnSaleItem } from '../../types';
 import Modal from '../modal/Modal';
+import { IProductOnSaleItem } from '../../types';
 import { Wrapper } from './ProductOnSaleItem.style';
 
 const ProductOnSaleItem = (props: IProductOnSaleItem) => {

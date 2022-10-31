@@ -1,11 +1,7 @@
-import { Wrapper } from './DropDown.style';
-
-import { removeUser } from '../../localStorage/index';
 import { useNavigate } from 'react-router-dom';
-
-interface IDropDown {
-    dropDown: boolean;
-}
+import { removeUser } from '../../localStorage/index';
+import { IDropDown } from '../../types';
+import { Wrapper } from './DropDown.style';
 
 const DropDown = (props: IDropDown) => {
     const { dropDown } = props;

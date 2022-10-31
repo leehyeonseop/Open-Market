@@ -2,9 +2,9 @@ import { AmountButton, Count, Wrapper } from './AmountControl.style';
 
 import { ReactComponent as Minus } from '../../assets/icons/icon-minus-line.svg';
 import { ReactComponent as Plus } from '../../assets/icons/icon-plus-line.svg';
-import { AmountControlProps } from '../../types';
+import { IAmountControlProps } from '../../types';
 
-function AmountControl(props: AmountControlProps) {
+function AmountControl(props: IAmountControlProps) {
     const { className, stock, amount, setAmount, onClick } = props;
 
     return (

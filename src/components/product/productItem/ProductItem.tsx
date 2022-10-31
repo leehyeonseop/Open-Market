@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { IProductItemProps } from '../../../types';
 import {
     Description,
     Figure,
@@ -11,7 +12,7 @@ import {
     Wrapper,
 } from './ProductItem.style';
 
-function ProductItem(props: any) {
+const ProductItem = (props: IProductItemProps) => {
     const { productID, imgURL, store, productName, price } = props;
     const navigate = useNavigate();
 
@@ -34,6 +35,6 @@ function ProductItem(props: any) {
             </Description>
         </Wrapper>
     );
-}
+};
 
 export default ProductItem;

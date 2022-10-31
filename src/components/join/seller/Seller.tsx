@@ -1,9 +1,9 @@
 import { registrationNumberRegExp } from '../../../auth/regExp';
-import { useAuth } from '../../../auth/useAuth';
+import { ISellerProps } from '../../../types';
 import { Input, Label, Strong } from '../Join.style';
-import { CertificationButton, RegistrationNumberInput } from './Sellor.style';
+import { CertificationButton, RegistrationNumberInput } from './Seller.style';
 
-const Sellor = (props: any) => {
+const Seller = (props: ISellerProps) => {
     const {
         register,
         errors,
@@ -70,4 +70,4 @@ const Sellor = (props: any) => {
     );
 };
 
-export default Sellor;
+export default Seller;

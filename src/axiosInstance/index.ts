@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { User } from '../types';
-
 import { baseUrl } from './constant';
 
 export const getJWTHeader = (user: User) => {

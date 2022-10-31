@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
+import { useAuth } from '../../auth/useAuth';
+import Seller from './seller/Seller';
 import checkOff from '../../assets/icons/icon-check-off.svg';
 import checkOn from '../../assets/icons/icon-check-on.svg';
 
@@ -21,7 +23,6 @@ import {
     Label,
     Legend,
     PwInput,
-    Select,
     Strong,
     IdCheckButton,
     StyledLogo,
@@ -33,9 +34,6 @@ import {
     Section,
     SelectBox,
 } from './Join.style';
-import { useAuth } from '../../auth/useAuth';
-import { useNavigate } from 'react-router-dom';
-import Sellor from './sellor/Sellor';
 
 function Join() {
     const [joinType, setJoinType] = useState('BUYER');
@@ -170,7 +168,6 @@ function Join() {
                                 getValues('pw') !== ''
                                     ? checkOn
                                     : checkOff
-                                // pwChecked ? checkOn : checkOff
                             }
                             {...register('pw', {
                                 required: '필수 정보입니다.',
@@ -337,7 +334,7 @@ function Join() {
                                 </Strong>
                             ))}
                         {joinType === 'SELLOR' ? (
-                            <Sellor
+                            <Seller
                                 register={register}
                                 errors={errors}
                                 setError={setError}

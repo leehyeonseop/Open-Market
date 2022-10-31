@@ -1,4 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../localStorage';
+import ModalPortal from '../../modalPortal';
+import Modal from '../modal/Modal';
+import DropDown from '../dropDown/DropDown';
+import { ReactComponent as ShoppingBagIcon } from '../../assets/icons/icon-shopping-bag.svg';
 import {
     Button,
     MainLogo,
@@ -11,13 +17,6 @@ import {
     StyledUserIcon,
     Wrapper,
 } from './Header.style';
-
-import { ReactComponent as ShoppingBagIcon } from '../../assets/icons/icon-shopping-bag.svg';
-import { useNavigate } from 'react-router-dom';
-import { getUser } from '../../localStorage';
-import DropDown from '../dropDown/DropDown';
-import ModalPortal from '../../modalPortal';
-import Modal from '../modal/Modal';
 
 function Header() {
     const navigate = useNavigate();

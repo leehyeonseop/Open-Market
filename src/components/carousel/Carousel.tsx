@@ -1,13 +1,14 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Image, NextButton, PreviousButton, Wrapper } from './Carousel.style';
 
 import image1 from '../../assets/images/store.jpg';
 import image2 from '../../assets/images/grocery.jpg';
 import image3 from '../../assets/images/lovat-lane.jpg';
 import image4 from '../../assets/images/supermarket.jpg';
 import image5 from '../../assets/images/choctaw-bluff.jpg';
+
+import { Image, NextButton, PreviousButton, Wrapper } from './Carousel.style';
 
 const SlickArrowLeft = ({ currentSlide, slideCount, ...props }: any) => (
     <PreviousButton />

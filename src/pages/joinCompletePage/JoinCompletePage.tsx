@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+import { ReactComponent as CheckOn } from '../../assets/icons/icon-check-on.svg';
 import {
     ButtonWrapper,
     H1,
@@ -7,8 +9,6 @@ import {
     Strong,
     Wrapper,
 } from './JoinCompletePage.style';
-import { ReactComponent as CheckOn } from '../../assets/icons/icon-check-on.svg';
-import { useNavigate } from 'react-router-dom';
 
 const JoinCompletePage = () => {
     const navigate = useNavigate();

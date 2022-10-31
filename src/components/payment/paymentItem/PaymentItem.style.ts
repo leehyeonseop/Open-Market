@@ -40,7 +40,6 @@ export const Store = styled.span`
     font-size: 0.875rem;
     line-height: 1.125rem;
     color: #767676;
-    /* margin-top: 12px; */
     margin-top: 2.714932126696833%;
     margin-bottom: 1.357466063348416%;
 `;
@@ -49,7 +48,6 @@ export const ProductName = styled.span`
     font-weight: 400;
     font-size: 1.125rem;
     line-height: 1.375rem;
-    /* margin-bottom: 2.262443438914027%; */
 `;
 
 export const Amount = styled.span`

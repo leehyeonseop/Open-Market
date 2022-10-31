@@ -1,4 +1,4 @@
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import { IPaymentMethodProps } from '../../../types';
 import {
     Fieldset,
     H3,
@@ -8,13 +8,7 @@ import {
     Wrapper,
 } from './PaymentMethod.style';
 
-interface IPaymentMethod {
-    className?: string;
-    register: UseFormRegister<FieldValues>;
-    errors: FieldErrors;
-}
-
-const PaymentMethod = (props: IPaymentMethod) => {
+const PaymentMethod = (props: IPaymentMethodProps) => {
     const { className, register, errors } = props;
 
     return (

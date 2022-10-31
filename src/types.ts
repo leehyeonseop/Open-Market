@@ -1,10 +1,27 @@
 import { Dispatch, SetStateAction } from 'react';
-import { FieldValues } from 'react-hook-form';
+import {
+    FieldErrors,
+    FieldErrorsImpl,
+    FieldValues,
+    UseFormGetValues,
+    UseFormRegister,
+    UseFormSetError,
+} from 'react-hook-form';
+import { UseQueryResult } from 'react-query';
 
 export interface User {
     id: number;
     token: string;
     user_type: string;
+}
+
+export interface IButtonProps {
+    type?: 'button' | 'submit' | 'reset';
+    text: string;
+    padding?: number;
+    className?: string;
+    onClick?: () => void;
+    disabled?: boolean;
 }
 
 export interface IProduct {
@@ -20,10 +37,25 @@ export interface IProduct {
     stock: number;
 }
 
+export interface IProductDetail extends IProduct {
+    created_at: string;
+    store_name: string;
+    updated_at: string;
+}
+
 export interface ICartItem {
     product_id: string;
     quantity: number;
     check: boolean;
+}
+
+export interface ICartItemProps {
+    product_id: number;
+    quantity: number;
+    cart_item_id: number;
+    is_active: boolean;
+    details?: ICartItemDetail;
+    cartItems: ICartItemData[];
 }
 
 export interface ICartItemData {
@@ -46,6 +78,12 @@ export interface ICartItemDetail {
     stock: number;
     product_info: string;
     quantity: number;
+}
+
+export interface ICartListProps {
+    cartItems: ICartItemData[];
+    checkboxRefs: React.RefObject<HTMLInputElement>[];
+    cartItemsDetailList: UseQueryResult<ICartItemDetail, unknown>[];
 }
 
 export interface IModifyData {
@@ -103,7 +141,7 @@ export interface IState {
     cartItems: ICartItemData[];
 }
 
-export interface AmountControlProps {
+export interface IAmountControlProps {
     className?: string;
     stock: number;
     amount: number;
@@ -113,4 +151,70 @@ export interface AmountControlProps {
 
 export interface IProductOnSaleItem {
     productOnSaleItem: ISaleItem;
+}
+
+export interface IDropDown {
+    dropDown: boolean;
+}
+
+export interface IErrorProps {
+    open: boolean;
+    setOpen: Dispatch<SetStateAction<boolean>>;
+    message: string;
+}
+
+export interface ISellerProps {
+    register: UseFormRegister<FieldValues>;
+    errors: FieldErrorsImpl<{
+        [x: string]: any;
+    }>;
+    setError: UseFormSetError<FieldValues>;
+    getValues: UseFormGetValues<FieldValues>;
+    registrationNumberVerify: (
+        setError: UseFormSetError<FieldValues>,
+        getValues: UseFormGetValues<FieldValues>,
+    ) => Promise<void>;
+    setRegistrationNumberChecked: React.Dispatch<React.SetStateAction<boolean>>;
+    registrationNumberChecked: boolean;
+    registrationSuccessMessage: string;
+}
+
+export interface IDeliveryInfoProps {
+    register: UseFormRegister<FieldValues>;
+    errors: FieldErrors;
+}
+
+export interface IFinalPaymentProps {
+    className?: string;
+    totalProductPrice: number;
+    totalShippingFee: number;
+    totalPrice: number;
+}
+
+export interface IPaymentMethodProps {
+    className?: string;
+    register: UseFormRegister<FieldValues>;
+    errors: FieldErrors;
+}
+
+export interface IProductItemProps {
+    productID: number;
+    imgURL: string;
+    store: string;
+    productName: string;
+    price: string;
+}
+
+export interface ISuccessProps {
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    message: string;
+}
+
+export interface IModalProps {
+    positiveText: string;
+    MainContent: any;
+    negativeText: string;
+    negativeOnClick: () => void;
+    positiveOnClick: () => void;
 }

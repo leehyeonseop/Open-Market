@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { IFinalPaymentProps } from '../../../types';
 import {
     CheckBox,
     Dd,
@@ -12,14 +13,9 @@ import {
     Wrapper,
 } from './FinalPayment.style';
 
-const FinalPayment = (props: any) => {
-    const {
-        className,
-        totalProductPrice,
-        totalShippingFee,
-        totalPrice,
-        isValid,
-    } = props;
+const FinalPayment = (props: IFinalPaymentProps) => {
+    const { className, totalProductPrice, totalShippingFee, totalPrice } =
+        props;
 
     const [checked, setChecked] = useState(false);
 

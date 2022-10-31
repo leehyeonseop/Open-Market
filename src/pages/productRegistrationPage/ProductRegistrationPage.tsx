@@ -1,12 +1,11 @@
 import { useState, SyntheticEvent, useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useProductModify } from '../../hooks/useProductModify';
+import { useProductRegistration } from '../../hooks/useProductRegistration';
+import { useNavigate, useLocation } from 'react-router-dom';
 import SellerHeader from '../../components/header/sellerHeader/SellerHeader';
 import Modal from '../../components/modal/Modal';
 import Precaution from '../../components/precaution/Precaution';
-import { useProductModify } from '../../hooks/useProductModify';
-import { useProductRegistration } from '../../hooks/useProductRegistration';
 import ModalPortal from '../../modalPortal';
 import {
     ButtonWrapper,
@@ -27,12 +26,7 @@ const ProductRegistrationPage = () => {
     const { modify, modifyModalOpen } = useProductModify();
     const navigate = useNavigate();
 
-    const {
-        register,
-        formState: { isValid },
-        handleSubmit,
-        setValue,
-    } = useForm();
+    const { register, handleSubmit, setValue } = useForm();
 
     const location = useLocation();
     const state = location.state;
@@ -47,7 +41,6 @@ const ProductRegistrationPage = () => {
             setValue('deliveryFee', productOnSaleItem.shipping_fee);
             setValue('stock', productOnSaleItem.stock);
             setValue('description', productOnSaleItem.product_info);
-            // setValue('image', productOnSaleItem.image);
         }
     }, [state]);
 

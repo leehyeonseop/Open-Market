@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState, createRef, SyntheticEvent } from 'react';
 import { useQueries, UseQueryResult } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../hooks/useCart';
+import { useNavigate, ScrollRestoration } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { getProductDetail } from '../../hooks/useProductDetail';
 import { checkedCartItemState } from '../../atom';
 import CartInfo from '../../components/cart/cartInfo/CartInfo';
 import CartList from '../../components/cart/cartList/CartList';
 import Header from '../../components/header/Header';
-import { useCart } from '../../hooks/useCart';
-import { getProductDetail } from '../../hooks/useProductDetail';
+import Error from '../../components/error/Error';
 import { ICartItemDetail, ICartItemData } from '../../types';
 import {
     CartHeader,
@@ -21,8 +22,6 @@ import {
     Span,
     OrderButton,
 } from './CartPage.style';
-import Error from '../../components/error/Error';
-import { ScrollRestoration } from 'react-router-dom';
 
 function CartPage() {
     const { cartItems } = useCart();
