@@ -146,7 +146,7 @@ function CartPage() {
                         <Amount>수량</Amount>
                         <ProductPrice>상품금액</ProductPrice>
                     </CartHeader>
-                    {cartItems.length === 0 && (
+                    {cartItems !== null && cartItems.length === 0 && (
                         <>
                             <Strong>장바구니에 담긴 상품이 없습니다.</Strong>
                             <Span>원하는 상품을 장바구니에 담아보세요!</Span>
