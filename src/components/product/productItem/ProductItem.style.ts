@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    min-width: 0;
 `;
 
 export const Figure = styled.figure`
@@ -23,8 +24,9 @@ export const Image = styled.img`
 export const Description = styled.div`
     margin-top: 16px;
     display: flex;
-    flex-direction: column;
+    flex-flow: column wrap;
     gap: 10px;
+    min-width: 0;
 `;
 
 export const Sellor = styled.span`
@@ -38,6 +40,10 @@ export const ProductName = styled.span`
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 `;
 
 export const PriceWrapper = styled.div`

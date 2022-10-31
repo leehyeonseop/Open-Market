@@ -37,6 +37,9 @@ export const ProductName = styled.span`
     line-height: 2.813rem;
     margin-top: 2.53968253968254%;
     margin-bottom: 3.174603174603175%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 `;
 
 export const PriceWrapper = styled.div`

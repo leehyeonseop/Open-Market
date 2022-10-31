@@ -45,7 +45,7 @@ function ProductDetail(props: IProductDetailProps) {
 
     const navigate = useNavigate();
 
-    const cartItemInfo: ICartItem = {
+    const cartItemInfo = {
         quantity: amount,
         product_id: productID,
         check: checkInCart(productID),
@@ -93,6 +93,10 @@ function ProductDetail(props: IProductDetailProps) {
                                 setLoginModalOpen(true);
                                 return;
                             }
+                            if (data.stock === 0) {
+                                alert('현재 상품의 재고가 없습니다.');
+                                return;
+                            }
                             navigate('/payment', {
                                 state: {
                                     order_kind: 'direct_order',
@@ -109,6 +113,10 @@ function ProductDetail(props: IProductDetailProps) {
                         onClick={() => {
                             if (!user) {
                                 setLoginModalOpen(true);
+                                return;
+                            }
+                            if (data.stock === 0) {
+                                alert('현재 상품의 재고가 없습니다.');
                                 return;
                             }
                             checkInCart(productID)
