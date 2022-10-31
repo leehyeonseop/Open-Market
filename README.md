@@ -150,7 +150,11 @@ https://github.com/leehyeonseop/Open-Market/blob/7ca0c3f1c813c4e0527da27615d8857
 장바구니에 담긴 상품들 목록에는 product_id가 있습니다. <br />
 장바구니 페이지에서 상품들 데이터를 불러오기 위해서는 product_id를 사용하여 상품 상세 정보를 불러와야 합니다. <br />
 useQueries 훅을 사용하여 동적으로 병렬 쿼리 작업을 수행하고 해당 데이터들을 캐싱했습니다.
+<br /> <br />
 
+👍 <strong>useInfiniteQuery를 사용한 무한스크롤</strong>
+https://github.com/leehyeonseop/Open-Market/blob/5b89d3057a2aa1edccd4689f8dbd46600597250c/src/hooks/useSellerProduct.ts#L8-L47
+판매자 상품목록을 불러오는 과정에서 InfiniteScroll와 useInfiniteQuery를 사용하여 무한스크롤 형식으로 구현했습니다.
 
 <div >
 
