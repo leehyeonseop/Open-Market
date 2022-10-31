@@ -5,7 +5,7 @@ const Nav = () => {
         <Wrapper>
             <ul>
                 <li>
-                    <button type="button">판매중인 상품(3)</button>
+                    <button type="button">판매중인 상품</button>
                 </li>
                 <li>
                     <button type="button">주문/배송</button>
