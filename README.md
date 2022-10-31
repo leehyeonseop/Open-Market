@@ -122,6 +122,12 @@
   
 </div>
 
+👍 <strong>다음 페이지에 있는 데이터를 prefetch 하여 사용자 경험 향상</strong>
+https://github.com/leehyeonseop/Open-Market/blob/47ab3e94fefd601d73fef9ffd3ce908edbe541ca/src/hooks/useProduct.ts#L1-L39
+
+현재 페이지 데이터를 불러올 때마다 다음 페이지 데이터를 prefetch 합니다.<br />
+페이지가 넘어갈 때마다 cached 된 데이터를 사용하여 사용자가 다음 페이지 데이터를 불러올 때까지 기다릴 필요가 없습니다.
+
 <div >
 
 <br>
